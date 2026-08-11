@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingest-sat
+  namespace: fiscal-system
+  labels:
+    app: ingest-sat
+    tier: backend
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ingest-sat
+  template:
+    metadata:
+      labels:
+        app: ingest-sat
+        tier: backend
+    spec:
+      containers:
+      - name: ingest-sat
+        image: sistema-sat/ingest:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: SAT_ENDPOINT
+          value: "https://cfdi.sat.gob.mx/ws/soap"
+        - name: KAFKA_BROKER
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-config
+              key: broker
+        - name: KAFKA_TOPIC
+          value: "incoming_cfdis"
+        - name: WORKER_COUNT
+          value: "20"
+        - name: TIMEOUT_SECONDS
+          value: "30"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: secrets
+          mountPath: /etc/secrets
+          readOnly: true
+      volumes:
+      - name: secrets
+        secret:
+          secretName: sat-credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingest-sat-service
+  namespace: fiscal-system
+spec:
+  selector:
+    app: ingest-sat
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: http
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ingest-sat-hpa
+  namespace: fiscal-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ingest-sat
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
