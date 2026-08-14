@@ -6,83 +6,46 @@
   <title>Marquinhos</title>
   <style>
     :root{
-      --bg:#071019;
-      --bg2:#0c1726;
-      --card:rgba(9,15,24,.74);
-      --blue:#1a237e;
-      --blue2:#2f47cc;
-      --blue3:#0c2b7a;
-      --white:#fbfdff;
+      --blue:#17318f;
+      --blue2:#2f56d6;
+      --blue3:#0d2a78;
+      --white:#f9fbff;
       --white2:#eef4ff;
       --gold:#d7b35c;
       --gold2:#b88b2d;
-      --pink:#ffccd8;
-      --shadow:rgba(0,0,0,.35);
-      --glow:rgba(215,179,92,.22);
+      --pink:#f7b8c7;
+      --shadow:rgba(0,0,0,.26);
       --speed:.28s;
       --idle:4s;
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    html,body{
+      width:100%;
+      height:100%;
       margin:0;
       overflow:hidden;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      background:
-        radial-gradient(circle at top, #173757 0%, #0a121d 38%, var(--bg) 100%);
+      background:transparent;
       color:#fff;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
 
-    .scene{
-      position:relative;
-      width:100vw;
-      height:100vh;
+    body{
       display:grid;
       place-items:center;
       perspective:1200px;
-      perspective-origin:50% 42%;
-    }
-
-    .ambient{
-      position:absolute;
-      width:540px;
-      height:540px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(215,179,92,.16) 0%, rgba(47,71,204,.08) 35%, transparent 70%);
-      filter:blur(8px);
-      transform:translateY(40px);
-    }
-
-    .shadow{
-      position:absolute;
-      bottom:10%;
-      width:250px;
-      height:42px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(0,0,0,.4) 0%, rgba(0,0,0,.18) 45%, transparent 70%);
-      filter:blur(6px);
-      transform:scale(1.15);
+      perspective-origin:50% 40%;
+      background:transparent;
     }
 
     .marquinhos{
       position:relative;
       width:300px;
       transform-style:preserve-3d;
-      animation:float 4.5s ease-in-out infinite;
-      filter:drop-shadow(0 28px 34px rgba(0,0,0,.34));
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(15,23,36,.8), rgba(7,12,20,.82));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:30px;
-      padding:18px 18px 16px;
-      backdrop-filter:blur(10px);
-      transform:rotateX(2deg);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 30px rgba(0,0,0,.22);
+      animation:float 4.8s ease-in-out infinite;
+      filter:drop-shadow(0 22px 24px rgba(0,0,0,.18));
+      background:transparent;
+      isolation:isolate;
     }
 
     .head,
@@ -92,71 +55,54 @@
     .hand,
     .leg,
     .foot,
-    .antenna,
-    .antenna::after{
+    .antenna{
+      position:absolute;
       background-clip:padding-box;
+      transform-style:preserve-3d;
     }
 
     .head{
-      position:relative;
-      width:184px;
-      height:168px;
-      margin:0 auto;
+      left:50%;
+      top:0;
+      width:186px;
+      height:170px;
+      transform:translateX(-50%) translateZ(30px);
       border:4px solid var(--blue3);
       border-radius:50% 50% 42% 42%;
       overflow:hidden;
       background:
-        radial-gradient(circle at 35% 25%, rgba(255,255,255,.98) 0 24%, rgba(245,249,255,.98) 42%, #edf2ff 72%, #dfe9ff 100%);
+        radial-gradient(circle at 34% 24%, rgba(255,255,255,.98) 0 24%, rgba(246,250,255,.99) 42%, #edf3ff 72%, #dde8ff 100%);
       box-shadow:
-        inset 0 16px 18px rgba(255,255,255,.75),
-        inset 0 -18px 30px rgba(20,40,90,.06),
-        0 10px 24px rgba(0,0,0,.15);
-      transform:translateZ(26px);
+        inset 0 16px 18px rgba(255,255,255,.8),
+        inset 0 -16px 26px rgba(10,30,75,.06);
     }
 
-    .head::before{
+    .head::before,
+    .body::before,
+    .arm::before,
+    .forearm::before,
+    .leg::before,
+    .foot::before,
+    .chest::before,
+    .antenna::before{
       content:"";
       position:absolute;
       inset:0;
+      pointer-events:none;
+    }
+
+    .head::before{
       background:
-        /* flores grandes */
-        radial-gradient(circle at 24px 28px, transparent 0 9px, rgba(26,35,126,.95) 9px 10px, transparent 10px),
-        radial-gradient(circle at 160px 30px, transparent 0 8px, rgba(26,35,126,.75) 8px 9px, transparent 9px),
-        radial-gradient(circle at 150px 118px, transparent 0 10px, rgba(26,35,126,.85) 10px 11px, transparent 11px),
-        radial-gradient(circle at 34px 132px, transparent 0 8px, rgba(26,35,126,.7) 8px 9px, transparent 9px),
-
-        /* pétalos */
-        radial-gradient(circle at 24px 28px, transparent 0 2px, rgba(26,35,126,.9) 2px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 24px 28px, transparent 0 5px, rgba(26,35,126,.55) 5px 5.8px, transparent 5.8px),
-        radial-gradient(circle at 160px 30px, transparent 0 2px, rgba(26,35,126,.9) 2px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 150px 118px, transparent 0 2px, rgba(26,35,126,.9) 2px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 34px 132px, transparent 0 2px, rgba(26,35,126,.9) 2px 2.8px, transparent 2.8px),
-
-        /* filigrana central */
-        radial-gradient(circle at 92px 18px, transparent 0 1px, rgba(26,35,126,.55) 1px 1.5px, transparent 1.5px),
-        radial-gradient(circle at 92px 150px, transparent 0 1px, rgba(26,35,126,.55) 1px 1.5px, transparent 1.5px),
-
-        /* patrón fluido */
-        radial-gradient(circle at 50% 50%, transparent 0 1px, rgba(26,35,126,.12) 1px 1.5px, transparent 1.5px),
-        linear-gradient(0deg, transparent 0 23%, rgba(26,35,126,.06) 23% 24%, transparent 24% 48%, rgba(26,35,126,.06) 48% 49%, transparent 49% 73%, rgba(26,35,126,.06) 73% 74%, transparent 74% 100%);
-      background-size:
-        52px 52px,
-        58px 58px,
-        64px 64px,
-        48px 48px,
-        52px 52px,
-        58px 58px,
-        64px 64px,
-        48px 48px,
-        52px 52px,
-        34px 34px,
-        38px 38px,
-        24px 24px,
-        100% 100%;
+        radial-gradient(circle at 26px 28px, transparent 0 8px, rgba(17,44,122,.95) 8px 9px, transparent 9px),
+        radial-gradient(circle at 160px 30px, transparent 0 8px, rgba(17,44,122,.82) 8px 9px, transparent 9px),
+        radial-gradient(circle at 154px 122px, transparent 0 9px, rgba(17,44,122,.88) 9px 10px, transparent 10px),
+        radial-gradient(circle at 34px 134px, transparent 0 8px, rgba(17,44,122,.76) 8px 9px, transparent 9px),
+        radial-gradient(circle at 94px 14px, transparent 0 1px, rgba(17,44,122,.65) 1px 1.6px, transparent 1.6px),
+        radial-gradient(circle at 94px 156px, transparent 0 1px, rgba(17,44,122,.65) 1px 1.6px, transparent 1.6px),
+        radial-gradient(circle at 50% 50%, transparent 0 1px, rgba(17,44,122,.10) 1px 1.4px, transparent 1.4px);
+      background-size:52px 52px,58px 58px,64px 64px,48px 48px,34px 34px,34px 34px,22px 22px;
       opacity:.38;
       mix-blend-mode:multiply;
-      pointer-events:none;
-      filter:saturate(1.05);
     }
 
     .head::after{
@@ -164,13 +110,12 @@
       position:absolute;
       inset:0;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.72), transparent 22%),
-        linear-gradient(330deg, transparent 58%, rgba(26,35,126,.06) 100%);
+        linear-gradient(145deg, rgba(255,255,255,.75), transparent 24%),
+        linear-gradient(330deg, transparent 60%, rgba(26,35,126,.06) 100%);
       pointer-events:none;
     }
 
     .antenna{
-      position:absolute;
       top:-24px;
       width:6px;
       height:30px;
@@ -178,8 +123,11 @@
       background:linear-gradient(180deg, var(--blue2), var(--blue));
       transform-origin:bottom center;
       animation:sway 3.2s ease-in-out infinite alternate;
-      box-shadow:0 0 12px rgba(47,71,204,.25);
+      box-shadow:0 0 12px rgba(47,71,204,.22);
     }
+    .antenna.left{left:58px}
+    .antenna.right{right:58px; animation-delay:.14s}
+
     .antenna::after{
       content:"";
       position:absolute;
@@ -190,35 +138,32 @@
       transform:translateX(-50%);
       border-radius:50%;
       background:
-        radial-gradient(circle at 30% 30%, #fffbe6 0%, #ffe9ab 18%, var(--gold) 58%, var(--gold2) 100%);
+        radial-gradient(circle at 30% 30%, #fffbe6 0%, #ffe9ab 20%, var(--gold) 58%, var(--gold2) 100%);
       box-shadow:0 0 16px rgba(215,179,92,.7);
     }
-    .antenna.left{left:58px}
-    .antenna.right{right:58px; animation-delay:.14s}
 
     .brow{
       position:absolute;
-      top:32px;
+      top:34px;
       width:34px;
       height:8px;
       border-top:4px solid var(--blue3);
       border-radius:50%;
       z-index:4;
       opacity:.95;
-      transition:transform .25s ease, top .25s ease;
     }
     .brow.left{left:30px; transform:rotate(-8deg)}
     .brow.right{right:30px; transform:rotate(8deg)}
 
     .eye{
       position:absolute;
-      top:46px;
+      top:47px;
       width:42px;
       height:50px;
       border-radius:50%;
       overflow:hidden;
       background:#111;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 0 0 2px rgba(26,35,126,.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 0 0 2px rgba(26,35,126,.06);
     }
     .eye.left{left:30px}
     .eye.right{right:30px}
@@ -227,9 +172,9 @@
       content:"";
       position:absolute;
       inset:0;
+      border-radius:50%;
       background:
         radial-gradient(circle at 50% 42%, #fff 0 56%, #eef4ff 66%, #d7e1ff 100%);
-      border-radius:50%;
       transform:scaleY(.74);
     }
 
@@ -244,7 +189,6 @@
       border-bottom:3px solid var(--blue3);
       border-radius:50%;
       z-index:3;
-      transition:height .2s ease;
     }
 
     .iris{
@@ -256,10 +200,9 @@
       top:14px;
       border-radius:50%;
       background:radial-gradient(circle at 35% 35%, #5dd7ff 0 16%, #0d5aa3 38%, #061635 74%, #030814 100%);
-      box-shadow:0 0 8px rgba(0,229,255,.2);
+      box-shadow:0 0 8px rgba(0,229,255,.18);
       animation:look 4.8s linear infinite;
     }
-
     .iris::before{
       content:"";
       position:absolute;
@@ -275,14 +218,13 @@
     .mouth{
       position:absolute;
       left:50%;
-      bottom:33px;
+      bottom:34px;
       width:42px;
       height:18px;
       border-bottom:4px solid var(--blue3);
       border-radius:0 0 50% 50%;
       transform:translateX(-50%);
       transition:all var(--speed) ease;
-      box-shadow:0 0 0 1px rgba(26,35,126,.02);
     }
 
     .cheek{
@@ -293,7 +235,7 @@
       border-radius:50%;
       background:var(--pink);
       filter:blur(4px);
-      opacity:.82;
+      opacity:.85;
     }
     .cheek.left{left:18px}
     .cheek.right{right:18px}
@@ -307,64 +249,39 @@
       transform:translateX(-50%);
       border-radius:50%;
       background:radial-gradient(circle, rgba(26,35,126,.08) 0%, transparent 70%);
-      opacity:.9;
+      opacity:.95;
     }
 
     .body{
-      position:relative;
+      left:50%;
+      top:128px;
       width:206px;
       height:214px;
-      margin:-8px auto 0;
+      transform:translateX(-50%) translateZ(20px);
       border:4px solid var(--blue3);
       border-radius:28px 28px 36px 36px;
       overflow:hidden;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,255,255,.96) 0 24%, rgba(246,249,255,.98) 45%, #edf3ff 85%, #dce5fb 100%);
       box-shadow:
-        inset 0 14px 18px rgba(255,255,255,.7),
-        inset 0 -18px 30px rgba(20,40,90,.08),
-        0 12px 24px rgba(0,0,0,.13);
-      transform:translateZ(18px);
+        inset 0 14px 18px rgba(255,255,255,.72),
+        inset 0 -18px 30px rgba(20,40,90,.08);
       animation:breathe var(--idle) ease-in-out infinite;
     }
 
     .body::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 30px 24px, transparent 0 7px, rgba(26,35,126,.95) 7px 8px, transparent 8px),
-        radial-gradient(circle at 170px 24px, transparent 0 7px, rgba(26,35,126,.8) 7px 8px, transparent 8px),
-        radial-gradient(circle at 30px 190px, transparent 0 7px, rgba(26,35,126,.8) 7px 8px, transparent 8px),
-        radial-gradient(circle at 170px 190px, transparent 0 7px, rgba(26,35,126,.95) 7px 8px, transparent 8px),
-
-        radial-gradient(circle at 65px 50px, transparent 0 2px, rgba(26,35,126,.7) 2px 2.5px, transparent 2.5px),
-        radial-gradient(circle at 141px 50px, transparent 0 2px, rgba(26,35,126,.7) 2px 2.5px, transparent 2.5px),
-        radial-gradient(circle at 65px 164px, transparent 0 2px, rgba(26,35,126,.7) 2px 2.5px, transparent 2.5px),
-        radial-gradient(circle at 141px 164px, transparent 0 2px, rgba(26,35,126,.7) 2px 2.5px, transparent 2.5px),
-
-        linear-gradient(135deg, transparent 0 44%, rgba(26,35,126,.12) 44% 48%, transparent 48% 100%),
-        radial-gradient(circle at 15% 18%, rgba(215,179,92,.18) 0 2px, transparent 3px),
-        radial-gradient(circle at 82% 22%, rgba(215,179,92,.14) 0 2px, transparent 3px),
-        radial-gradient(circle at 25% 70%, rgba(26,35,126,.08) 0 2px, transparent 3px),
-        radial-gradient(circle at 76% 66%, rgba(26,35,126,.08) 0 2px, transparent 3px);
+        radial-gradient(circle at 30px 24px, transparent 0 7px, rgba(17,44,122,.95) 7px 8px, transparent 8px),
+        radial-gradient(circle at 170px 24px, transparent 0 7px, rgba(17,44,122,.8) 7px 8px, transparent 8px),
+        radial-gradient(circle at 30px 190px, transparent 0 7px, rgba(17,44,122,.8) 7px 8px, transparent 8px),
+        radial-gradient(circle at 170px 190px, transparent 0 7px, rgba(17,44,122,.95) 7px 8px, transparent 8px),
+        radial-gradient(circle at 65px 50px, transparent 0 2px, rgba(17,44,122,.72) 2px 2.5px, transparent 2.5px),
+        radial-gradient(circle at 141px 50px, transparent 0 2px, rgba(17,44,122,.72) 2px 2.5px, transparent 2.5px),
+        radial-gradient(circle at 65px 164px, transparent 0 2px, rgba(17,44,122,.72) 2px 2.5px, transparent 2.5px),
+        radial-gradient(circle at 141px 164px, transparent 0 2px, rgba(17,44,122,.72) 2px 2.5px, transparent 2.5px);
+      background-size:82px 82px,82px 82px,82px 82px,82px 82px,34px 34px,34px 34px,34px 34px,34px 34px;
       opacity:.28;
-      background-size:
-        82px 82px,
-        82px 82px,
-        82px 82px,
-        82px 82px,
-        34px 34px,
-        34px 34px,
-        34px 34px,
-        34px 34px,
-        62px 62px,
-        62px 62px,
-        62px 62px,
-        62px 62px,
-        62px 62px;
-      pointer-events:none;
-      filter:saturate(1.1);
+      mix-blend-mode:multiply;
     }
 
     .body::after{
@@ -388,26 +305,20 @@
       border-radius:18px;
       background:
         radial-gradient(circle at 50% 35%, rgba(255,255,255,.55) 0 20%, rgba(215,179,92,.22) 21%, rgba(215,179,92,.12) 100%);
-      box-shadow:
-        inset 0 0 14px rgba(215,179,92,.16),
-        0 8px 14px rgba(0,0,0,.05);
       overflow:hidden;
+      box-shadow:inset 0 0 14px rgba(215,179,92,.16);
     }
 
     .chest::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 14px 14px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 96px 14px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 14px 44px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 96px 44px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 55px 10px, transparent 0 8px, rgba(26,35,126,.95) 8px 9px, transparent 9px),
-        radial-gradient(circle at 55px 48px, transparent 0 8px, rgba(26,35,126,.95) 8px 9px, transparent 9px),
-        radial-gradient(circle at 55px 29px, transparent 0 1.8px, rgba(26,35,126,.8) 1.8px 2.2px, transparent 2.2px);
+        radial-gradient(circle at 14px 14px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 96px 14px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 14px 44px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 96px 44px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 55px 10px, transparent 0 8px, rgba(17,44,122,.95) 8px 9px, transparent 9px),
+        radial-gradient(circle at 55px 48px, transparent 0 8px, rgba(17,44,122,.95) 8px 9px, transparent 9px),
+        radial-gradient(circle at 55px 29px, transparent 0 1.8px, rgba(17,44,122,.8) 1.8px 2.2px, transparent 2.2px);
       opacity:.95;
-      background-size:110px 58px;
       pointer-events:none;
     }
 
@@ -421,12 +332,10 @@
       letter-spacing:1.4px;
       font-size:11px;
       color:var(--gold);
-      text-shadow:0 0 10px rgba(215,179,92,.2);
-      font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+      font-family:'Orbitron','Space Grotesk',sans-serif;
     }
 
     .arm{
-      position:absolute;
       top:30px;
       width:26px;
       height:100px;
@@ -435,25 +344,21 @@
       background:
         radial-gradient(circle at 35% 20%, rgba(255,255,255,.9) 0 30%, rgba(245,249,255,.98) 46%, #edf3ff 74%, #dfe8fb 100%);
       transform-origin:top center;
-      box-shadow:inset 0 0 12px rgba(255,255,255,.45);
       overflow:hidden;
+      box-shadow:inset 0 0 12px rgba(255,255,255,.45);
     }
     .arm.left{left:-14px; transform:rotate(-12deg)}
     .arm.right{right:-14px; transform:rotate(12deg)}
 
     .arm::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 16px 18px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 10px 48px, transparent 0 2px, rgba(26,35,126,.65) 2px 2.5px, transparent 2.5px),
-        radial-gradient(circle at 16px 82px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px);
+        radial-gradient(circle at 16px 18px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 10px 48px, transparent 0 2px, rgba(17,44,122,.65) 2px 2.5px, transparent 2.5px),
+        radial-gradient(circle at 16px 82px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px);
       opacity:.8;
     }
 
     .forearm{
-      position:absolute;
       left:0;
       top:76px;
       width:22px;
@@ -462,25 +367,19 @@
       border-radius:12px;
       background:
         radial-gradient(circle at 50% 18%, rgba(255,255,255,.95) 0 24%, rgba(245,249,255,.98) 46%, #edf3ff 100%);
-      transform-origin:top center;
-      box-shadow:inset 0 0 10px rgba(255,255,255,.45);
       overflow:hidden;
     }
 
     .forearm::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 11px 14px, transparent 0 2.4px, rgba(26,35,126,.86) 2.4px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 11px 34px, transparent 0 2.4px, rgba(26,35,126,.86) 2.4px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 11px 54px, transparent 0 2.4px, rgba(26,35,126,.86) 2.4px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 11px 74px, transparent 0 2.4px, rgba(26,35,126,.86) 2.4px 2.8px, transparent 2.8px);
+        radial-gradient(circle at 11px 14px, transparent 0 2.4px, rgba(17,44,122,.86) 2.4px 2.8px, transparent 2.8px),
+        radial-gradient(circle at 11px 34px, transparent 0 2.4px, rgba(17,44,122,.86) 2.4px 2.8px, transparent 2.8px),
+        radial-gradient(circle at 11px 54px, transparent 0 2.4px, rgba(17,44,122,.86) 2.4px 2.8px, transparent 2.8px),
+        radial-gradient(circle at 11px 74px, transparent 0 2.4px, rgba(17,44,122,.86) 2.4px 2.8px, transparent 2.8px);
       opacity:.88;
     }
 
     .hand{
-      position:absolute;
       left:-8px;
       top:72px;
       width:36px;
@@ -489,18 +388,14 @@
       border-radius:50%;
       background:
         radial-gradient(circle at 35% 30%, #fff 0 26%, #eef4ff 58%, #dce6fb 100%);
-      transform-origin:center;
-      box-shadow:inset 0 0 10px rgba(255,255,255,.4);
       overflow:hidden;
+      box-shadow:inset 0 0 10px rgba(255,255,255,.4);
     }
 
     .hand::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 18px 18px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 10px 10px, transparent 0 2px, rgba(26,35,126,.5) 2px 2.4px, transparent 2.4px);
+        radial-gradient(circle at 18px 18px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 10px 10px, transparent 0 2px, rgba(17,44,122,.5) 2px 2.4px, transparent 2.4px);
       opacity:.8;
     }
 
@@ -528,7 +423,6 @@
     .finger:nth-child(3){left:22px}
 
     .leg{
-      position:absolute;
       bottom:-6px;
       width:34px;
       height:72px;
@@ -536,25 +430,21 @@
       border-radius:14px;
       background:
         radial-gradient(circle at 50% 20%, rgba(255,255,255,.95) 0 28%, rgba(245,249,255,.98) 50%, #edf3ff 100%);
-      box-shadow:inset 0 0 10px rgba(255,255,255,.42);
       overflow:hidden;
+      box-shadow:inset 0 0 10px rgba(255,255,255,.42);
     }
     .leg.left{left:53px}
     .leg.right{right:53px}
 
     .leg::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 16px 14px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 16px 36px, transparent 0 3px, rgba(26,35,126,.75) 3px 3.5px, transparent 3.5px),
-        radial-gradient(circle at 16px 58px, transparent 0 3px, rgba(26,35,126,.9) 3px 3.5px, transparent 3.5px);
+        radial-gradient(circle at 16px 14px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 16px 36px, transparent 0 3px, rgba(17,44,122,.75) 3px 3.5px, transparent 3.5px),
+        radial-gradient(circle at 16px 58px, transparent 0 3px, rgba(17,44,122,.9) 3px 3.5px, transparent 3.5px);
       opacity:.82;
     }
 
     .foot{
-      position:absolute;
       bottom:-16px;
       left:-8px;
       width:50px;
@@ -567,13 +457,10 @@
     }
 
     .foot::before{
-      content:"";
-      position:absolute;
-      inset:0;
       background:
-        radial-gradient(circle at 10px 11px, transparent 0 2.4px, rgba(26,35,126,.9) 2.4px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 24px 11px, transparent 0 2.4px, rgba(26,35,126,.9) 2.4px 2.8px, transparent 2.8px),
-        radial-gradient(circle at 39px 11px, transparent 0 2.4px, rgba(26,35,126,.9) 2.4px 2.8px, transparent 2.8px);
+        radial-gradient(circle at 10px 11px, transparent 0 2.4px, rgba(17,44,122,.9) 2.4px 2.8px, transparent 2.8px),
+        radial-gradient(circle at 24px 11px, transparent 0 2.4px, rgba(17,44,122,.9) 2.4px 2.8px, transparent 2.8px),
+        radial-gradient(circle at 39px 11px, transparent 0 2.4px, rgba(17,44,122,.9) 2.4px 2.8px, transparent 2.8px);
       opacity:.88;
     }
 
@@ -592,26 +479,8 @@
       font-size:18px;
       letter-spacing:.8px;
       color:var(--gold);
-      text-shadow:0 0 14px rgba(215,179,92,.18);
-      font-family:'Orbitron', 'Space Grotesk', sans-serif;
+      font-family:'Orbitron','Space Grotesk',sans-serif;
     }
-
-    .bubble{
-      position:absolute;
-      top:20px;
-      left:20px;
-      padding:10px 14px;
-      border-radius:16px;
-      background:rgba(10,17,28,.55);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(10px);
-      color:#dfe7ff;
-      font-size:13px;
-      line-height:1.35;
-      width:min(340px, calc(100vw - 40px));
-    }
-
-    .bubble strong{color:var(--gold)}
 
     .marquinhos.happy .mouth{width:48px;height:22px;border-bottom-width:5px}
     .marquinhos.loving .mouth{width:46px;height:20px;border-bottom-width:5px}
@@ -641,71 +510,58 @@
 
     @media (max-width:520px){
       .marquinhos{transform:scale(.88)}
-      .bubble{top:12px;left:12px;width:calc(100vw - 24px)}
     }
   </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="ambient"></div>
-    <div class="shadow"></div>
-
-    <div class="bubble" id="bubble">
-      <strong>Marquinhos</strong> listo para saludar, conversar y reaccionar con estilo.
+  <div class="marquinhos caring" id="marquinhos">
+    <div class="head">
+      <div class="antenna left"></div>
+      <div class="antenna right"></div>
+      <div class="brow left"></div>
+      <div class="brow right"></div>
+      <div class="eye left"><div class="iris"></div></div>
+      <div class="eye right"><div class="iris"></div></div>
+      <div class="mouth"></div>
+      <div class="cheek left"></div>
+      <div class="cheek right"></div>
+      <div class="chin"></div>
     </div>
 
-    <div class="marquinhos caring" id="marquinhos">
-      <div class="card">
-        <div class="head">
-          <div class="antenna left"></div>
-          <div class="antenna right"></div>
-          <div class="brow left"></div>
-          <div class="brow right"></div>
-          <div class="eye left"><div class="iris"></div></div>
-          <div class="eye right"><div class="iris"></div></div>
-          <div class="mouth"></div>
-          <div class="cheek left"></div>
-          <div class="cheek right"></div>
-          <div class="chin"></div>
-        </div>
+    <div class="body">
+      <div class="chest"></div>
 
-        <div class="body">
-          <div class="chest"></div>
-
-          <div class="arm left">
-            <div class="forearm">
-              <div class="hand">
-                <div class="finger"></div>
-                <div class="finger"></div>
-                <div class="finger"></div>
-              </div>
-            </div>
+      <div class="arm left">
+        <div class="forearm">
+          <div class="hand">
+            <div class="finger"></div>
+            <div class="finger"></div>
+            <div class="finger"></div>
           </div>
-
-          <div class="arm right">
-            <div class="forearm">
-              <div class="hand">
-                <div class="finger"></div>
-                <div class="finger"></div>
-                <div class="finger"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="leg left"><div class="foot"></div></div>
-          <div class="leg right"><div class="foot"></div></div>
         </div>
-
-        <div class="name">Marquinhos</div>
-        <div class="caption" id="caption">Hola 👋 estoy listo para tu ecosistema.</div>
       </div>
+
+      <div class="arm right">
+        <div class="forearm">
+          <div class="hand">
+            <div class="finger"></div>
+            <div class="finger"></div>
+            <div class="finger"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="leg left"><div class="foot"></div></div>
+      <div class="leg right"><div class="foot"></div></div>
     </div>
+
+    <div class="name">Marquinhos</div>
+    <div class="caption" id="caption">Hola 👋 estoy listo para tu ecosistema.</div>
   </div>
 
   <script>
     const marquinhos = document.getElementById('marquinhos');
     const caption = document.getElementById('caption');
-    const bubble = document.getElementById('bubble');
 
     const states = ['happy','loving','sad','surprised','talking','waving','wink','excited','thinking','caring'];
     let resetTimer = null;
@@ -719,12 +575,10 @@
       resetState();
       marquinhos.classList.add(state);
       if (text) caption.textContent = text;
-      bubble.innerHTML = '<strong>Marquinhos</strong> ' + (text || 'interactuando con tu ecosistema');
       resetTimer = setTimeout(() => {
         resetState();
         marquinhos.classList.add('caring');
         caption.textContent = 'Esperando tu siguiente acción.';
-        bubble.innerHTML = '<strong>Marquinhos</strong> listo para acompañarte.';
       }, duration);
     }
 
@@ -757,55 +611,46 @@
         speak('Hola, qué gusto verte.');
         return;
       }
-
       if (kind === 'happy' || m.includes('gracias') || m.includes('feliz') || m.includes('genial') || m.includes('excelente')) {
         setState('happy', 'Sonrisa alegre', 3000);
         speak('Me alegra mucho.');
         return;
       }
-
       if (kind === 'loving' || m.includes('cariño') || m.includes('te quiero') || m.includes('amor') || m.includes('querido')) {
         setState('loving', 'Expresión cariñosa', 4200);
         speak('Te acompaño con cariño.');
         return;
       }
-
       if (kind === 'sad' || m.includes('triste') || m.includes('mal') || m.includes('solo') || m.includes('problema')) {
         setState('sad', 'Expresión empática', 4200);
         speak('Estoy contigo.');
         return;
       }
-
       if (kind === 'surprised' || m.includes('wow') || m.includes('sorpresa') || m.includes('increíble')) {
         setState('surprised', 'Sorpresa amable', 2800);
         speak('Qué interesante.');
         return;
       }
-
       if (kind === 'thinking' || m.includes('espera') || m.includes('pensando') || m.includes('analiza')) {
         setState('thinking', 'Pensando', 3800);
         speak('Un momento, estoy pensando.');
         return;
       }
-
       if (kind === 'wink') {
         setState('wink', 'Guiño amistoso', 2400);
         speak('Aquí estoy.');
         return;
       }
-
       if (kind === 'excited' || m.includes('vamos') || m.includes('fiesta') || m.includes('wow')) {
         setState('excited', 'Muy animado', 2600);
         speak('Vamos.');
         return;
       }
-
       if (kind === 'caring') {
         setState('caring', 'Modo cercano', 3600);
         speak('Estoy aquí para ayudarte.');
         return;
       }
-
       setState('talking', 'Conversando', 2600);
       speak('Cuéntame más.');
     }
@@ -815,13 +660,7 @@
       speak(text);
     }
 
-    window.Marquinhos = {
-      react,
-      talk,
-      setState,
-      reset: resetState
-    };
-
+    window.Marquinhos = { react, talk, setState, reset: resetState };
     scheduleBlink();
     setTimeout(() => react('greet'), 800);
   </script>
