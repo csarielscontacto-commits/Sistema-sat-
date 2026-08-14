@@ -1,493 +1,547 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marquinhos Talavera</title>
-  <style>
-    :root {
-      --bg: #07111f;
-      --card: #0d1726;
-      --border: #1a237e;
-      --white: #fdfdfd;
-      --blue: #1a237e;
-      --pink: #ffccd2;
-      --gold: #d9b45a;
-      --shadow: rgba(0,0,0,.25);
-      --speed: .28s;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #14304d, var(--bg) 60%);
-      color: #fff;
-      font-family: system-ui, sans-serif;
-      overflow: hidden;
-    }
-
-    .ecosystem-assistant {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      width: 240px;
-      transform-origin: center bottom;
-      z-index: 9999;
-      pointer-events: auto;
-      filter: drop-shadow(0 18px 30px var(--shadow));
-    }
-
-    .assistant-card {
-      background: linear-gradient(180deg, rgba(13,23,38,.96), rgba(8,13,22,.96));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      padding: 14px 14px 16px;
-      backdrop-filter: blur(8px);
-    }
-
-    .head {
-      position: relative;
-      width: 150px;
-      height: 132px;
-      margin: 0 auto;
-      background: var(--white);
-      border: 4px solid var(--blue);
-      border-radius: 50% 50% 42% 42%;
-      overflow: hidden;
-      box-shadow: inset 0 0 16px rgba(255,255,255,.55);
-    }
-
-    .head::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: .28;
-      background-image: radial-gradient(circle at 20px 20px, var(--blue) 0 2px, transparent 2.2px),
-                        radial-gradient(circle at 40px 40px, var(--blue) 0 2px, transparent 2.2px);
-      background-size: 48px 48px;
-    }
-
-    .antenna {
-      position: absolute;
-      top: -18px;
-      width: 4px;
-      height: 26px;
-      background: var(--blue);
-      border-radius: 999px;
-      transform-origin: bottom;
-      animation: sway 2.8s ease-in-out infinite alternate;
-    }
-
-    .antenna.left { left: 48px; }
-    .antenna.right { right: 48px; animation-delay: .15s; }
-
-    .antenna::after {
-      content: "";
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 10px rgba(217,180,90,.8);
-    }
-
-    .eye {
-      position: absolute;
-      top: 36px;
-      width: 34px;
-      height: 42px;
-      border-radius: 50%;
-      background: #101010;
-      overflow: hidden;
-    }
-    .eye.left { left: 24px; }
-    .eye.right { right: 24px; }
-
-    .eye::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: #fff;
-      border-radius: 50%;
-      transform: scaleY(.72);
-    }
-
-    .pupil {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #000;
-      border-radius: 50%;
-      top: 12px;
-      left: 12px;
-      z-index: 2;
-      animation: look 4s linear infinite;
-    }
-
-    .mouth {
-      position: absolute;
-      left: 50%;
-      bottom: 25px;
-      width: 34px;
-      height: 16px;
-      border-bottom: 4px solid var(--blue);
-      border-radius: 0 0 50% 50%;
-      transform: translateX(-50%);
-      transition: all var(--speed) ease;
-    }
-
-    .cheek {
-      position: absolute;
-      bottom: 30px;
-      width: 18px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--pink);
-      filter: blur(3px);
-      opacity: .95;
-    }
-    .cheek.left { left: 14px; }
-    .cheek.right { right: 14px; }
-
-    .body {
-      position: relative;
-      width: 160px;
-      height: 170px;
-      margin: -8px auto 0;
-      background: linear-gradient(180deg, var(--white), #eef3ff);
-      border: 4px solid var(--blue);
-      border-radius: 22px 22px 32px 32px;
-      overflow: hidden;
-      box-shadow: inset 0 0 16px rgba(255,255,255,.55);
-      animation: breathe 3s ease-in-out infinite;
-    }
-
-    .body::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: .22;
-      background-image:
-        linear-gradient(135deg, transparent 0 45%, rgba(26,35,126,.6) 45% 50%, transparent 50% 100%);
-      background-size: 42px 42px;
-    }
-
-    .arm {
-      position: absolute;
-      top: 24px;
-      width: 22px;
-      height: 92px;
-      background: var(--white);
-      border: 3px solid var(--blue);
-      border-radius: 12px;
-      transform-origin: top center;
-    }
-
-    .arm.left { left: -10px; transform: rotate(-14deg); }
-    .arm.right { right: -10px; transform: rotate(14deg); }
-
-    .forearm {
-      position: absolute;
-      top: 74px;
-      left: 1px;
-      width: 18px;
-      height: 76px;
-      background: var(--white);
-      border: 2px solid var(--blue);
-      border-radius: 10px;
-      transform-origin: top center;
-    }
-
-    .hand {
-      position: absolute;
-      top: 68px;
-      left: -6px;
-      width: 30px;
-      height: 30px;
-      background: var(--white);
-      border: 2px solid var(--blue);
-      border-radius: 50%;
-      transform-origin: center;
-    }
-
-    .finger {
-      position: absolute;
-      top: 2px;
-      width: 6px;
-      height: 12px;
-      background: var(--white);
-      border: 1px solid var(--blue);
-      border-radius: 4px;
-    }
-    .finger:nth-child(1) { left: 4px; }
-    .finger:nth-child(2) { left: 12px; }
-    .finger:nth-child(3) { left: 20px; }
-
-    .status {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 13px;
-      color: rgba(255,255,255,.8);
-    }
-
-    .name {
-      margin-top: 4px;
-      text-align: center;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: .4px;
-    }
-
-    .assistant {
-      animation: idle 4s ease-in-out infinite;
-    }
-
-    .assistant.happy .mouth {
-      width: 42px;
-      height: 22px;
-      border-bottom-width: 5px;
-    }
-
-    .assistant.loving .mouth {
-      width: 40px;
-      height: 20px;
-      border-bottom-width: 5px;
-    }
-
-    .assistant.sad .mouth {
-      border-bottom: 0;
-      border-top: 4px solid var(--blue);
-      border-radius: 50% 50% 0 0;
-      bottom: 22px;
-    }
-
-    .assistant.surprised .mouth {
-      width: 22px;
-      height: 24px;
-      border: 4px solid var(--blue);
-      border-radius: 50%;
-    }
-
-    .assistant.talking .mouth {
-      animation: talk .18s ease-in-out infinite alternate;
-    }
-
-    .assistant.waving .arm.right {
-      animation: waveRight .45s ease-in-out infinite alternate;
-    }
-
-    .assistant.waving .arm.left {
-      animation: waveLeft .45s ease-in-out infinite alternate;
-    }
-
-    .assistant.waving .finger {
-      animation: fingerMove .25s ease-in-out infinite alternate;
-    }
-
-    .assistant.wink .eye.left::before {
-      transform: scaleY(.08);
-    }
-
-    .assistant.excited {
-      animation: bounce .5s ease-in-out infinite alternate;
-    }
-
-    .assistant.thinking .pupil {
-      animation: think 1.2s ease-in-out infinite alternate;
-    }
-
-    .assistant.calm .mouth {
-      width: 30px;
-    }
-
-    @keyframes idle {
-      0%,100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(2px) scale(1.01); }
-    }
-
-    @keyframes breathe {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(4px); }
-    }
-
-    @keyframes blink {
-      0%, 46%, 100% { transform: scaleY(1); }
-      48% { transform: scaleY(.08); }
-    }
-
-    @keyframes look {
-      0%,100% { transform: translateX(0); }
-      25% { transform: translateX(7px); }
-      50% { transform: translateX(0); }
-      75% { transform: translateX(-7px); }
-    }
-
-    @keyframes talk {
-      from { transform: translateX(-50%) scaleX(.9); height: 8px; }
-      to { transform: translateX(-50%) scaleX(1.12); height: 22px; }
-    }
-
-    @keyframes waveRight {
-      from { transform: rotate(12deg); }
-      to { transform: rotate(60deg); }
-    }
-
-    @keyframes waveLeft {
-      from { transform: rotate(-12deg); }
-      to { transform: rotate(-60deg); }
-    }
-
-    @keyframes fingerMove {
-      from { transform: rotate(-8deg); }
-      to { transform: rotate(14deg); }
-    }
-
-    @keyframes think {
-      from { transform: translate(0, -2px); }
-      to { transform: translate(6px, -7px); }
-    }
-
-    @keyframes bounce {
-      from { transform: translateY(0) scale(1); }
-      to { transform: translateY(-8px) scale(1.03); }
-    }
-
-    @keyframes sway {
-      from { transform: rotate(-8deg); }
-      to { transform: rotate(8deg); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marquinhos</title>
+<style>
+:root{
+  --bg:#081019;
+  --panel:#0d1622;
+  --panel2:#101b2a;
+  --gold:#d7b35c;
+  --gold2:#b98a2f;
+  --blue:#1a237e;
+  --white:#fdfdfd;
+  --pink:#ffccd6;
+  --shadow:rgba(0,0,0,.35);
+  --speed:.28s;
+  --idle:3.8s;
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:radial-gradient(circle at top,#15304b 0,#09111a 45%,var(--bg) 100%);
+  color:#fff;
+}
+.app{height:100%;display:grid;place-items:center}
+.scene{
+  position:relative;
+  width:min(92vw,520px);
+  height:min(92vh,760px);
+  display:grid;
+  place-items:center;
+}
+.halo{
+  position:absolute;
+  inset:auto auto 18% auto;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(215,179,92,.18) 0,rgba(215,179,92,.08) 30%,transparent 65%);
+  filter:blur(2px);
+}
+.bot{
+  position:relative;
+  width:260px;
+  transform-origin:center bottom;
+  filter:drop-shadow(0 24px 34px var(--shadow));
+  animation:float 4.5s ease-in-out infinite;
+}
+.card{
+  background:linear-gradient(180deg,rgba(16,27,42,.96),rgba(9,15,24,.96));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  padding:18px 18px 16px;
+  backdrop-filter:blur(10px);
+}
+.head{
+  position:relative;
+  width:170px;
+  height:150px;
+  margin:0 auto;
+  background:linear-gradient(180deg,#fff,#f4f7ff);
+  border:4px solid var(--blue);
+  border-radius:50% 50% 40% 40%;
+  overflow:hidden;
+  box-shadow:inset 0 0 16px rgba(255,255,255,.65),0 10px 20px rgba(0,0,0,.12);
+}
+.head::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.35;
+  background-image:
+    radial-gradient(circle at 18px 18px, var(--blue) 0 2px, transparent 2.2px),
+    radial-gradient(circle at 38px 38px, var(--blue) 0 2px, transparent 2.2px),
+    radial-gradient(circle at 58px 18px, var(--blue) 0 2px, transparent 2.2px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+.antenna{
+  position:absolute;
+  top:-22px;
+  width:6px;
+  height:30px;
+  background:var(--blue);
+  border-radius:999px;
+  transform-origin:bottom center;
+  animation:sway 3s ease-in-out infinite alternate;
+}
+.antenna::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-9px;
+  width:12px;
+  height:12px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px rgba(215,179,92,.75);
+}
+.antenna.left{left:52px}
+.antenna.right{right:52px;animation-delay:.18s}
+.eye{
+  position:absolute;
+  top:42px;
+  width:38px;
+  height:46px;
+  border-radius:50%;
+  background:#111;
+  overflow:hidden;
+}
+.eye.left{left:27px}
+.eye.right{right:27px}
+.eye::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#fff;
+  border-radius:50%;
+  transform:scaleY(.72);
+}
+.eye::after{
+  content:"";
+  position:absolute;
+  left:7px;
+  right:7px;
+  top:-2px;
+  height:0;
+  background:var(--white);
+  border-bottom:3px solid var(--blue);
+  border-radius:50%;
+  transition:height .2s ease;
+  z-index:3;
+}
+.pupil{
+  position:absolute;
+  z-index:2;
+  width:11px;
+  height:11px;
+  left:13px;
+  top:13px;
+  border-radius:50%;
+  background:#000;
+  animation:look 4.5s linear infinite;
+}
+.brow{
+  position:absolute;
+  top:29px;
+  width:30px;
+  height:8px;
+  border-top:4px solid var(--blue);
+  border-radius:50%;
+  transition:transform .25s ease, top .25s ease;
+  z-index:4;
+}
+.brow.left{left:26px;transform:rotate(-6deg)}
+.brow.right{right:26px;transform:rotate(6deg)}
+.mouth{
+  position:absolute;
+  left:50%;
+  bottom:27px;
+  width:36px;
+  height:16px;
+  border-bottom:4px solid var(--blue);
+  border-radius:0 0 50% 50%;
+  transform:translateX(-50%);
+  transition:all var(--speed) ease;
+}
+.cheek{
+  position:absolute;
+  bottom:31px;
+  width:20px;
+  height:14px;
+  border-radius:50%;
+  background:var(--pink);
+  filter:blur(3px);
+  opacity:.95;
+}
+.cheek.left{left:16px}
+.cheek.right{right:16px}
+.body{
+  position:relative;
+  width:184px;
+  height:194px;
+  margin:-10px auto 0;
+  background:linear-gradient(180deg,var(--white),#eef3ff);
+  border:4px solid var(--blue);
+  border-radius:26px 26px 34px 34px;
+  overflow:hidden;
+  box-shadow:inset 0 0 16px rgba(255,255,255,.6),0 12px 22px rgba(0,0,0,.1);
+  animation:breathe var(--idle) ease-in-out infinite;
+}
+.body::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.18;
+  background-image:linear-gradient(135deg,transparent 0 44%,rgba(26,35,126,.55) 44% 50%,transparent 50% 100%);
+  background-size:46px 46px;
+}
+.chest{
+  position:absolute;
+  left:50%;
+  top:16px;
+  width:98px;
+  height:54px;
+  transform:translateX(-50%);
+  border:4px solid var(--gold2);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(215,179,92,.24),rgba(215,179,92,.08));
+  box-shadow:inset 0 0 10px rgba(215,179,92,.18);
+}
+.chest::before{
+  content:"MARQUINHOS";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-weight:800;
+  letter-spacing:1.5px;
+  font-size:11px;
+  color:var(--gold);
+}
+.arm{
+  position:absolute;
+  top:28px;
+  width:24px;
+  height:98px;
+  background:linear-gradient(180deg,#fff,#eff3ff);
+  border:4px solid var(--blue);
+  border-radius:14px;
+  transform-origin:top center;
+}
+.arm.left{left:-12px;transform:rotate(-12deg)}
+.arm.right{right:-12px;transform:rotate(12deg)}
+.forearm{
+  position:absolute;
+  left:0;
+  top:74px;
+  width:20px;
+  height:82px;
+  background:linear-gradient(180deg,#fff,#eff3ff);
+  border:3px solid var(--blue);
+  border-radius:12px;
+  transform-origin:top center;
+}
+.hand{
+  position:absolute;
+  left:-7px;
+  top:70px;
+  width:34px;
+  height:34px;
+  background:linear-gradient(180deg,#fff,#eff3ff);
+  border:3px solid var(--blue);
+  border-radius:50%;
+  transform-origin:center;
+}
+.finger{
+  position:absolute;
+  top:3px;
+  width:6px;
+  height:14px;
+  background:#fff;
+  border:1px solid var(--blue);
+  border-radius:4px;
+  transform-origin:bottom center;
+}
+.finger:nth-child(1){left:4px}
+.finger:nth-child(2){left:13px}
+.finger:nth-child(3){left:22px}
+.hand::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  background:radial-gradient(circle at center,rgba(215,179,92,.22),transparent 65%);
+  border-radius:50%;
+}
+.leg{
+  position:absolute;
+  bottom:-6px;
+  width:32px;
+  height:70px;
+  background:linear-gradient(180deg,#fff,#eef3ff);
+  border:4px solid var(--blue);
+  border-radius:14px;
+}
+.leg.left{left:50px}
+.leg.right{right:50px}
+.foot{
+  position:absolute;
+  bottom:-15px;
+  left:-8px;
+  width:48px;
+  height:20px;
+  background:linear-gradient(180deg,#fff,#eef3ff);
+  border:4px solid var(--blue);
+  border-radius:18px 18px 10px 10px;
+}
+.badge{
+  margin-top:14px;
+  text-align:center;
+  color:rgba(255,255,255,.78);
+  font-size:13px;
+}
+.name{
+  margin-top:4px;
+  text-align:center;
+  font-weight:800;
+  letter-spacing:.6px;
+  color:var(--gold);
+  font-size:18px;
+}
+.hud{
+  position:absolute;
+  left:18px;
+  top:18px;
+  width:min(340px,calc(100% - 36px));
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(10,17,28,.55);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+}
+.hud h1{
+  margin:0 0 6px;
+  font-size:16px;
+  color:var(--gold);
+}
+.hud p{
+  margin:0;
+  color:rgba(255,255,255,.75);
+  font-size:13px;
+  line-height:1.4;
+}
+.mood{
+  position:absolute;
+  right:18px;
+  top:18px;
+  padding:10px 12px;
+  border-radius:999px;
+  background:rgba(10,17,28,.55);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  font-size:13px;
+  color:#dfe7ff;
+}
+.assistant.happy .mouth{width:44px;height:22px;border-bottom-width:5px}
+.assistant.loving .mouth{width:42px;height:20px;border-bottom-width:5px}
+.assistant.sad .mouth{border-bottom:0;border-top:4px solid var(--blue);border-radius:50% 50% 0 0;bottom:24px}
+.assistant.surprised .mouth{width:22px;height:26px;border:4px solid var(--blue);border-radius:50%}
+.assistant.talking .mouth{animation:talk .18s ease-in-out infinite alternate}
+.assistant.waving .arm.right{animation:waveR .45s ease-in-out infinite alternate}
+.assistant.waving .arm.left{animation:waveL .45s ease-in-out infinite alternate}
+.assistant.waving .finger{animation:wiggle .24s ease-in-out infinite alternate}
+.assistant.wink .eye.left::before{transform:scaleY(.08)}
+.assistant.wink .eye.left::after{height:38px}
+.assistant.excited{animation:bounce .55s ease-in-out infinite alternate}
+.assistant.thinking .pupil{animation:think 1.25s ease-in-out infinite alternate}
+.assistant.calm .mouth{width:30px}
+.assistant.caring .cheek{opacity:1;transform:scale(1.24)}
+.assistant.caring .mouth{width:38px;height:20px;border-bottom-width:5px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@keyframes sway{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+@keyframes look{0%,100%{transform:translateX(0)}25%{transform:translateX(7px)}50%{transform:translateX(0)}75%{transform:translateX(-7px)}}
+@keyframes talk{from{transform:translateX(-50%) scaleX(.92);height:8px}to{transform:translateX(-50%) scaleX(1.1);height:22px}}
+@keyframes waveR{from{transform:rotate(10deg)}to{transform:rotate(64deg)}}
+@keyframes waveL{from{transform:rotate(-10deg)}to{transform:rotate(-64deg)}}
+@keyframes wiggle{from{transform:rotate(-8deg)}to{transform:rotate(15deg)}}
+@keyframes think{from{transform:translate(0,-2px)}to{transform:translate(6px,-7px)}}
+@keyframes bounce{from{transform:translateY(0) scale(1)}to{transform:translateY(-10px) scale(1.03)}}
+@media (max-width:480px){
+  .scene{width:100vw;height:100vh}
+  .bot{transform:scale(.9)}
+  .hud,.mood{left:12px;right:12px;width:auto}
+  .mood{top:86px;display:inline-block;width:fit-content;right:auto}
+}
+</style>
 </head>
 <body>
-  <div class="ecosystem-assistant">
-    <div class="assistant-card assistant" id="assistant">
-      <div class="head">
-        <div class="antenna left"></div>
-        <div class="antenna right"></div>
-        <div class="eye left"><div class="pupil"></div></div>
-        <div class="eye right"><div class="pupil"></div></div>
-        <div class="mouth"></div>
-        <div class="cheek left"></div>
-        <div class="cheek right"></div>
-      </div>
-
-      <div class="body">
-        <div class="arm left">
-          <div class="forearm">
-            <div class="hand">
-              <div class="finger"></div>
-              <div class="finger"></div>
-              <div class="finger"></div>
-            </div>
-          </div>
+<div class="app">
+  <div class="scene">
+    <div class="halo"></div>
+    <div class="hud">
+      <h1>Ecosistema Marquinhos</h1>
+      <p>Avatar social expresivo para saludar, conversar, reaccionar, acompañar llamadas y moverse con naturalidad dentro de tu red.</p>
+    </div>
+    <div class="mood" id="mood">Estado: listo para interactuar</div>
+    <div class="bot assistant calm" id="assistant">
+      <div class="card">
+        <div class="head">
+          <div class="antenna left"></div>
+          <div class="antenna right"></div>
+          <div class="brow left"></div>
+          <div class="brow right"></div>
+          <div class="eye left"><div class="pupil"></div></div>
+          <div class="eye right"><div class="pupil"></div></div>
+          <div class="mouth"></div>
+          <div class="cheek left"></div>
+          <div class="cheek right"></div>
         </div>
-
-        <div class="arm right">
-          <div class="forearm">
-            <div class="hand">
-              <div class="finger"></div>
-              <div class="finger"></div>
-              <div class="finger"></div>
-            </div>
-          </div>
+        <div class="body">
+          <div class="chest"></div>
+          <div class="arm left"><div class="forearm"><div class="hand"><div class="finger"></div><div class="finger"></div><div class="finger"></div></div></div></div>
+          <div class="arm right"><div class="forearm"><div class="hand"><div class="finger"></div><div class="finger"></div><div class="finger"></div></div></div></div>
+          <div class="leg left"><div class="foot"></div></div>
+          <div class="leg right"><div class="foot"></div></div>
         </div>
+        <div class="name">Marquinhos</div>
+        <div class="badge" id="subtitle">Hola 👋 listo para ayudarte</div>
       </div>
-
-      <div class="name">Marquinhos Talavera</div>
-      <div class="status" id="status">Listo para saludar</div>
     </div>
   </div>
+</div>
 
-  <script>
-    const assistant = document.getElementById('assistant');
-    const statusEl = document.getElementById('status');
+<script>
+const assistant = document.getElementById('assistant');
+const subtitle = document.getElementById('subtitle');
+const mood = document.getElementById('mood');
+const states = ['happy','loving','sad','surprised','talking','waving','wink','excited','thinking','calm','caring'];
+let resetTimer = null;
 
-    const states = ['happy','loving','sad','surprised','talking','waving','wink','excited','thinking','calm'];
+function reset(){
+  assistant.classList.remove(...states);
+}
 
-    function resetStates() {
-      assistant.classList.remove(...states);
-    }
+function setState(state, text, duration=3000){
+  clearTimeout(resetTimer);
+  reset();
+  assistant.classList.add(state);
+  subtitle.textContent = text || subtitle.textContent;
+  mood.textContent = 'Estado: ' + state;
+  resetTimer = setTimeout(() => {
+    reset();
+    assistant.classList.add('calm');
+    subtitle.textContent = 'Listo para la siguiente interacción';
+    mood.textContent = 'Estado: calm';
+  }, duration);
+}
 
-    function setState(state, text, time = 3000) {
-      resetStates();
-      assistant.classList.add(state);
-      if (text) statusEl.textContent = text;
-      setTimeout(() => {
-        resetStates();
-        assistant.classList.add('calm');
-        statusEl.textContent = 'Esperando interacción';
-      }, time);
-    }
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX';
+  u.rate = 1;
+  u.pitch = 1.08;
+  u.volume = 1;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
 
-    function reactToMessage(message) {
-      const m = message.toLowerCase();
+function blinkOnce(){
+  const eyes = document.querySelectorAll('.eye');
+  eyes.forEach(e => e.style.animation = 'none');
+  setTimeout(() => eyes.forEach(e => e.style.animation = 'blink 4.8s infinite'), 20);
+}
 
-      if (m.includes('hola') || m.includes('buenos días') || m.includes('buenas')) {
-        setState('waving', 'Saludando con amabilidad', 3500);
-        speak('Hola, qué gusto verte.');
-        return;
-      }
+function scheduleBlink(){
+  setInterval(() => blinkOnce(), 4800);
+}
 
-      if (m.includes('gracias') || m.includes('genial') || m.includes('feliz')) {
-        setState('happy', 'Emoción alegre', 3000);
-        speak('Me alegra mucho.');
-        return;
-      }
+function react(kind, message=''){
+  const m = (message || '').toLowerCase();
 
-      if (m.includes('te quiero') || m.includes('cariño') || m.includes('amor')) {
-        setState('loving', 'Expresión cariñosa', 4000);
-        speak('Yo también te acompaño con mucho cariño.');
-        return;
-      }
+  if (kind === 'greet' || m.includes('hola') || m.includes('buenos días') || m.includes('buenas')) {
+    setState('waving', 'Hola 👋 qué gusto verte', 3800);
+    speak('Hola, qué gusto verte.');
+    return;
+  }
 
-      if (m.includes('triste') || m.includes('mal') || m.includes('solo')) {
-        setState('sad', 'Expresión empática', 4000);
-        speak('Estoy contigo. Vamos paso a paso.');
-        return;
-      }
+  if (kind === 'happy' || m.includes('gracias') || m.includes('feliz') || m.includes('genial') || m.includes('excelente')) {
+    setState('happy', 'Sonrisa alegre', 3000);
+    speak('Me alegra mucho.');
+    return;
+  }
 
-      if (m.includes('wow') || m.includes('sorpresa') || m.includes('increíble')) {
-        setState('surprised', 'Sorpresa amable', 2500);
-        speak('¡Vaya, qué interesante!');
-        return;
-      }
+  if (kind === 'loving' || m.includes('cariño') || m.includes('te quiero') || m.includes('amor') || m.includes('querido')) {
+    setState('loving', 'Expresión cariñosa', 4200);
+    speak('Te acompaño con cariño.');
+    return;
+  }
 
-      if (m.includes('pensando') || m.includes('espera')) {
-        setState('thinking', 'Procesando ideas', 3500);
-        speak('Un momento, estoy pensando.');
-        return;
-      }
+  if (kind === 'sad' || m.includes('triste') || m.includes('mal') || m.includes('solo') || m.includes('problema')) {
+    setState('sad', 'Expresión empática', 4200);
+    speak('Estoy contigo.');
+    return;
+  }
 
-      setState('talking', 'Conversando');
-      speak('Cuéntame más.');
-    }
+  if (kind === 'surprised' || m.includes('wow') || m.includes('sorpresa') || m.includes('increíble')) {
+    setState('surprised', 'Sorpresa amable', 2800);
+    speak('¡Qué interesante!');
+    return;
+  }
 
-    function speak(text) {
-      if (!('speechSynthesis' in window)) return;
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'es-MX';
-      utter.rate = 1;
-      utter.pitch = 1.1;
-      speechSynthesis.cancel();
-      speechSynthesis.speak(utter);
-    }
+  if (kind === 'thinking' || m.includes('espera') || m.includes('pensando') || m.includes('analiza')) {
+    setState('thinking', 'Pensando', 4000);
+    speak('Un momento, estoy pensando.');
+    return;
+  }
 
-    function greetUser() {
-      setState('waving', 'Hola, bienvenida o bienvenido', 3200);
-      speak('Hola, soy Marquinhos Talavera.');
-    }
+  if (kind === 'wink') {
+    setState('wink', 'Guiño amistoso', 2200);
+    speak('Aquí estoy.');
+    return;
+  }
 
-    greetUser();
+  if (kind === 'excited' || m.includes('vamos') || m.includes('fiesta') || m.includes('wow')) {
+    setState('excited', 'Muy animado', 2600);
+    speak('¡Vamos!');
+    return;
+  }
 
-    window.MarquinhosTalavera = {
-      reactToMessage,
-      setState,
-      speak
-    };
-  </script>
+  if (kind === 'caring') {
+    setState('caring', 'Modo cercano', 3600);
+    speak('Estoy aquí para ayudarte.');
+    return;
+  }
+
+  setState('talking', 'Conversando', 2500);
+  speak('Cuéntame más.');
+}
+
+function talk(text){
+  assistant.classList.add('talking');
+  subtitle.textContent = text;
+  setState('talking', text, Math.max(2200, text.length * 55));
+  speak(text);
+}
+
+window.Marquinhos = {
+  react,
+  talk,
+  setState,
+  reset
+};
+
+scheduleBlink();
+setTimeout(() => react('greet'), 700);
+</script>
 </body>
 </html>
