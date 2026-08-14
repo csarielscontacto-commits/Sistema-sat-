@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Marquinhos</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; margin: 0; }
+        .robot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Cabeza */
+        .head {
+            width: 160px; height: 140px;
+            background: #fff;
+            border: 4px solid #1a237e;
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-image: radial-gradient(circle at 30% 30%, transparent 40%, #1a237e 42%, #1a237e 45%, transparent 47%),
+                              radial-gradient(circle at 70% 30%, transparent 40%, #1a237e 42%, #1a237e 45%, transparent 47%);
+        }
+        /* Antenas */
+        .antenna {
+            width: 20px; height: 25px;
+            background: #1a237e;
+            border-radius: 50% 50% 0 0;
+            position: absolute; top: -18px; left: 25px;
+        }
+        .antenna.right { left: auto; right: 25px; }
+        .antenna::after {
+            content: ''; width: 24px; height: 24px; background: #fff; border: 3px solid #1a237e;
+            border-radius: 50%; position: absolute; top: -20px; left: -5px;
+        }
+        /* Orejas */
+        .ear {
+            width: 30px; height: 30px; background: #1a237e; border-radius: 50%;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            border: 2px solid #fff; left: -15px;
+        }
+        .ear.right { left: auto; right: -15px; }
+        /* Ojos */
+        .eye {
+            width: 35px; height: 45px; background: #111; border-radius: 50%;
+            position: absolute; top: 35px; box-shadow: inset -5px -5px 10px #444;
+        }
+        .eye.left { left: 25px; } .eye.right { right: 25px; }
+        .eye::after { content: ''; width: 10px; height: 10px; background: #fff; border-radius: 50%; position: absolute; top: 8px; left: 8px; }
+        /* Sonrisa */
+        .mouth { width: 30px; height: 15px; border-bottom: 4px solid #1a237e; border-radius: 0 0 50% 50%; position: absolute; bottom: 25px; left: 65px; }
+        /* Mejillas */
+        .cheek { width: 20px; height: 15px; background: #ffcdd2; border-radius: 50%; position: absolute; bottom: 30px; filter: blur(4px); }
+        .cheek.left { left: 15px; } .cheek.right { right: 15px; }
+
+        /* Cuerpo */
+        .body {
+            width: 140px; height: 160px;
+            background: #fff; border: 4px solid #1a237e;
+            border-radius: 20px 20px 30px 30px;
+            margin-top: -10px; position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        /* Brazos */
+        .arm {
+            width: 40px; height: 60px; background: #fff; border: 4px solid #1a237e;
+            border-radius: 20px 20px 30px 30px; position: absolute; top: 20px;
+            display: flex; justify-content: center; align-items: flex-end; padding-bottom: 5px;
+        }
+        .arm.left { left: -45px; } .arm.right { right: -45px; }
+        .hand { width: 12px; height: 12px; background: #fff; border: 3px solid #1a237e; border-radius: 50% 50% 0 0; }
+        /* Placa */
+        .plate {
+            background: #e8eaf6; border: 2px dashed #1a237e; border-radius: 10px;
+            padding: 8px 15px; margin-top: 30px; font-weight: bold; color: #1a237e;
+            font-size: 1.2rem; display: inline-block;
+        }
+        .plate-container { text-align: center; }
+        /* Patas */
+        .foot {
+            width: 30px; height: 25px; background: #fff; border: 4px solid #1a237e;
+            border-radius: 15px 15px 0 0; position: absolute; bottom: -25px;
+        }
+        .foot.left { left: 20px; } .foot.right { right: 20px; }
+    </style>
+</head>
+<body>
+    <div class="robot-container">
+        <div class="head">
+            <div class="antenna"></div><div class="antenna right"></div>
+            <div class="ear"></div><div class="ear right"></div>
+            <div class="eye left"></div><div class="eye right"></div>
+            <div class="cheek left"></div><div class="cheek right"></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="body">
+            <div class="arm left"><div class="hand"></div></div>
+            <div class="arm right"><div class="hand"></div></div>
+            <div class="plate-container" style="display:flex; justify-content:center; align-items:center; height:100%;">
+                <div class="plate">Marquinhos</div>
+            </div>
+            <div class="foot left"></div>
+            <div class="foot right"></div>
+        </div>
+    </div>
+</body>
+</html>
