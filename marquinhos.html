@@ -2,69 +2,66 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Marquinhos – Robot Talavera</title>
 
-  <!-- Fuente cursiva para la placa -->
+  <!-- Fuente “cursiva” para la placa (opcional) -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     /* -------------------------------------------------
-       VARIABLES DE COLOR (para cambiar rápidamente)
+       VARIABLES DE COLOR (cambio rápido)
        ------------------------------------------------- */
     :root {
-      --ceramica: #fdfdfd;               /* blanco brillante */
-      --bordes: #1a237e;                /* azul cobalto (contorno) */
-      --rubor: #ffccd2;                 /* mejillas rosadas */
-      --texto-placa: #0d1b5b;           /* texto de la placa */
+      --ceramica-bg:   #fdfdfd;   /* blanco brillante */
+      --bordes:       #1a237e;   /* azul Talavera */
+      --rubor:        #ffccd2;   /* mejillas rosadas */
+      --texto-placa:  #0d1b5b;
+      --anim-speed:   3s;        /* velocidad global de animaciones */
     }
 
     /* -------------------------------------------------
        ESTILO GLOBAL
        ------------------------------------------------- */
+    * { box-sizing: border-box; }
     body {
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: #e0f2fe;            /* fondo suave tipo estudio */
-      margin: 0;
+      background: #e0f2fe;               /* fondo suave */
+      perspective: 800px;                /* 3D */
       font-family: system-ui, sans-serif;
-      perspective: 800px;              /* 3D perspective */
     }
 
-    .robot-container {
+    /* -------------------------------------------------
+       CONTENEDOR PRINCIPAL
+       ------------------------------------------------- */
+    .robot {
+      width: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
       transform-style: preserve-3d;
-      transform: rotateX(8deg) rotateY(-12deg);
-    }
-
-    /* -------------------------------------------------
-       TEXTURA DE CERÁMICA (ruido sutil)
-       ------------------------------------------------- */
-    .ceramica-texture {
-      background-image:
-        url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPHJlY3Qgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiBmaWxsPSIjZTVlNSIgc3R5bGU9Im9wYWNpdHk6MC4wMiI+PC9yZWN0Pgo8L3N2Zz4=');
-      background-size: cover;
     }
 
     /* -------------------------------------------------
        CABEZA
        ------------------------------------------------- */
     .head {
+      position: relative;
       width: 160px;
       height: 140px;
-      background: var(--ceramica);
+      background: var(--ceramica-bg);
       border: 4px solid var(--bordes);
       border-radius: 50% 50% 40% 40%;
-      position: relative;
       box-shadow: 0 12px 20px rgba(0,0,0,.15), inset 0 0 12px rgba(255,255,255,.6);
       overflow: hidden;
+      animation: head-swing var(--anim-speed) ease-in-out infinite alternate;
     }
 
-    /* Patrón floral Talavera – SVG inline */
+    /* Patrón Talavera (SVG) */
     .head::after {
       content: "";
       position: absolute;
@@ -83,104 +80,59 @@
       opacity: .4;
     }
 
-    /* Brillo superior */
-    .head::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 30%;
-      background: linear-gradient(to bottom, rgba(255,255,255,.6), transparent);
-      border-radius: 50% 50% 0 0;
-    }
-
-    /* Antenas */
-    .antenna {
-      width: 20px;
-      height: 25px;
-      background: var(--bordes);
-      border-radius: 50% 50% 0 0;
-      position: absolute;
-      top: -18px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
-    }
-    .antenna.left { left: 25px; }
-    .antenna.right { right: 25px; }
-
-    .antenna::after {
-      content: "";
-      width: 24px;
-      height: 24px;
-      background: var(--ceramica);
-      border: 3px solid var(--bordes);
-      border-radius: 50%;
-      position: absolute;
-      top: -20px;
-      left: -5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,.2);
-    }
-
-    /* Orejas */
-    .ear {
-      width: 30px;
-      height: 30px;
-      background: var(--bordes);
-      border-radius: 50%;
-      border: 2px solid var(--ceramica);
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
-    }
-    .ear.left { left: -15px; }
-    .ear.right { right: -15px; }
-
-    /* Ojos */
+    /* ---------- OJOS ---------- */
     .eye {
+      position: absolute;
       width: 35px;
       height: 45px;
       background: #111;
       border-radius: 50%;
-      position: absolute;
+      overflow: hidden;
       top: 35px;
-      box-shadow: inset -5px -5px 10px #444;
     }
     .eye.left  { left: 25px; }
     .eye.right { right: 25px; }
 
-    .eye::after {
+    .eye::before {                 /* esclera */
       content: "";
-      width: 10px;
-      height: 10px;
+      position: absolute;
+      inset: 0;
       background: #fff;
       border-radius: 50%;
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      box-shadow: 0 0 4px rgba(255,255,255,.8);
+      transform: scaleY(0.7);      /* forma alargada */
     }
 
-    /* Boca / sonrisa */
+    .pupil {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #000;
+      border-radius: 50%;
+      top: 12px;
+      left: 12px;
+      animation: pupil-look var(--anim-speed) linear infinite;
+    }
+
+    /* ---------- BOCA ---------- */
     .mouth {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
       width: 30px;
       height: 15px;
       border-bottom: 4px solid var(--bordes);
       border-radius: 0 0 50% 50%;
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
       transform: translateX(-50%);
     }
 
-    /* Mejillas (rubor) */
+    /* ---------- MEJILLAS ---------- */
     .cheek {
+      position: absolute;
+      bottom: 30px;
       width: 20px;
       height: 15px;
       background: var(--rubor);
       border-radius: 50%;
-      position: absolute;
-      bottom: 30px;
       filter: blur(3px);
     }
     .cheek.left  { left: 15px; }
@@ -190,15 +142,16 @@
        CUERPO
        ------------------------------------------------- */
     .body {
+      position: relative;
       width: 140px;
       height: 160px;
-      background: var(--ceramica);
+      background: var(--ceramica-bg);
       border: 4px solid var(--bordes);
       border-radius: 20px 20px 30px 30px;
-      margin-top: -10px;
-      position: relative;
+      margin-top: -10px;               /* superpone con cabeza */
       box-shadow: 0 15px 25px rgba(0,0,0,.12), inset 0 0 12px rgba(255,255,255,.6);
       overflow: hidden;
+      animation: breathe var(--anim-speed) ease-in-out infinite;
     }
 
     .body::after {
@@ -216,144 +169,146 @@
   <rect width="200" height="200" fill="url(%23talavera2)"/>\
 </svg>');
       background-size: 40px 40px;
-      opacity: .4;
-    }
-
-    /* Brillo lateral */
-    .body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 30%;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255,255,255,.4), transparent);
-      border-radius: 20px 0 0 30px;
-    }
-
-    /* Brazos */
-    .arm {
-      width: 40px;
-      height: 60px;
-      background: var(--ceramica);
-      border: 4px solid var(--bordes);
-      border-radius: 20px 20px 30px 30px;
-      position: absolute;
-      top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      padding-bottom: 5px;
-      box-shadow: inset 0 0 8px rgba(255,255,255,.5);
-      transform-origin: top;
-    }
-    .arm.left  { left: -45px; transform: rotateZ(5deg); }
-    .arm.right { right: -45px; transform: rotateZ(-5deg); }
-
-    .hand {
-      width: 12px;
-      height: 12px;
-      background: var(--ceramica);
-      border: 3px solid var(--bordes);
-      border-radius: 50% 50% 0 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,.1);
-    }
-
-    /* Placa del nombre */
-    .plate {
-      background: #e8eaf6;
-      border: 2px dashed var(--bordes);
-      border-radius: 10px;
-      padding: 8px 15px;
-      font-weight: bold;
-      color: var(--texto-placa);
-      font-size: 1.2rem;
-      font-family: 'Great Vibes', cursive;
-      box-shadow: 0 2px 4px rgba(0,0,0,.08);
-    }
-    .plate-container { margin-top: 12px; text-align: center; }
-
-    /* Piernas */
-    .leg {
-      width: 30px;
-      height: 60px;
-      background: var(--ceramica);
-      border: 4px solid var(--bordes);
-      border-radius: 10px 10px 30px 30px;
-      position: absolute;
-      bottom: -60px;
-      box-shadow: inset 0 0 8px rgba(255,255,255,.5);
-    }
-    .leg.left  { left: 20px; }
-    .leg.right { right: 20px; }
-
-    .foot {
-      width: 22px;
-      height: 10px;
-      background: var(--bordes);
-      border-radius: 0 0 6px 6px;
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
+      opacity: .3;
     }
 
     /* -------------------------------------------------
-       ANIMACIONES (ejemplo de parpadeo)
+       BRAZOS – Articulados
        ------------------------------------------------- */
-    @keyframes blink {
-      0%, 80%, 100% { transform: scaleY(1); }
-      90% { transform: scaleY(0.1); }
+    .arm {
+      position: absolute;
+      width: 20px;
+      height: 80px;
+      background: var(--ceramica-bg);
+      border: 3px solid var(--bordes);
+      border-radius: 10px;
+      transform-origin: top;               /* pivote en el hombro */
+    }
+    .arm.right { right: -10px; top: 30px; transform: rotate(10deg); }
+    .arm.left  { left: -10px;  top: 30px; transform: rotate(-10deg); }
+
+    .forearm {
+      position: absolute;
+      width: 18px;
+      height: 70px;
+      background: var(--ceramica-bg);
+      border: 2px solid var(--bordes);
+      border-radius: 8px;
+      top: 70px;                     /* se engancha al extremo del brazo */
+      left: 1px;
+      transform-origin: top;         /* pivote en el codo */
     }
 
-    .eye {
-      animation: blink 5s infinite;
+    .hand {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--ceramica-bg);
+      border: 2px solid var(--bordes);
+      border-radius: 50%;
+      top: 65px;                     /* extremo del antebrazo */
+      left: -6px;
+      transform-origin: center;
     }
+
+    /* Dedos (estilizados como “pinceles” redondeados) */
+    .finger {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      background: var(--ceramica-bg);
+      border: 1px solid var(--bordes);
+      border-radius: 3px;
+      top: 2px;
+    }
+    .finger:nth-child(1) { left: 4px; }
+    .finger:nth-child(2) { left: 12px; }
+    .finger:nth-child(3) { left: 20px; }
+
+    /* -------------------------------------------------
+       ANIMACIONES
+       ------------------------------------------------- */
+    @keyframes head-swing {
+      0%   { transform: rotateY(-5deg); }
+      100% { transform: rotateY(5deg); }
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: translateY(0); }
+      50%    { transform: translateY(4px); }
+    }
+
+    /* Pupila hace “look‑at” horizontal */
+    @keyframes pupil-look {
+      0%   { transform: translateX(0); }
+      25%  { transform: translateX(8px); }   /* derecha */
+      50%  { transform: translateX(0); }
+      75%  { transform: translateX(-8px); }  /* izquierda */
+      100% { transform: translateX(0); }
+    }
+
+    /* Pequeños gestos de brazos (ejemplo) */
+    .arm.right   { animation: arm-wave-right var(--anim-speed) infinite; }
+    .arm.left    { animation: arm-wave-left var(--anim-speed) infinite; }
+
+    @keyframes arm-wave-right {
+      0%,100% { transform: rotate(10deg); }
+      50%     { transform: rotate(40deg); }
+    }
+    @keyframes arm-wave-left {
+      0%,100% { transform: rotate(-10deg); }
+      50%     { transform: rotate(-40deg); }
+    }
+
   </style>
 </head>
+
 <body>
+  <div class="robot">
+    <!-- ---------- CABEZA ---------- -->
+    <div class="head">
+      <!-- Antenas (opcionales) -->
+      <div class="antenna left"></div>
+      <div class="antenna right"></div>
 
-<div class="robot-container">
+      <!-- Ojos -->
+      <div class="eye left">
+        <div class="pupil"></div>
+      </div>
+      <div class="eye right">
+        <div class="pupil"></div>
+      </div>
 
-  <!-- ---------- CABEZA ---------- -->
-  <div class="head ceramica-texture">
-    <div class="antenna left"></div>
-    <div class="antenna right"></div>
+      <!-- Boca y mejillas -->
+      <div class="mouth"></div>
+      <div class="cheek left"></div>
+      <div class="cheek right"></div>
+    </div>
 
-    <div class="ear left"></div>
-    <div class="ear right"></div>
+    <!-- ---------- CUERPO ---------- -->
+    <div class="body">
+      <!-- BRAZO DERECHO -->
+      <div class="arm arm-right">
+        <div class="forearm">
+          <div class="hand">
+            <div class="finger"></div>
+            <div class="finger"></div>
+            <div class="finger"></div>
+          </div>
+        </div>
+      </div>
 
-    <div class="eye left"></div>
-    <div class="eye right"></div>
-
-    <div class="mouth"></div>
-
-    <div class="cheek left"></div>
-    <div class="cheek right"></div>
+      <!-- BRAZO IZQUIERDO -->
+      <div class="arm arm-left">
+        <div class="forearm">
+          <div class="hand">
+            <div class="finger"></div>
+            <div class="finger"></div>
+            <div class="finger"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- ---------- CUERPO ---------- -->
-  <div class="body ceramica-texture">
-    <div class="arm left">
-      <div class="hand"></div>
-    </div>
-    <div class="arm right">
-      <div class="hand"></div>
-    </div>
-
-    <div class="leg left">
-      <div class="foot"></div>
-    </div>
-    <div class="leg right">
-      <div class="foot"></div>
-    </div>
-  </div>
-
-  <!-- ---------- PLACA ---------- -->
-  <div class="plate-container">
-    <div class="plate">Marquinhos</div>
-  </div>
-</div>
-
 </body>
 </html>
