@@ -2,241 +2,266 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Csariel's · Sistema Solar – Zoom Realista</title>
+  <title>Csariel's · Sistema Solar – Zoom Realista + Galaxia</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-/* ==============================================================
-   VARIABLES DE COLOR Y FUENTE
-   ============================================================== */
-:root{
-  --bg-space:#010205;
-  --text-primary:#e8f0fe;
-  --text-muted:#7a8aaa;
-  --gold:#ffd700;
-}
+    /* -------------------------------------------------
+       VARIABLES DE COLOR Y FUENTE
+       ------------------------------------------------- */
+    :root{
+      --bg-space:#010205;
+      --text-primary:#e8f0fe;
+      --text-muted:#7a8aaa;
+      --gold:#ffd700;
+    }
 
-/* ==============================================================
-   RESET + BODY
-   ============================================================== */
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  background:var(--bg-space);
-  overflow:hidden;
-  font-family:'Inter',system-ui,sans-serif;
-  color:var(--text-primary);
-}
+    /* -------------------------------------------------
+       RESET + BODY
+       ------------------------------------------------- */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      background:var(--bg-space);
+      overflow:hidden;
+      font-family:'Inter',system-ui,sans-serif;
+      color:var(--text-primary);
+    }
 
-/* ==============================================================
-   FONDO ESTELAR
-   ============================================================== */
-.stars{
-  position:fixed; inset:0;
-  background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.08),transparent 60%),
-            radial-gradient(circle at 78% 70%,rgba(255,255,255,.06),transparent 70%),
-            radial-gradient(circle at 45% 15%,rgba(255,255,255,.04),transparent 50%);
-  background-size:400px 400px;
-  opacity:.25;
-  animation:twinkle 8s ease-in-out infinite alternate;
-}
-@keyframes twinkle{0%{opacity:.15}50%{opacity:.35}100%{opacity:.2}}
+    /* -------------------------------------------------
+       ESTRELLAS DE FONDO (más densas + Vía Láctea)
+       ------------------------------------------------- */
+    .stars{
+      position:fixed; inset:0;
+      background:
+        radial-gradient(circle at 20% 30%,rgba(255,255,255,.08),transparent 60%),
+        radial-gradient(circle at 78% 70%,rgba(255,255,255,.06),transparent 70%),
+        radial-gradient(circle at 45% 15%,rgba(255,255,255,.04),transparent 50%),
+        radial-gradient(circle at 10% 80%,rgba(255,255,255,.07),transparent 55%),
+        radial-gradient(circle at 90% 20%,rgba(255,255,255,.05),transparent 60%);
+      background-size:400px 400px;
+      opacity:.35;
+      animation:twinkle 8s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle{0%{opacity:.18}50%{opacity:.38}100%{opacity:.22}}
 
-/* ==============================================================
-   CONTENEDOR PRINCIPAL + ZOOM
-   ============================================================== */
-#viewport{
-  position:relative;
-  width:100vw; height:100vh;
-  overflow:hidden;
-  cursor:grab;
-}
-#solar{
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%) scale(1);
-  transform-origin:center;
-  transition:transform .1s ease-out;
-}
+    /* -------------------------------------------------
+       GALAXIA (Vía Láctea y agujero negro)
+       ------------------------------------------------- */
+    .galaxy{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .milky-way{
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse at bottom, rgba(255,255,255,.12), transparent 70%);
+      transform:rotate(135deg) scale(1.2);
+      filter:blur(2px);
+    }
+    .black-hole{
+      position:absolute;
+      top:50%; left:50%;
+      width:30px; height:30px;
+      margin:-15px 0 0 -15px;
+      border-radius:50%;
+      background:radial-gradient(circle, #111 0%, #000 70%);
+      box-shadow:
+        0 0 30px 15px rgba(0,0,0,.9),
+        0 0 60px 30px rgba(0,0,0,.7),
+        0 0 120px 60px rgba(0,0,0,.5);
+      animation:spinBH 12s linear infinite;
+    }
+    @keyframes spinBH{to{transform:rotate(360deg)}}
 
-/* ==============================================================
-   SOL
-   ============================================================== */
-.sun{
-  position:absolute;
-  width:180px;height:180px;
-  top:50%; left:50%;
-  margin:-90px 0 0 -90px;
-  border-radius:50%;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_sun.jpg') center/cover;
-  box-shadow:0 0 120px rgba(255,215,0,.4),0 0 300px rgba(255,140,0,.2);
-}
+    /* -------------------------------------------------
+       CONTENEDOR PRINCIPAL + ZOOM
+       ------------------------------------------------- */
+    #viewport{
+      position:relative;
+      width:100vw; height:100vh;
+      overflow:hidden;
+      cursor:grab;
+    }
+    #solar{
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(1);
+      transform-origin:center;
+      transition:transform .1s ease-out;
+    }
 
-/* ==============================================================
-   ORBITAS
-   ============================================================== */
-.orbit{
-  position:absolute;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:50%;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-}
+    /* -------------------------------------------------
+       SOL
+       ------------------------------------------------- */
+    .sun{
+      position:absolute;
+      width:180px;height:180px;
+      top:50%; left:50%;
+      margin:-90px 0 0 -90px;
+      border-radius:50%;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_sun.jpg') center/cover;
+      box-shadow:0 0 120px rgba(255,215,0,.4),0 0 300px rgba(255,140,0,.2);
+    }
 
-/* ==============================================================
-   PLANETAS (textura de alta resolución)
-   ============================================================== */
-.planet{
-  position:absolute;
-  border-radius:50%;
-  cursor:pointer;
-  transform-origin:center;
-  transition:transform .3s;
-}
-.planet:hover{transform:scale(1.4);z-index:5;}
+    /* -------------------------------------------------
+       ORBITAS
+       ------------------------------------------------- */
+    .orbit{
+      position:absolute;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+    }
 
-/* ----- Mercurio ----- */
-.mercury{
-  width:10px;height:10px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover;
-  animation:orbitM 4s linear infinite;
-}
-@keyframes orbitM{
-  from{transform:rotate(0deg) translateX(55px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(55px) rotate(-360deg);}
-}
+    /* -------------------------------------------------
+       PLANETAS (textura de alta resolución)
+       ------------------------------------------------- */
+    .planet{
+      position:absolute;
+      border-radius:50%;
+      cursor:pointer;
+      transform-origin:center;
+      transition:transform .3s;
+    }
+    .planet:hover{transform:scale(1.4);z-index:5;}
 
-/* ----- Venus ----- */
-.venus{
-  width:18px;height:18px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover;
-  animation:orbitV 7s linear infinite;
-}
-@keyframes orbitV{
-  from{transform:rotate(0deg) translateX(85px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(85px) rotate(-360deg);}
-}
+    /* ----- MERCURIO ----- */
+    .mercury{
+      width:10px;height:10px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover;
+      animation:orbitM 4s linear infinite;
+    }
+    @keyframes orbitM{from{transform:rotate(0deg) translateX(55px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(55px) rotate(-360deg);}}
+    /* ----- VENUS ----- */
+    .venus{
+      width:18px;height:18px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover;
+      animation:orbitV 7s linear infinite;
+    }
+    @keyframes orbitV{from{transform:rotate(0deg) translateX(85px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(85px) rotate(-360deg);}}
+    /* ----- TIERRA ----- */
+    .earth{
+      width:20px;height:20px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover;
+      animation:orbitE 10s linear infinite;
+    }
+    @keyframes orbitE{from{transform:rotate(0deg) translateX(115px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(115px) rotate(-360deg);}}
+    .moon{
+      width:6px;height:6px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg') center/cover;
+      animation:orbitMoon 2s linear infinite;
+    }
+    @keyframes orbitMoon{from{transform:rotate(0deg) translateX(30px) rotate(0deg);}
+                         to{transform:rotate(360deg) translateX(30px) rotate(-360deg);}}
+    /* ----- MARTE ----- */
+    .mars{
+      width:16px;height:16px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover;
+      animation:orbitMa 15s linear infinite;
+    }
+    @keyframes orbitMa{from{transform:rotate(0deg) translateX(150px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(150px) rotate(-360deg);}}
+    /* ----- JUPITER ----- */
+    .jupiter{
+      width:36px;height:36px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover;
+      animation:orbitJu 20s linear infinite;
+    }
+    @keyframes orbitJu{from{transform:rotate(0deg) translateX(200px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(200px) rotate(-360deg);}}
+    /* ----- SATURNO ----- */
+    .saturn{
+      width:34px;height:34px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover;
+      animation:orbitSa 30s linear infinite;
+    }
+    @keyframes orbitSa{from{transform:rotate(0deg) translateX(260px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(260px) rotate(-360deg);}}
+    .saturn::before{
+      content:'';
+      position:absolute;
+      inset:-8px;
+      border:3px solid rgba(255,215,0,.4);
+      border-radius:50%;
+      transform:rotateX(55deg);
+    }
+    /* ----- URANO ----- */
+    .uranus{
+      width:28px;height:28px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover;
+      animation:orbitU 35s linear infinite;
+    }
+    @keyframes orbitU{from{transform:rotate(0deg) translateX(310px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(310px) rotate(-360deg);}}
+    /* ----- NEPTUNO ----- */
+    .neptune{
+      width:26px;height:26px;
+      background:url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover;
+      animation:orbitN 45s linear infinite;
+    }
+    @keyframes orbitN{from{transform:rotate(0deg) translateX(360px) rotate(0deg);}
+                     to{transform:rotate(360deg) translateX(360px) rotate(-360deg);}}
 
-/* ----- Tierra ----- */
-.earth{
-  width:20px;height:20px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover;
-  animation:orbitE 10s linear infinite;
-}
-@keyframes orbitE{
-  from{transform:rotate(0deg) translateX(115px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(115px) rotate(-360deg);}
-}
+    /* -------------------------------------------------
+       TOOLTIP (información rápida)
+       ------------------------------------------------- */
+    .tooltip{
+      position:absolute;
+      padding:.4rem .6rem;
+      background:rgba(0,0,0,.7);
+      border-radius:4px;
+      font-size:.75rem;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .2s;
+    }
 
-/* ----- Luna (opcional) ----- */
-.moon{
-  width:6px;height:6px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg') center/cover;
-  animation:orbitMoon 2s linear infinite;
-}
-@keyframes orbitMoon{
-  from{transform:rotate(0deg) translateX(30px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(30px) rotate(-360deg);}
-}
+    /* -------------------------------------------------
+       CONTROLES DE ZOOM
+       ------------------------------------------------- */
+    #controls{
+      position:fixed;
+      top:1rem; right:1rem;
+      display:flex; flex-direction:column; gap:.5rem;
+      z-index:10;
+    }
+    #controls button{
+      background:rgba(255,255,255,.1);
+      border:none; color:#fff;
+      padding:.5rem .8rem;
+      font-size:1rem; cursor:pointer;
+      border-radius:4px;
+    }
+    #controls button:hover{background:rgba(255,255,255,.3);}
 
-/* ----- Marte ----- */
-.mars{
-  width:16px;height:16px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover;
-  animation:orbitMa 15s linear infinite;
-}
-@keyframes orbitMa{
-  from{transform:rotate(0deg) translateX(150px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(150px) rotate(-360deg);}
-}
-
-/* ----- Júpiter ----- */
-.jupiter{
-  width:36px;height:36px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover;
-  animation:orbitJu 20s linear infinite;
-}
-@keyframes orbitJu{
-  from{transform:rotate(0deg) translateX(200px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(200px) rotate(-360deg);}
-}
-
-/* ----- Saturno ----- */
-.saturn{
-  width:34px;height:34px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover;
-  animation:orbitSa 30s linear infinite;
-}
-@keyframes orbitSa{
-  from{transform:rotate(0deg) translateX(260px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(260px) rotate(-360deg);}
-}
-/* Anillo de Saturno */
-.saturn::before{
-  content:'';
-  position:absolute;
-  inset:-8px;
-  border:3px solid rgba(255,215,0,.4);
-  border-radius:50%;
-  transform:rotateX(55deg);
-}
-
-/* ----- Urano ----- */
-.uranus{
-  width:28px;height:28px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover;
-  animation:orbitU 35s linear infinite;
-}
-@keyframes orbitU{
-  from{transform:rotate(0deg) translateX(310px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(310px) rotate(-360deg);}
-}
-
-/* ----- Neptuno ----- */
-.neptune{
-  width:26px;height:26px;
-  background:url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover;
-  animation:orbitN 45s linear infinite;
-}
-@keyframes orbitN{
-  from{transform:rotate(0deg) translateX(360px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(360px) rotate(-360deg);}
-}
-
-/* ==============================================================
-   TOOLTIP (información rápida)
-   ============================================================== */
-.tooltip{
-  position:absolute;
-  padding:.4rem .6rem;
-  background:rgba(0,0,0,.7);
-  border-radius:4px;
-  font-size:.75rem;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .2s;
-}
-
-/* ==============================================================
-   CONTROLES DE ZOOM
-   ============================================================== */
-#controls{
-  position:fixed;
-  top:1rem; right:1rem;
-  display:flex; flex-direction:column; gap:.5rem;
-  z-index:10;
-}
-#controls button{
-  background:rgba(255,255,255,.1);
-  border:none; color:#fff;
-  padding:.5rem .8rem;
-  font-size:1rem; cursor:pointer;
-  border-radius:4px;
-}
-#controls button:hover{background:rgba(255,255,255,.3);}
+    /* -------------------------------------------------
+       CONSTELACIONES ZODIACALES (SVG)
+       ------------------------------------------------- */
+    .constellation{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .constellation line{
+      stroke:rgba(255,215,0,.5);
+      stroke-width:1.2;
+      stroke-dasharray:4 2;
+    }
   </style>
 </head>
 <body>
 
 <div class="stars"></div>
+
+<!-- GALAXIA -->
+<div class="galaxy">
+  <div class="milky-way"></div>
+  <div class="black-hole"></div>
+</div>
 
 <div id="viewport">
   <div id="solar">
@@ -244,7 +269,7 @@ body{
     <!-- Sol -->
     <div class="sun"></div>
 
-    <!-- Órbitas (solo para referencia visual) -->
+    <!-- Órbitas visuales -->
     <div class="orbit" style="width:110px;height:110px;"></div><!-- Mercurio -->
     <div class="orbit" style="width:170px;height:170px;"></div><!-- Venus -->
     <div class="orbit" style="width:230px;height:230px;"></div><!-- Tierra -->
@@ -254,35 +279,44 @@ body{
     <div class="orbit" style="width:620px;height:620px;"></div><!-- Urano -->
     <div class="orbit" style="width:720px;height:720px;"></div><!-- Neptuno -->
 
-    <!-- Planetas -->
-    <div class="planet mercury"></div>
-    <div class="planet venus"></div>
+    <!-- PLANETAS -->
+    <div class="planet mercury"   data-info="Mercurio|Masa: 3.30 ×10⁻³ M⊕|Radio: 2 375 km|Periodo orbital: 88 días"></div>
+    <div class="planet venus"     data-info="Venus|Masa: 0.815 M⊕|Radio: 6 052 km|Periodo orbital: 225 días"></div>
 
-    <div class="planet earth">
-      <div class="planet moon"></div>
+    <div class="planet earth" data-info="Tierra|Masa: 1 M⊕|Radio: 6 371 km|Periodo orbital: 365 días">
+      <div class="planet moon" data-info="Luna|Masa: 7.35 ×10⁻³ M⊕|Radio: 1 737 km|Periodo orbital: 27 días"></div>
     </div>
 
-    <div class="planet mars"></div>
-    <div class="planet jupiter"></div>
-    <div class="planet saturn"></div>
-    <div class="planet uranus"></div>
-    <div class="planet neptune"></div>
+    <div class="planet mars"     data-info="Marte|Masa: 0.107 M⊕|Radio: 3 390 km|Periodo orbital: 687 días"></div>
+    <div class="planet jupiter"  data-info="Júpiter|Masa: 317.8 M⊕|Radio: 69 911 km|Periodo orbital: 12 años"></div>
+    <div class="planet saturn"   data-info="Saturno|Masa: 95.2 M⊕|Radio: 58 232 km|Periodo orbital: 29 años"></div>
+    <div class="planet uranus"   data-info="Urano|Masa: 14.5 M⊕|Radio: 25 362 km|Periodo orbital: 84 años"></div>
+    <div class="planet neptune"  data-info="Neptuno|Masa: 17.1 M⊕|Radio: 24 622 km|Periodo orbital: 165 años"></div>
 
     <!-- Tooltip -->
     <div id="tooltip" class="tooltip"></div>
   </div>
 </div>
 
-<!-- Controles de zoom -->
+<!-- CONTROLES DE ZOOM -->
 <div id="controls">
   <button id="zoomIn">+</button>
   <button id="zoomOut">‑</button>
 </div>
 
+<!-- CONSTELACIONES ZODIACALES (SVG) -->
+<svg class="constellation">
+  <!-- Ejemplo: Aries -->
+  <line x1="400" y1="100" x2="420" y2="130"></line>
+  <line x1="420" y1="130" x2="440" y2="120"></line>
+  <line x1="440" y1="120" x2="460" y2="150"></line>
+  <!-- (Puedes añadir aquí los demás patrones) -->
+</svg>
+
 <script>
 /* ==================== ZOOM & PAN ==================== */
 const viewport = document.getElementById('viewport');
-const solar = document.getElementById('solar');
+const solar     = document.getElementById('solar');
 let scale = 1;
 const minScale = 0.4;
 const maxScale = 4;
@@ -294,73 +328,54 @@ function setScale(s){
 document.getElementById('zoomIn').onclick = () => setScale(scale*1.2);
 document.getElementById('zoomOut').onclick = () => setScale(scale/1.2);
 
-// rueda del ratón
+// Rueda del ratón
 viewport.addEventListener('wheel', e=>{
   e.preventDefault();
   const delta = e.deltaY < 0 ? 1.15 : 0.85;
-  const rect = solar.getBoundingClientRect();
-  // mantener el punto bajo el cursor centrado
-  const cx = e.clientX - rect.left;
-  const cy = e.clientY - rect.top;
-  const nx = cx / scale;
-  const ny = cy / scale;
   setScale(scale*delta);
-  // corrige tras el scale
-  solar.style.left = `calc(50% - ${nx*scale}px)`;
-  solar.style.top  = `calc(50% - ${ny*scale}px)`;
 });
 
-/* =============== DRAG TO PAN =============== */
-let isPanning = false;
-let startX, startY, startLeft, startTop;
-viewport.addEventListener('mousedown', e=>{
-  isPanning = true;
-  viewport.style.cursor = 'grabbing';
-  startX = e.clientX;
-  startY = e.clientY;
-  const style = getComputedStyle(solar);
-  startLeft = parseFloat(style.left);
-  startTop  = parseFloat(style.top);
-});
-window.addEventListener('mousemove', e=>{
-  if(!isPanning) return;
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
-  solar.style.left = `${startLeft + dx}px`;
-  solar.style.top  = `${startTop  + dy}px`;
-});
-window.addEventListener('mouseup', ()=>{isPanning=false; viewport.style.cursor='grab';});
-
-/* ==================== TOOLTIP ==================== */
+// ==================== TOOLTIP ==================== */
 const tooltip = document.getElementById('tooltip');
-const planetInfo = {
-  mercury:{name:'Mercurio', detalle:'~4 800 km de diámetro, 0.39 UA del Sol.'},
-  venus:{name:'Venus', detalle:'~12 100 km, atmósfera densa, 0.72 UA.'},
-  earth:{name:'Tierra', detalle:'~12 742 km, 1 UA, vida tal como la conocemos.'},
-  moon:{name:'Luna', detalle:'~3 474 km, 0.0026 UA de la Tierra.'},
-  mars:{name:'Marte', detalle:'~6 779 km, 1.52 UA.'},
-  jupiter:{name:'Júpiter', detalle:'~139 820 km, 5.2 UA, mayor planeta.'},
-  saturn:{name:'Saturno', detalle:'~116 460 km, 9.5 UA, anillos icónicos.'},
-  uranus:{name:'Urano', detalle:'~50 724 km, 19.2 UA, plano inclinado.'},
-  neptune:{name:'Neptuno', detalle:'~49 244 km, 30.1 UA, viento supersonico.'}
-};
-
 document.querySelectorAll('.planet').forEach(p=>{
   p.addEventListener('mouseenter', e=>{
-    const id = e.target.classList[1]; // segunda clase = nombre en nuestro CSS
-    const info = planetInfo[id];
-    if(info){
-      tooltip.textContent = `${info.name} – ${info.detalle}`;
-      tooltip.style.opacity = 1;
-    }
+    const [name, ...info] = p.dataset.info.split('|');
+    tooltip.textContent = `${name}\n${info.join('\n')}`;
+    tooltip.style.opacity = 1;
   });
   p.addEventListener('mousemove', e=>{
-    tooltip.style.left = e.clientX + 12 + 'px';
-    tooltip.style.top  = e.clientY + 12 + 'px';
+    const rect = viewport.getBoundingClientRect();
+    tooltip.style.left = `${e.clientX - rect.left + 10}px`px`;
+    tooltip.style.top = `${e.clientY - rect.top + 10}px`;
   });
-  p.addEventListener('mouseleave',()=>{tooltip.style.opacity=0;});
+  p.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = 0;
+  });
+});
+
+// ==================== INTERACCIÓN DE ARRASTRE (PAN) ==================== */
+let isDragging = false;
+let startX, startY, translateX = 0, translateY = 0;
+
+viewport.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+  viewport.style.cursor = 'grabbing';
+});
+
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  translateX = e.clientX - startX;
+  translateY = e.clientY - startY;
+  solar.style.left = `calc(50% + ${translateX}px)`;
+  solar.style.top = `calc(50% + ${translateY}px)`;
+});
+
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+  viewport.style.cursor = 'grab';
 });
 </script>
-
 </body>
 </html>
