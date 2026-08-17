@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Csariel's · Sistema Solar Realista</title>
+    <title>Csariel's · Sistema Solar Educativo</title>
     <style>
         /* ============================================================
            VARIABLES CSS
@@ -14,10 +14,11 @@
             --neon-cyan: #00f0ff;
             --neon-purple: #b388ff;
             --bg-deep: #020408;
-            --glass-bg: rgba(6, 12, 30, 0.5);
+            --bg-card: rgba(6, 12, 30, 0.6);
             --glass-border: rgba(255, 215, 0, 0.06);
             --text-primary: #e8f0fe;
             --text-secondary: #7a8aaa;
+            --text-accent: #ffd700;
         }
 
         /* ============================================================
@@ -43,7 +44,7 @@
         }
 
         /* ============================================================
-           FONDO ESPACIAL REALISTA
+           FONDO ESPACIAL
            ============================================================ */
         .cosmic-bg {
             position: fixed;
@@ -80,21 +81,16 @@
                 radial-gradient(1.5px 1.5px at 45% 45%, #fff, transparent),
                 radial-gradient(2px 2px at 75% 5%, #fff, transparent),
                 radial-gradient(1px 1px at 30% 30%, #fff, transparent),
-                radial-gradient(1px 1px at 70% 70%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 15% 60%, #fff, transparent),
-                radial-gradient(1px 1px at 85% 35%, #fff, transparent),
-                radial-gradient(2px 2px at 55% 15%, #fff, transparent),
-                radial-gradient(1px 1px at 25% 80%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 90% 10%, #fff, transparent);
+                radial-gradient(1px 1px at 70% 70%, #fff, transparent);
             background-size: 350px 350px;
             background-repeat: repeat;
-            opacity: 0.25;
+            opacity: 0.2;
             animation: twinkleDeep 6s ease-in-out infinite alternate;
         }
 
         @keyframes twinkleDeep {
-            0% { opacity: 0.15; }
-            100% { opacity: 0.35; }
+            0% { opacity: 0.12; }
+            100% { opacity: 0.3; }
         }
 
         /* ============================================================
@@ -109,11 +105,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.8rem;
         }
 
         /* ============================================================
-           ENCABEZADO IMPERIAL
+           ENCABEZADO
            ============================================================ */
         .header-brand {
             display: flex;
@@ -135,7 +131,7 @@
             font-size: 1.6rem;
             font-weight: 800;
             color: #020408;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.25);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
             animation: imperialPulse 3s ease-in-out infinite;
             transition: transform 0.4s;
         }
@@ -144,8 +140,8 @@
         }
 
         @keyframes imperialPulse {
-            0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.25); }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.4); }
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.2); }
+            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.35); }
         }
 
         .brand-title {
@@ -165,8 +161,17 @@
             50% { background-position: 100% 50%; }
         }
 
+        .subtitle {
+            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: -0.3rem;
+        }
+
         /* ============================================================
-           SISTEMA SOLAR REALISTA
+           SISTEMA SOLAR
            ============================================================ */
         .solar-system {
             position: relative;
@@ -179,7 +184,7 @@
             justify-content: center;
         }
 
-        /* ===== SOL REALISTA ===== */
+        /* ===== SOL ===== */
         .sun-imperial {
             position: absolute;
             width: 110px;
@@ -197,7 +202,6 @@
             cursor: default;
         }
 
-        /* manchas solares */
         .sun-imperial::before {
             content: '';
             position: absolute;
@@ -210,12 +214,11 @@
             filter: blur(4px);
             box-shadow: 
                 45px 35px 0 6px rgba(160, 60, 0, 0.18),
-                -25px 45px 0 10px rgba(140, 40, 0, 0.12),
-                10px -30px 0 8px rgba(200, 100, 0, 0.08);
+                -25px 45px 0 10px rgba(140, 40, 0, 0.12);
         }
 
         .sun-imperial::after {
-            content: '☀️ SOL IMPERIAL';
+            content: '☀️ SOL';
             position: absolute;
             bottom: -38px;
             left: 50%;
@@ -238,8 +241,7 @@
             border-radius: 50%;
             background: 
                 radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.06), transparent 50%),
-                radial-gradient(circle at 75% 65%, rgba(255, 107, 0, 0.04), transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(255, 69, 0, 0.03), transparent 40%);
+                radial-gradient(circle at 75% 65%, rgba(255, 107, 0, 0.04), transparent 45%);
             animation: coronaPulseReal 6s ease-in-out infinite;
             pointer-events: none;
             filter: blur(10px);
@@ -273,7 +275,7 @@
         }
 
         /* ============================================================
-           PLANETAS REALISTAS CON SOMBRAS 3D
+           PLANETAS REALISTAS
            ============================================================ */
         .planet {
             position: absolute;
@@ -320,101 +322,28 @@
         }
 
         /* ============================================================
-           CONFIGURACIÓN DE CADA PLANETA (REALISTA)
+           CONFIGURACIÓN DE CADA PLANETA
            ============================================================ */
 
-        /* --- MERCURIO (gris con cráteres) --- */
-        .orbit-1 {
-            width: 180px;
-            height: 180px;
-            animation: orbitSpin 12s linear infinite;
-        }
+        .orbit-1 { width: 180px; height: 180px; animation: orbitSpin 12s linear infinite; }
         .planet-mercury {
-            width: 16px;
-            height: 16px;
-            background: 
-                radial-gradient(circle at 30% 25%, #c8c8c8, #a0a0a0 20%, #787878 45%, #505050 70%, #383838);
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 16px; height: 16px; top: -8px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 30% 25%, #c8c8c8, #a0a0a0 20%, #787878 45%, #505050 70%, #383838);
             box-shadow: 0 0 20px rgba(181, 181, 181, 0.03), inset -4px -4px 12px rgba(0,0,0,0.4);
         }
-        .planet-mercury::before {
-            content: '';
-            position: absolute;
-            top: 12%;
-            left: 15%;
-            width: 25%;
-            height: 20%;
-            border-radius: 50%;
-            background: rgba(120, 120, 120, 0.2);
-            filter: blur(1px);
-            box-shadow: 
-                20px 15px 0 3px rgba(100, 100, 100, 0.1),
-                -15px 20px 0 5px rgba(80, 80, 80, 0.08);
-        }
 
-        /* --- VENUS (amarillo con nubes) --- */
-        .orbit-2 {
-            width: 235px;
-            height: 235px;
-            animation: orbitSpin 16s linear infinite reverse;
-        }
+        .orbit-2 { width: 235px; height: 235px; animation: orbitSpin 16s linear infinite reverse; }
         .planet-venus {
-            width: 20px;
-            height: 20px;
-            background: 
-                radial-gradient(circle at 35% 25%, #f5deb3, #e8c98a 20%, #d4a574 40%, #b8926a 65%, #8a6a50);
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 20px; height: 20px; top: -10px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 35% 25%, #f5deb3, #e8c98a 20%, #d4a574 40%, #b8926a 65%, #8a6a50);
             box-shadow: 0 0 30px rgba(212, 165, 116, 0.05), inset -5px -5px 15px rgba(0,0,0,0.3);
         }
-        .planet-venus::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 15%;
-            width: 70%;
-            height: 60%;
-            border-radius: 50%;
-            background: rgba(255, 220, 180, 0.06);
-            filter: blur(3px);
-            box-shadow: 
-                0 15px 0 10px rgba(255, 200, 160, 0.04),
-                0 -15px 0 10px rgba(200, 160, 120, 0.04);
-        }
 
-        /* --- TIERRA (azul con continentes y nubes) --- */
-        .orbit-3 {
-            width: 300px;
-            height: 300px;
-            animation: orbitSpin 20s linear infinite;
-        }
+        .orbit-3 { width: 300px; height: 300px; animation: orbitSpin 20s linear infinite; }
         .planet-earth {
-            width: 22px;
-            height: 22px;
-            background: 
-                radial-gradient(circle at 25% 20%, #4fc3f7, #1a73e8 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
-            top: -11px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 22px; height: 22px; top: -11px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 25% 20%, #4fc3f7, #1a73e8 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
             box-shadow: 0 0 40px rgba(79, 195, 247, 0.06), inset -6px -6px 18px rgba(0,0,0,0.3);
-        }
-        .planet-earth::before {
-            content: '';
-            position: absolute;
-            top: 12%;
-            left: 18%;
-            width: 40%;
-            height: 35%;
-            border-radius: 50%;
-            background: rgba(76, 175, 80, 0.1);
-            filter: blur(1px);
-            box-shadow: 
-                18px 12px 0 6px rgba(76, 175, 80, 0.06),
-                -12px 18px 0 10px rgba(76, 175, 80, 0.04),
-                5px -15px 0 8px rgba(76, 175, 80, 0.05);
         }
         .planet-earth::after {
             content: '🌍';
@@ -425,100 +354,28 @@
             transform: translateX(-50%);
             filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
         }
-        .planet-earth .planet-label {
-            bottom: -24px;
-        }
+        .planet-earth .planet-label { bottom: -24px; }
 
-        /* --- MARTE (rojo oxidado con detalles) --- */
-        .orbit-4 {
-            width: 365px;
-            height: 365px;
-            animation: orbitSpin 24s linear infinite reverse;
-        }
+        .orbit-4 { width: 365px; height: 365px; animation: orbitSpin 24s linear infinite reverse; }
         .planet-mars {
-            width: 19px;
-            height: 19px;
-            background: 
-                radial-gradient(circle at 35% 25%, #ef5350, #c62828 30%, #8e0000 55%, #5a0000 80%, #3a0000);
-            top: -9.5px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 19px; height: 19px; top: -9.5px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 35% 25%, #ef5350, #c62828 30%, #8e0000 55%, #5a0000 80%, #3a0000);
             box-shadow: 0 0 30px rgba(239, 83, 80, 0.03), inset -5px -5px 14px rgba(0,0,0,0.3);
         }
-        .planet-mars::before {
-            content: '';
-            position: absolute;
-            top: 18%;
-            left: 12%;
-            width: 30%;
-            height: 25%;
-            border-radius: 50%;
-            background: rgba(180, 60, 60, 0.1);
-            filter: blur(1px);
-            box-shadow: 
-                15px 20px 0 5px rgba(160, 50, 50, 0.06),
-                -20px 10px 0 8px rgba(140, 40, 40, 0.05);
-        }
 
-        /* --- JÚPITER (bandas de gas realistas) --- */
-        .orbit-5 {
-            width: 450px;
-            height: 450px;
-            animation: orbitSpin 30s linear infinite;
-        }
+        .orbit-5 { width: 450px; height: 450px; animation: orbitSpin 30s linear infinite; }
         .planet-jupiter {
-            width: 36px;
-            height: 36px;
-            background: 
-                radial-gradient(circle at 30% 25%, #ffcc80, #f57c00 35%, #e65100 60%, #bf360c 80%, #8a2400);
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 36px; height: 36px; top: -18px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 30% 25%, #ffcc80, #f57c00 35%, #e65100 60%, #bf360c 80%, #8a2400);
             box-shadow: 0 0 40px rgba(255, 204, 128, 0.03), inset -8px -8px 25px rgba(0,0,0,0.25);
         }
-        .planet-jupiter::before {
-            content: '';
-            position: absolute;
-            top: 15%;
-            left: 0;
-            width: 100%;
-            height: 12%;
-            background: rgba(255, 220, 180, 0.06);
-            filter: blur(2px);
-            box-shadow: 
-                0 10px 0 0 rgba(255, 200, 160, 0.04),
-                0 -10px 0 0 rgba(200, 120, 80, 0.04);
-        }
-        .planet-jupiter::after {
-            content: '';
-            position: absolute;
-            top: 40%;
-            left: 0;
-            width: 100%;
-            height: 8%;
-            background: rgba(200, 100, 60, 0.04);
-            filter: blur(2px);
-            box-shadow: 0 15px 0 0 rgba(180, 80, 50, 0.03);
-        }
 
-        /* --- SATURNO (con anillos realistas 3D) --- */
-        .orbit-6 {
-            width: 535px;
-            height: 535px;
-            animation: orbitSpin 36s linear infinite reverse;
-        }
+        .orbit-6 { width: 535px; height: 535px; animation: orbitSpin 36s linear infinite reverse; }
         .planet-saturn {
-            width: 28px;
-            height: 28px;
-            background: 
-                radial-gradient(circle at 35% 25%, #f5e6c8, #e8d5b0 25%, #d4b896 45%, #b8956a 65%, #8a6a4a 85%, #6a4a2a);
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 28px; height: 28px; top: -14px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 35% 25%, #f5e6c8, #e8d5b0 25%, #d4b896 45%, #b8956a 65%, #8a6a4a 85%, #6a4a2a);
             box-shadow: 0 0 40px rgba(201, 168, 124, 0.03), inset -6px -6px 18px rgba(0,0,0,0.2);
         }
-
-        /* Anillos de Saturno (3D realista) */
         .planet-saturn .ring {
             position: absolute;
             border-radius: 50%;
@@ -533,116 +390,40 @@
                 rgba(201, 168, 124, 0.02) 70%, 
                 transparent 100%);
         }
-        .planet-saturn .ring-1 {
-            width: 65px;
-            height: 10px;
-            border-color: rgba(201, 168, 124, 0.15);
-        }
-        .planet-saturn .ring-2 {
-            width: 76px;
-            height: 12px;
-            border-color: rgba(201, 168, 124, 0.08);
-        }
-        .planet-saturn .ring-3 {
-            width: 88px;
-            height: 14px;
-            border-color: rgba(201, 168, 124, 0.04);
-        }
-        .planet-saturn .ring-4 {
-            width: 50px;
-            height: 8px;
-            border-color: rgba(180, 150, 120, 0.15);
-        }
-        .planet-saturn .ring-5 {
-            width: 42px;
-            height: 6px;
-            border-color: rgba(160, 130, 100, 0.1);
-        }
+        .planet-saturn .ring-1 { width: 65px; height: 10px; border-color: rgba(201, 168, 124, 0.15); }
+        .planet-saturn .ring-2 { width: 76px; height: 12px; border-color: rgba(201, 168, 124, 0.08); }
+        .planet-saturn .ring-3 { width: 88px; height: 14px; border-color: rgba(201, 168, 124, 0.04); }
+        .planet-saturn .ring-4 { width: 50px; height: 8px; border-color: rgba(180, 150, 120, 0.15); }
+        .planet-saturn .ring-5 { width: 42px; height: 6px; border-color: rgba(160, 130, 100, 0.1); }
 
-        /* --- URANO (azul-verde con atmósfera) --- */
-        .orbit-7 {
-            width: 610px;
-            height: 610px;
-            animation: orbitSpin 42s linear infinite;
-        }
+        .orbit-7 { width: 610px; height: 610px; animation: orbitSpin 42s linear infinite; }
         .planet-uranus {
-            width: 24px;
-            height: 24px;
-            background: 
-                radial-gradient(circle at 35% 25%, #80deea, #4dd0e1 25%, #00acc1 50%, #00838f 75%, #005b66);
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 24px; height: 24px; top: -12px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 35% 25%, #80deea, #4dd0e1 25%, #00acc1 50%, #00838f 75%, #005b66);
             box-shadow: 0 0 30px rgba(77, 208, 225, 0.03), inset -5px -5px 15px rgba(0,0,0,0.2);
         }
-        .planet-uranus::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 70%;
-            border-radius: 50%;
-            background: rgba(100, 220, 240, 0.03);
-            filter: blur(3px);
-        }
 
-        /* --- NEPTUNO (azul profundo) --- */
-        .orbit-8 {
-            width: 685px;
-            height: 685px;
-            animation: orbitSpin 48s linear infinite reverse;
-        }
+        .orbit-8 { width: 685px; height: 685px; animation: orbitSpin 48s linear infinite reverse; }
         .planet-neptune {
-            width: 24px;
-            height: 24px;
-            background: 
-                radial-gradient(circle at 30% 25%, #4dd0e1, #1565c0 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 24px; height: 24px; top: -12px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 30% 25%, #4dd0e1, #1565c0 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
             box-shadow: 0 0 40px rgba(77, 208, 225, 0.03), inset -5px -5px 15px rgba(0,0,0,0.25);
         }
-        .planet-neptune::before {
-            content: '';
-            position: absolute;
-            top: 12%;
-            left: 15%;
-            width: 50%;
-            height: 40%;
-            border-radius: 50%;
-            background: rgba(80, 180, 255, 0.04);
-            filter: blur(2px);
-            box-shadow: 0 20px 0 10px rgba(60, 160, 240, 0.02);
-        }
 
-        /* --- PLUTÓN (pequeño y rocoso) --- */
-        .orbit-9 {
-            width: 760px;
-            height: 760px;
-            animation: orbitSpin 56s linear infinite;
-        }
+        .orbit-9 { width: 760px; height: 760px; animation: orbitSpin 56s linear infinite; }
         .planet-pluto {
-            width: 12px;
-            height: 12px;
-            background: 
-                radial-gradient(circle at 35% 25%, #bcaaa4, #8d6e63 30%, #5d4037 55%, #3e2723 80%, #1a0e0a);
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 12px; height: 12px; top: -6px; left: 50%; transform: translateX(-50%);
+            background: radial-gradient(circle at 35% 25%, #bcaaa4, #8d6e63 30%, #5d4037 55%, #3e2723 80%, #1a0e0a);
             box-shadow: 0 0 20px rgba(188, 170, 164, 0.02), inset -3px -3px 8px rgba(0,0,0,0.3);
         }
 
-        /* ============================================================
-           ANIMACIONES DE ÓRBITA
-           ============================================================ */
         @keyframes orbitSpin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* ============================================================
-           TARJETAS (8)
+           TARJETAS INFORMATIVAS (8)
            ============================================================ */
         .cards-grid {
             display: grid;
@@ -654,7 +435,7 @@
         }
 
         .card {
-            background: var(--glass-bg);
+            background: var(--bg-card);
             backdrop-filter: blur(12px) saturate(1.3);
             -webkit-backdrop-filter: blur(12px) saturate(1.3);
             border: 1px solid var(--glass-border);
@@ -730,6 +511,69 @@
         }
 
         /* ============================================================
+           INFO ADICIONAL · TIPO FUNDACIÓN DESCUBRE
+           ============================================================ */
+        .info-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0.5rem auto;
+            padding: 1.2rem;
+            background: rgba(6, 12, 30, 0.4);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            backdrop-filter: blur(8px);
+        }
+
+        .info-section h2 {
+            font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--text-accent);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .info-item {
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 215, 0, 0.02);
+            border-radius: 0.8rem;
+            border: 1px solid rgba(255, 215, 0, 0.03);
+            transition: all 0.3s;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 215, 0, 0.04);
+            border-color: rgba(255, 215, 0, 0.06);
+        }
+
+        .info-item .label {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .info-item .value {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-top: 0.1rem;
+        }
+
+        .info-item .value small {
+            font-weight: 300;
+            color: var(--text-secondary);
+            font-size: 0.6rem;
+        }
+
+        /* ============================================================
            FOOTER
            ============================================================ */
         .footer-cosmic {
@@ -786,6 +630,15 @@
             background-clip: text;
         }
 
+        .footer-credits {
+            font-size: 0.45rem;
+            color: var(--text-secondary);
+            opacity: 0.3;
+            text-align: center;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0;
+        }
+
         /* ============================================================
            RESPONSIVE
            ============================================================ */
@@ -816,6 +669,9 @@
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
+            }
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             .planet-saturn .ring-1 { width: 55px; height: 8px; }
             .planet-saturn .ring-2 { width: 64px; height: 10px; }
@@ -889,6 +745,15 @@
             .card-icon { font-size: 1.1rem; }
             .card-title { font-size: 0.6rem; }
             .card-desc { font-size: 0.45rem; }
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .info-item {
+                padding: 0.4rem 0.6rem;
+            }
+            .info-item .value {
+                font-size: 0.6rem;
+            }
             .badges-row { gap: 0.2rem 0.6rem; }
             .badge-item { font-size: 0.45rem; padding: 0.1rem 0.4rem; }
         }
@@ -900,6 +765,9 @@
             .cards-grid {
                 grid-template-columns: 1fr;
                 max-width: 250px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
             }
             .brand-title {
                 font-size: 0.7rem;
@@ -948,11 +816,12 @@
     <!-- ===== HERO ===== -->
     <main class="hero">
 
-        <!-- ENCABEZADO IMPERIAL -->
+        <!-- ENCABEZADO -->
         <header class="header-brand">
             <span class="logo-c" aria-hidden="true">C</span>
-            <h1 class="brand-title">CSARIEL'S · SISTEMA SOLAR REAL</h1>
+            <h1 class="brand-title">CSARIEL'S · SISTEMA SOLAR</h1>
         </header>
+        <div class="subtitle">🌌 Exploración astronómica · La familia del Sol</div>
 
         <!-- SISTEMA SOLAR REALISTA -->
         <div class="solar-system">
@@ -996,7 +865,7 @@
                 </div>
             </div>
 
-            <!-- SATURNO (CON ANILLOS REALISTAS) -->
+            <!-- SATURNO -->
             <div class="orbit orbit-6">
                 <div class="planet planet-saturn">
                     <span class="ring ring-1"></span>
@@ -1075,6 +944,45 @@
             </div>
         </div>
 
+        <!-- ===== SECCIÓN INFORMATIVA (ESTILO FUNDACIÓN DESCUBRE) ===== -->
+        <div class="info-section">
+            <h2>🔭 Datos astronómicos · La familia del Sol</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">⭐ Estrella central</div>
+                    <div class="value">Sol <small>(tipo G2V)</small></div>
+                </div>
+                <div class="info-item">
+                    <div class="label">🪐 Planetas</div>
+                    <div class="value">8 planetas <small>(4 rocosos + 4 gaseosos)</small></div>
+                </div>
+                <div class="info-item">
+                    <div class="label">🌍 Planetas rocosos</div>
+                    <div class="value">Mercurio · Venus · Tierra · Marte</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">🌀 Planetas gaseosos</div>
+                    <div class="value">Júpiter · Saturno · Urano · Neptuno</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">☄️ Cuerpos menores</div>
+                    <div class="value">Asteroides · Cometas · Meteoros</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">🌌 Planetas enanos</div>
+                    <div class="value">Plutón · Ceres · Eris · Haumea · Makemake</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">📏 Distancia media</div>
+                    <div class="value">149.6 millones km <small>(1 UA)</small></div>
+                </div>
+                <div class="info-item">
+                    <div class="label">🔄 Edad del sistema</div>
+                    <div class="value">4.600 millones de años</div>
+                </div>
+            </div>
+        </div>
+
         <!-- FOOTER -->
         <div class="footer-cosmic">
             <div class="badges-row">
@@ -1086,18 +994,21 @@
             <div class="slogan-final">
                 <strong>UN SOLO UNIVERSO</strong> · TODAS LAS SOLUCIONES · <strong>CSARIEL'S ECOSISTEMA</strong>
             </div>
+            <div class="footer-credits">
+                Con la colaboración de la Fundación Descubre · Ciencia ciudadana · Andalucía + Ciencia
+            </div>
         </div>
 
     </main>
 
     <!-- ============================================================
-    JS VANILLA · EFECTOS REALISTAS
+    JS VANILLA
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
-            // Efecto de brillo aleatorio en planetas (simulando reflejos solares)
+            // Efecto de brillo aleatorio en planetas
             const planets = document.querySelectorAll('.planet');
             if (planets.length) {
                 setInterval(() => {
@@ -1114,7 +1025,7 @@
                 }, 3500);
             }
 
-            // Destello en el Sol (llamarada)
+            // Destello en el Sol
             const sun = document.querySelector('.sun-imperial');
             if (sun) {
                 setInterval(() => {
@@ -1128,7 +1039,7 @@
                 }, 7000);
             }
 
-            // Efecto de rotación para los anillos de Saturno (sutil)
+            // Rotación de anillos de Saturno
             const rings = document.querySelectorAll('.planet-saturn .ring');
             if (rings.length) {
                 let ringAngle = 0;
@@ -1140,12 +1051,11 @@
                 }, 100);
             }
 
-            console.log('🌌 CSARIEL\'S SISTEMA SOLAR REALISTA');
-            console.log('⭐ 9 planetas con texturas detalladas');
-            console.log('🪐 Saturno con anillos 3D realistas');
-            console.log('🌍 Tierra con continentes y nubes');
-            console.log('☀️ Sol con manchas y corona solar');
-            console.log('🚀 "Realismo astronómico para Csariel\'s"');
+            console.log('🌌 CSARIEL\'S SISTEMA SOLAR EDUCATIVO');
+            console.log('⭐ 9 planetas con texturas realistas');
+            console.log('🪐 Saturno con anillos 3D');
+            console.log('📚 Contenido divulgativo estilo Fundación Descubre');
+            console.log('🚀 "Explorando el universo desde Csariel\'s"');
 
         })();
     </script>
