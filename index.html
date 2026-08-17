@@ -2,368 +2,280 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Csariel's · Sistema Solar – Zoom Realista + Galaxia</title>
+  <title>AeroCore OS · Sistema Espacial Integrado & Tienda SpaceX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* -------------------------------------------------
-       VARIABLES DE COLOR Y FUENTE
-       ------------------------------------------------- */
     :root{
-      --bg-space:#010205;
+      --bg-space:#010308;
       --text-primary:#e8f0fe;
-      --text-muted:#7a8aaa;
+      --accent:#00ffcc;
+      --alert:#ff3333;
+      --warning:#ffcc00;
       --gold:#ffd700;
+      --terminal-bg:rgba(2, 6, 15, 0.95);
     }
-
-    /* -------------------------------------------------
-       RESET + BODY
-       ------------------------------------------------- */
     *{margin:0;padding:0;box-sizing:border-box;}
     body{
       background:var(--bg-space);
       overflow:hidden;
-      font-family:'Inter',system-ui,sans-serif;
+      font-family:'Courier New', monospace;
       color:var(--text-primary);
+      width:100vw; height:100vh;
     }
 
-    /* -------------------------------------------------
-       ESTRELLAS DE FONDO (más densas + Vía Láctea)
-       ------------------------------------------------- */
     .stars{
       position:fixed; inset:0;
-      background:
-        radial-gradient(circle at 20% 30%,rgba(255,255,255,.08),transparent 60%),
-        radial-gradient(circle at 78% 70%,rgba(255,255,255,.06),transparent 70%),
-        radial-gradient(circle at 45% 15%,rgba(255,255,255,.04),transparent 50%),
-        radial-gradient(circle at 10% 80%,rgba(255,255,255,.07),transparent 55%),
-        radial-gradient(circle at 90% 20%,rgba(255,255,255,.05),transparent 60%);
-      background-size:400px 400px;
-      opacity:.35;
-      animation:twinkle 8s ease-in-out infinite alternate;
-    }
-    @keyframes twinkle{0%{opacity:.18}50%{opacity:.38}100%{opacity:.22}}
-
-    /* -------------------------------------------------
-       GALAXIA (Vía Láctea y agujero negro)
-       ------------------------------------------------- */
-    .galaxy{
-      position:absolute;
-      inset:0;
+      background:radial-gradient(circle at 15% 25%,rgba(255,255,255,.07),transparent 50%),
+                 radial-gradient(circle at 85% 75%,rgba(255,255,255,.05),transparent 60%);
+      background-size:500px 500px;
+      opacity:.4;
       pointer-events:none;
     }
-    .milky-way{
-      position:absolute;
-      inset:0;
-      background:radial-gradient(ellipse at bottom, rgba(255,255,255,.12), transparent 70%);
-      transform:rotate(135deg) scale(1.2);
-      filter:blur(2px);
-    }
-    .black-hole{
-      position:absolute;
-      top:50%; left:50%;
-      width:30px; height:30px;
-      margin:-15px 0 0 -15px;
-      border-radius:50%;
-      background:radial-gradient(circle, #111 0%, #000 70%);
-      box-shadow:
-        0 0 30px 15px rgba(0,0,0,.9),
-        0 0 60px 30px rgba(0,0,0,.7),
-        0 0 120px 60px rgba(0,0,0,.5);
-      animation:spinBH 12s linear infinite;
-    }
-    @keyframes spinBH{to{transform:rotate(360deg)}}
 
-    /* -------------------------------------------------
-       CONTENEDOR PRINCIPAL + ZOOM
-       ------------------------------------------------- */
     #viewport{
-      position:relative;
-      width:100vw; height:100vh;
-      overflow:hidden;
-      cursor:grab;
+      position:relative; width:100vw; height:100vh; overflow:hidden; cursor:grab;
     }
     #solar{
-      position:absolute;
-      top:50%; left:50%;
+      position:absolute; top:50%; left:50%;
       transform:translate(-50%,-50%) scale(1);
       transform-origin:center;
       transition:transform .1s ease-out;
     }
 
-    /* -------------------------------------------------
-       SOL
-       ------------------------------------------------- */
     .sun{
-      position:absolute;
-      width:180px;height:180px;
-      top:50%; left:50%;
-      margin:-90px 0 0 -90px;
-      border-radius:50%;
+      position:absolute; width:180px; height:180px; top:50%; left:50%;
+      margin:-90px 0 0 -90px; border-radius:50%;
       background:url('https://www.solarsystemscope.com/textures/download/2k_sun.jpg') center/cover;
-      box-shadow:0 0 120px rgba(255,215,0,.4),0 0 300px rgba(255,140,0,.2);
+      box-shadow:0 0 120px rgba(255,215,0,.3);
     }
-
-    /* -------------------------------------------------
-       ORBITAS
-       ------------------------------------------------- */
     .orbit{
-      position:absolute;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:50%;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
+      position:absolute; border:1px solid rgba(255,255,255,.06);
+      border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%);
     }
-
-    /* -------------------------------------------------
-       PLANETAS (textura de alta resolución)
-       ------------------------------------------------- */
     .planet{
-      position:absolute;
-      border-radius:50%;
-      cursor:pointer;
-      transform-origin:center;
-      transition:transform .3s;
+      position:absolute; border-radius:50%; cursor:pointer;
+      transform-origin:center; transition:transform .3s;
     }
     .planet:hover{transform:scale(1.4);z-index:5;}
+    
+    .mercury{width:10px;height:10px;background:url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover;animation:orbitM 4s linear infinite;}
+    @keyframes orbitM{from{transform:rotate(0deg) translateX(55px) rotate(0deg);}to{transform:rotate(360deg) translateX(55px) rotate(-360deg);}}
+    .venus{width:18px;height:18px;background:url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover;animation:orbitV 7s linear infinite;}
+    @keyframes orbitV{from{transform:rotate(0deg) translateX(85px) rotate(0deg);}to{transform:rotate(360deg) translateX(85px) rotate(-360deg);}}
+    .earth{width:20px;height:20px;background:url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover;animation:orbitE 10s linear infinite;}
+    @keyframes orbitE{from{transform:rotate(0deg) translateX(115px) rotate(0deg);}to{transform:rotate(360deg) translateX(115px) rotate(-360deg);}}
+    .mars{width:16px;height:16px;background:url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover;animation:orbitMa 15s linear infinite;}
+    @keyframes orbitMa{from{transform:rotate(0deg) translateX(150px) rotate(0deg);}to{transform:rotate(360deg) translateX(150px) rotate(-360deg);}}
+    .jupiter{width:36px;height:36px;background:url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover;animation:orbitJu 20s linear infinite;}
+    @keyframes orbitJu{from{transform:rotate(0deg) translateX(200px) rotate(0deg);}to{transform:rotate(360deg) translateX(200px) rotate(-360deg);}}
+    .saturn{width:34px;height:34px;background:url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover;animation:orbitSa 30s linear infinite;}
+    @keyframes orbitSa{from{transform:rotate(0deg) translateX(260px) rotate(0deg);}to{transform:rotate(360deg) translateX(260px) rotate(-360deg);}}
+    .saturn::before{content:'';position:absolute;inset:-8px;border:3px solid rgba(255,215,0,.4);border-radius:50%;transform:rotateX(55deg);}
+    .uranus{width:28px;height:28px;background:url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover;animation:orbitU 35s linear infinite;}
+    @keyframes orbitU{from{transform:rotate(0deg) translateX(310px) rotate(0deg);}to{transform:rotate(360deg) translateX(310px) rotate(-360deg);}}
+    .neptune{width:26px;height:26px;background:url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover;animation:orbitN 45s linear infinite;}
+    @keyframes orbitN{from{transform:rotate(0deg) translateX(360px) rotate(0deg);}to{transform:rotate(360deg) translateX(360px) rotate(-360deg);}}
 
-    /* ----- MERCURIO ----- */
-    .mercury{
-      width:10px;height:10px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover;
-      animation:orbitM 4s linear infinite;
-    }
-    @keyframes orbitM{from{transform:rotate(0deg) translateX(55px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(55px) rotate(-360deg);}}
-    /* ----- VENUS ----- */
-    .venus{
-      width:18px;height:18px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover;
-      animation:orbitV 7s linear infinite;
-    }
-    @keyframes orbitV{from{transform:rotate(0deg) translateX(85px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(85px) rotate(-360deg);}}
-    /* ----- TIERRA ----- */
-    .earth{
-      width:20px;height:20px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover;
-      animation:orbitE 10s linear infinite;
-    }
-    @keyframes orbitE{from{transform:rotate(0deg) translateX(115px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(115px) rotate(-360deg);}}
-    .moon{
-      width:6px;height:6px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_moon.jpg') center/cover;
-      animation:orbitMoon 2s linear infinite;
-    }
-    @keyframes orbitMoon{from{transform:rotate(0deg) translateX(30px) rotate(0deg);}
-                         to{transform:rotate(360deg) translateX(30px) rotate(-360deg);}}
-    /* ----- MARTE ----- */
-    .mars{
-      width:16px;height:16px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover;
-      animation:orbitMa 15s linear infinite;
-    }
-    @keyframes orbitMa{from{transform:rotate(0deg) translateX(150px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(150px) rotate(-360deg);}}
-    /* ----- JUPITER ----- */
-    .jupiter{
-      width:36px;height:36px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover;
-      animation:orbitJu 20s linear infinite;
-    }
-    @keyframes orbitJu{from{transform:rotate(0deg) translateX(200px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(200px) rotate(-360deg);}}
-    /* ----- SATURNO ----- */
-    .saturn{
-      width:34px;height:34px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover;
-      animation:orbitSa 30s linear infinite;
-    }
-    @keyframes orbitSa{from{transform:rotate(0deg) translateX(260px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(260px) rotate(-360deg);}}
-    .saturn::before{
-      content:'';
-      position:absolute;
-      inset:-8px;
-      border:3px solid rgba(255,215,0,.4);
-      border-radius:50%;
-      transform:rotateX(55deg);
-    }
-    /* ----- URANO ----- */
-    .uranus{
-      width:28px;height:28px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover;
-      animation:orbitU 35s linear infinite;
-    }
-    @keyframes orbitU{from{transform:rotate(0deg) translateX(310px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(310px) rotate(-360deg);}}
-    /* ----- NEPTUNO ----- */
-    .neptune{
-      width:26px;height:26px;
-      background:url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover;
-      animation:orbitN 45s linear infinite;
-    }
-    @keyframes orbitN{from{transform:rotate(0deg) translateX(360px) rotate(0deg);}
-                     to{transform:rotate(360deg) translateX(360px) rotate(-360deg);}}
-
-    /* -------------------------------------------------
-       TOOLTIP (información rápida)
-       ------------------------------------------------- */
     .tooltip{
-      position:absolute;
-      padding:.4rem .6rem;
-      background:rgba(0,0,0,.7);
-      border-radius:4px;
-      font-size:.75rem;
-      pointer-events:none;
-      opacity:0;
-      transition:opacity .2s;
+      position:absolute; padding:.3rem .5rem; background:rgba(0,0,0,.9);
+      border:1px solid rgba(0,255,204,.3); border-radius:3px;
+      font-size:.7rem; pointer-events:none; opacity:0; transition:opacity .2s;
+      white-space:pre-line; z-index:100;
     }
 
-    /* -------------------------------------------------
-       CONTROLES DE ZOOM
-       ------------------------------------------------- */
+    /* PANELES DE HUD Y TERMINAL */
+    #hud-panel{
+      position:fixed; bottom:1rem; left:1rem; width:450px;
+      background:var(--terminal-bg); border:1px solid rgba(0, 255, 204, 0.4);
+      border-radius:6px; padding:1rem; z-index:20; backdrop-filter:blur(8px);
+      max-height: 94vh; overflow-y: auto;
+    }
+    #hud-panel h3{ font-size:0.85rem; color:var(--accent); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:1.5px;}
+    
+    .shop-section{
+      background:rgba(0,255,204,0.03); border:1px dashed rgba(0,255,204,0.2);
+      border-radius:4px; padding:8px; margin-bottom:8px; font-size:0.7rem;
+    }
+    .shop-section h4{ color:var(--gold); margin-bottom:4px; font-size:0.75rem; display:flex; justify-content:space-between; }
+    
+    .control-group{ margin-bottom:.4rem; font-size:0.7rem; }
+    .control-group label{ display:flex; justify-content:space-between; margin-bottom:.1rem; color:#8ab4f8; }
+    .control-group select, .control-group input, .control-group button.buy-btn {
+      width:100%; background:#000; color:#fff; border:1px solid rgba(255,255,255,0.2);
+      padding:4px; border-radius:3px; font-family:inherit; cursor:pointer;
+    }
+    .buy-btn:hover { background:rgba(0,255,204,0.2); border-color:var(--accent); }
+
+    .telemetry-grid{
+      display:grid; grid-template-columns: 1fr 1fr; gap:4px; font-size:0.7rem;
+      background:rgba(0,0,0,0.6); padding:8px; border-radius:4px; margin-bottom:8px;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+    .telemetry-item span { color: var(--accent); font-weight: bold; }
+    
+    /* TERMINAL DE CÓDIGO AVANZADO */
+    .terminal-box{
+      background:#000; border:1px solid rgba(0,255,204,0.3);
+      border-radius:4px; padding:8px; font-size:0.65rem; height:110px; overflow-y:auto;
+      color:var(--accent); font-family:monospace; margin-bottom:8px;
+    }
+    .terminal-input-row{
+      display:flex; gap:4px; margin-bottom:8px;
+    }
+    .terminal-input-row input{
+      flex:1; background:#000; border:1px solid rgba(0,255,204,0.3); color:#fff;
+      padding:4px; font-family:monospace; font-size:0.7rem; border-radius:3px;
+    }
+    .terminal-input-row button{
+      background:rgba(0,255,204,0.2); border:1px solid var(--accent); color:var(--accent);
+      padding:4px 8px; font-family:monospace; font-size:0.7rem; cursor:pointer; border-radius:3px;
+    }
+    .terminal-input-row button:hover{ background:rgba(0,255,204,0.4); color:#fff; }
+
+    .hud-btn{
+      width:100%; background:rgba(0,255,204,0.2); border:1px solid var(--accent);
+      color:var(--accent); padding:.45rem; font-weight:bold; border-radius:4px; cursor:pointer;
+      font-family:inherit; text-transform:uppercase; font-size:0.75rem; letter-spacing:1px;
+    }
+    .hud-btn:hover{ background:rgba(0,255,204,0.4); color:#fff; }
+
     #controls{
-      position:fixed;
-      top:1rem; right:1rem;
-      display:flex; flex-direction:column; gap:.5rem;
-      z-index:10;
+      position:fixed; top:1rem; right:1rem; display:flex; flex-direction:column; gap:.5rem; z-index:10;
     }
     #controls button{
-      background:rgba(255,255,255,.1);
-      border:none; color:#fff;
-      padding:.5rem .8rem;
-      font-size:1rem; cursor:pointer;
-      border-radius:4px;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,0.15); color:#fff;
+      padding:.5rem .8rem; font-size:1rem; cursor:pointer; border-radius:4px;
     }
-    #controls button:hover{background:rgba(255,255,255,.3);}
-
-    /* -------------------------------------------------
-       CONSTELACIONES ZODIACALES (SVG)
-       ------------------------------------------------- */
-    .constellation{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-    }
-    .constellation line{
-      stroke:rgba(255,215,0,.5);
-      stroke-width:1.2;
-      stroke-dasharray:4 2;
-    }
+    #controls button:hover{background:rgba(255,255,255,.2);}
   </style>
 </head>
 <body>
 
 <div class="stars"></div>
 
-<!-- GALAXIA -->
-<div class="galaxy">
-  <div class="milky-way"></div>
-  <div class="black-hole"></div>
-</div>
-
 <div id="viewport">
   <div id="solar">
-
-    <!-- Sol -->
     <div class="sun"></div>
+    <div class="orbit" style="width:110px;height:110px;"></div>
+    <div class="orbit" style="width:170px;height:170px;"></div>
+    <div class="orbit" style="width:230px;height:230px;"></div>
+    <div class="orbit" style="width:300px;height:300px;"></div>
+    <div class="orbit" style="width:400px;height:400px;"></div>
+    <div class="orbit" style="width:520px;height:520px;"></div>
+    <div class="orbit" style="width:620px;height:620px;"></div>
+    <div class="orbit" style="width:720px;height:720px;"></div>
 
-    <!-- Órbitas visuales -->
-    <div class="orbit" style="width:110px;height:110px;"></div><!-- Mercurio -->
-    <div class="orbit" style="width:170px;height:170px;"></div><!-- Venus -->
-    <div class="orbit" style="width:230px;height:230px;"></div><!-- Tierra -->
-    <div class="orbit" style="width:300px;height:300px;"></div><!-- Marte -->
-    <div class="orbit" style="width:400px;height:400px;"></div><!-- Júpiter -->
-    <div class="orbit" style="width:520px;height:520px;"></div><!-- Saturno -->
-    <div class="orbit" style="width:620px;height:620px;"></div><!-- Urano -->
-    <div class="orbit" style="width:720px;height:720px;"></div><!-- Neptuno -->
+    <div class="planet mercury" data-info="Mercurio"></div>
+    <div class="planet venus" data-info="Venus"></div>
+    <div class="planet earth" data-info="Tierra"></div>
+    <div class="planet mars" data-info="Marte"></div>
+    <div class="planet jupiter" data-info="Júpiter"></div>
+    <div class="planet saturn" data-info="Saturno"></div>
+    <div class="planet uranus" data-info="Urano"></div>
+    <div class="planet neptune" data-info="Neptuno"></div>
 
-    <!-- PLANETAS -->
-    <div class="planet mercury"   data-info="Mercurio|Masa: 3.30 ×10⁻³ M⊕|Radio: 2 375 km|Periodo orbital: 88 días"></div>
-    <div class="planet venus"     data-info="Venus|Masa: 0.815 M⊕|Radio: 6 052 km|Periodo orbital: 225 días"></div>
-
-    <div class="planet earth" data-info="Tierra|Masa: 1 M⊕|Radio: 6 371 km|Periodo orbital: 365 días">
-      <div class="planet moon" data-info="Luna|Masa: 7.35 ×10⁻³ M⊕|Radio: 1 737 km|Periodo orbital: 27 días"></div>
-    </div>
-
-    <div class="planet mars"     data-info="Marte|Masa: 0.107 M⊕|Radio: 3 390 km|Periodo orbital: 687 días"></div>
-    <div class="planet jupiter"  data-info="Júpiter|Masa: 317.8 M⊕|Radio: 69 911 km|Periodo orbital: 12 años"></div>
-    <div class="planet saturn"   data-info="Saturno|Masa: 95.2 M⊕|Radio: 58 232 km|Periodo orbital: 29 años"></div>
-    <div class="planet uranus"   data-info="Urano|Masa: 14.5 M⊕|Radio: 25 362 km|Periodo orbital: 84 años"></div>
-    <div class="planet neptune"  data-info="Neptuno|Masa: 17.1 M⊕|Radio: 24 622 km|Periodo orbital: 165 años"></div>
-
-    <!-- Tooltip -->
     <div id="tooltip" class="tooltip"></div>
   </div>
 </div>
 
-<!-- CONTROLES DE ZOOM -->
+<!-- PANEL DE CONTROL / TIENDA & TERMINAL AEROCORE_OS -->
+<div id="hud-panel">
+  <h3>Tienda SpaceX · Arsenal & AeroCore_OS</h3>
+  
+  <div class="shop-section">
+    <h4><span>Personaliza tu Cohete ("Corazón")</span> <span id="budgetDisplay" style="color:var(--gold);">Créditos: $25,000</span></h4>
+    
+    <div class="control-group">
+      <label>1. Fuselaje & Componentes:</label>
+      <select id="shopMaterial">
+        <option value="steel">Motor Corazón + Acero 301 ($4,000)</option>
+        <option value="carbon">Motor Corazón + Fibra de Carbono ($6,500)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>2. Compresor de Caracol (Voluta Superior):</label>
+      <select id="shopCaracol">
+        <option value="dual">Compresor Etapa Dual (Atmosférico + Vacío) ($2,500)</option>
+        <option value="standard">Estándar ($1,000)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>3. Kit Neural & Soporte de Vida (NVIDIA Jetson):</label>
+      <select id="shopNeural">
+        <option value="full">Traje Bio-Sync + Filtro Cognitivo + Sentinel Cardíaco ($5,000)</option>
+        <option value="basic">Solo Telemetría Básica ($1,500)</option>
+      </select>
+    </div>
+
+    <button class="buy-btn" id="equipBtn">Ensamblar y Cargar Componentes</button>
+  </div>
+
+  <h3>Telemetría & Estado de Vuelo</h3>
+  <div class="telemetry-grid">
+    <div class="telemetry-item">Alt: <span id="rAlt">0</span> m</div>
+    <div class="telemetry-item">Vel: <span id="rVel">0</span> m/s</div>
+    <div class="telemetry-item">Caracol: <span id="rCaracol">STANDBY</span></div>
+    <div class="telemetry-item">Estado: <span id="rStatus" style="color:var(--accent);">STANDBY</span></div>
+  </div>
+
+  <h3>AeroCore_OS · Terminal Avanzada</h3>
+  <div class="terminal-box" id="terminalBox">
+    root@AeroCore_Assembly:~# system_init --status=ready
+    > Kernel cargado. Escribe comandos abajo o usa 'help'.
+  </div>
+  <div class="terminal-input-row">
+    <input type="text" id="terminalInput" placeholder="Ej. list_hardware, run_integrity_check...">
+    <button id="terminalSend">Exec</button>
+  </div>
+
+  <button class="hud-btn" id="launchBtn">Iniciar Lanzamiento AeroCore</button>
+</div>
+
 <div id="controls">
   <button id="zoomIn">+</button>
   <button id="zoomOut">‑</button>
 </div>
 
-<!-- CONSTELACIONES ZODIACALES (SVG) -->
-<svg class="constellation">
-  <!-- Ejemplo: Aries -->
-  <line x1="400" y1="100" x2="420" y2="130"></line>
-  <line x1="420" y1="130" x2="440" y2="120"></line>
-  <line x1="440" y1="120" x2="460" y2="150"></line>
-  <!-- (Puedes añadir aquí los demás patrones) -->
-</svg>
-
 <script>
-/* ==================== ZOOM & PAN ==================== */
 const viewport = document.getElementById('viewport');
-const solar     = document.getElementById('solar');
+const solar = document.getElementById('solar');
 let scale = 1;
-const minScale = 0.4;
-const maxScale = 4;
 
 function setScale(s){
-  scale = Math.min(maxScale, Math.max(minScale, s));
+  scale = Math.min(4, Math.max(0.4, s));
   solar.style.transform = `translate(-50%,-50%) scale(${scale})`;
 }
 document.getElementById('zoomIn').onclick = () => setScale(scale*1.2);
 document.getElementById('zoomOut').onclick = () => setScale(scale/1.2);
 
-// Rueda del ratón
 viewport.addEventListener('wheel', e=>{
   e.preventDefault();
-  const delta = e.deltaY < 0 ? 1.15 : 0.85;
-  setScale(scale*delta);
+  setScale(e.deltaY < 0 ? scale*1.15 : scale*0.85);
 });
 
-// ==================== TOOLTIP ==================== */
 const tooltip = document.getElementById('tooltip');
 document.querySelectorAll('.planet').forEach(p=>{
-  p.addEventListener('mouseenter', e=>{
-    const [name, ...info] = p.dataset.info.split('|');
-    tooltip.textContent = `${name}\n${info.join('\n')}`;
+  p.addEventListener('mouseenter', ()=>{
+    tooltip.textContent = p.dataset.info;
     tooltip.style.opacity = 1;
   });
   p.addEventListener('mousemove', e=>{
     const rect = viewport.getBoundingClientRect();
-    tooltip.style.left = `${e.clientX - rect.left + 10}px`px`;
-    tooltip.style.top = `${e.clientY - rect.top + 10}px`;
+    tooltip.style.left = `${e.clientX - rect.left + 15}px`;
+    tooltip.style.top = `${e.clientY - rect.top + 15}px`;
   });
-  p.addEventListener('mouseleave', () => {
-    tooltip.style.opacity = 0;
-  });
+  p.addEventListener('mouseleave', () => tooltip.style.opacity = 0);
 });
 
-// ==================== INTERACCIÓN DE ARRASTRE (PAN) ==================== */
-let isDragging = false;
-let startX, startY, translateX = 0, translateY = 0;
-
+let isDragging = false, startX, startY, translateX = 0, translateY = 0;
 viewport.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - translateX;
   startY = e.clientY - translateY;
   viewport.style.cursor = 'grabbing';
 });
-
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
   translateX = e.clientX - startX;
@@ -371,11 +283,147 @@ window.addEventListener('mousemove', e => {
   solar.style.left = `calc(50% + ${translateX}px)`;
   solar.style.top = `calc(50% + ${translateY}px)`;
 });
-
 window.addEventListener('mouseup', () => {
   isDragging = false;
   viewport.style.cursor = 'grab';
 });
+
+// --- SISTEMA TERMINAL Y TIENDA ---
+const shopMaterial = document.getElementById('shopMaterial');
+const shopCaracol = document.getElementById('shopCaracol');
+const shopNeural = document.getElementById('shopNeural');
+const equipBtn = document.getElementById('equipBtn');
+const budgetDisplay = document.getElementById('budgetDisplay');
+
+const rAlt = document.getElementById('rAlt');
+const rVel = document.getElementById('rVel');
+const rCaracol = document.getElementById('rCaracol');
+const rStatus = document.getElementById('rStatus');
+const terminalBox = document.getElementById('terminalBox');
+const terminalInput = document.getElementById('terminalInput');
+const terminalSend = document.getElementById('terminalSend');
+const launchBtn = document.getElementById('launchBtn');
+
+let credits = 25000;
+let currentConfig = { material: 'steel', caracol: 'dual', neural: 'full' };
+
+function logTerminal(msg, type = 'info') {
+  let color = 'var(--accent)';
+  if(type === 'error') color = 'var(--alert)';
+  if(type === 'warning') color = 'var(--warning)';
+  terminalBox.innerHTML += `<br><span style="color:${color}">${msg}</span>`;
+  terminalBox.scrollTop = terminalBox.scrollHeight;
+}
+
+// Procesador de comandos de la terminal
+function handleCommand(cmd) {
+  let cleanCmd = cmd.trim().toLowerCase();
+  logTerminal(`root@AeroCore_Assembly:~# ${cmd}`);
+
+  if (cleanCmd === 'help') {
+    logTerminal('Comandos disponibles:');
+    logTerminal('  list_hardware          - Muestra componentes instalados');
+    logTerminal('  run_integrity_check    - Verifica voltajes y presiones');
+    logTerminal('  set_cognitive_filter   - Activa purga de impulsos carnales');
+    logTerminal('  status                 - Estado actual del sistema');
+  } else if (cleanCmd === 'list_hardware') {
+    logTerminal(`> Hardware Activo: Fuselaje [${currentConfig.material}], Caracol [${currentConfig.caracol}], Neural [${currentConfig.neural}]`);
+  } else if (cleanCmd === 'run_integrity_check') {
+    logTerminal(`> Verificando sensores NVIDIA Jetson... [OK]`);
+    logTerminal(`> Estado de voluta de caracol... [ÓPTIMO]`);
+    logTerminal(`> Integridad estructural... [100%]`);
+  } else if (cleanCmd === 'set_cognitive_filter') {
+    logTerminal(`> [PURGE_COMPLETE]: Filtro de pureza cognitiva activo. Impulsos carnales y shock neutralizados.`);
+  } else if (cleanCmd === 'status') {
+    logTerminal(`> Sistema operando con normalidad. Listo para ignición.`);
+  } else {
+    logTerminal(`Comando no reconocido: "${cmd}". Escribe 'help' para ver comandos.`, 'error');
+  }
+}
+
+terminalSend.onclick = () => {
+  if(!terminalInput.value) return;
+  handleCommand(terminalInput.value);
+  terminalInput.value = '';
+};
+terminalInput.addEventListener('keypress', e => {
+  if(e.key === 'Enter') {
+    terminalSend.click();
+  }
+});
+
+equipBtn.onclick = () => {
+  let cost = 0;
+  if(shopMaterial.value === 'steel') cost += 4000; else cost += 6500;
+  if(shopCaracol.value === 'dual') cost += 2500; else cost += 1000;
+  if(shopNeural.value === 'full') cost += 5000; else cost += 1500;
+
+  if (credits < cost) {
+    logTerminal(`[Error Tienda] Créditos insuficientes. Requieres $${cost}`, 'error');
+    return;
+  }
+
+  credits -= cost;
+  budgetDisplay.textContent = `Créditos: $${credits}`;
+  currentConfig = { material: shopMaterial.value, caracol: shopCaracol.value, neural: shopNeural.value };
+  
+  logTerminal(`[Tienda] Ensamblaje registrado con éxito. Costo: $${cost}.`, 'info');
+};
+
+let flightInterval = null;
+let flying = false;
+
+launchBtn.onclick = () => {
+  if (flying) return;
+  flying = true;
+
+  let altitude = 0;
+  let velocity = 0;
+  let mass = 1500;
+  let fuel = 1000;
+
+  rStatus.textContent = "IGNICIÓN";
+  rStatus.style.color = "var(--warning)";
+  rCaracol.textContent = "COMPRIMIENDO AIRE";
+  logTerminal(`[Ignición] Despegue iniciado. Compresor de caracol succionando atmósfera...`);
+
+  if (flightInterval) clearInterval(flightInterval);
+
+  flightInterval = setInterval(() => {
+    let airDensity = Math.exp(-altitude / 7500);
+
+    if (fuel > 0) {
+      fuel -= 5;
+      let thrust = 6000; // Empuje optimizado por el motor Corazón
+      let drag = 0.0003 * airDensity * (velocity * velocity);
+      let acceleration = (thrust / mass) - 9.81 - drag;
+      velocity += Math.max(-5, acceleration);
+    } else {
+      velocity -= 9.81;
+    }
+
+    altitude += velocity * 0.2;
+
+    if (altitude > 25000 && airDensity < 0.05) {
+      rCaracol.textContent = "MODO VACÍO (TURBO)";
+    }
+
+    if (altitude <= 0) {
+      altitude = 0;
+      velocity = 0;
+      rStatus.textContent = "ATERRIZAJE OK";
+      rStatus.style.color = "var(--accent)";
+      rCaracol.textContent = "STANDBY";
+      logTerminal(`[Éxito] Aterrizaje de booster completado con éxito.`, 'info');
+      flying = false;
+      clearInterval(flightInterval);
+      return;
+    }
+
+    rAlt.textContent = Math.floor(altitude);
+    rVel.textContent = Math.floor(velocity);
+  }, 100);
+};
 </script>
 </body>
 </html>
