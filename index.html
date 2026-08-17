@@ -4,24 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Csariel's Ecosistema · Web3</title>
-  <!-- CSS inline (todo en el mismo archivo por claridad) -->
   <style>
-    /* ===== VARIABLES CSS (paleta exacta) ===== */
+    /* ===== VARIABLES CSS ===== */
     :root {
       --color-bg-start: #02060f;
       --color-bg-end: #0a1220;
-      --color-gold: #d4a373;        /* dorado metálico exacto */
+      --color-gold: #d4a373;
       --color-gold-light: #eac394;
-      --color-green: #2ee6a6;       /* verde neón/menta */
-      --color-green-dim: rgba(46, 230, 166, 0.12);
-      --glass-bg: rgba(8, 18, 34, 0.55);
-      --glass-border: rgba(212, 163, 115, 0.35);
+      --color-green: #2ee6a6;
+      --glass-bg: rgba(8, 18, 34, 0.65);
+      --glass-border: rgba(212, 163, 115, 0.3);
       --text-light: #eef2f8;
       --text-muted: #9bb0c7;
-      --shadow-glow: 0 8px 32px rgba(46, 230, 166, 0.08);
     }
 
-    /* ===== RESET / BASE ===== */
+    /* ===== RESET ===== */
     * {
       margin: 0;
       padding: 0;
@@ -31,120 +28,217 @@
     body {
       background: radial-gradient(ellipse at 30% 40%, #0a1a2e, var(--color-bg-start) 80%);
       min-height: 100vh;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       color: var(--text-light);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
+      padding: 0.5rem;
+      overflow-x: hidden;
     }
 
-    /* contenedor principal del hero */
+    /* ===== FONDO ESTRELLAS ===== */
+    .stars-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+        radial-gradient(2px 2px at 40% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 10% 90%, #fff, transparent),
+        radial-gradient(2px 2px at 60% 50%, #fff, transparent),
+        radial-gradient(1px 1px at 85% 40%, #fff, transparent);
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      opacity: 0.25;
+      z-index: 0;
+    }
+
     .hero {
-      max-width: 1440px;
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
-      position: relative;
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 1.5rem 0.5rem 0.5rem;
     }
 
-    /* ===== ENCABEZADO: logo + título ===== */
+    /* ===== ENCABEZADO ===== */
     .header-brand {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      margin-bottom: 1.8rem;
-      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
     }
 
     .logo-c {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 46px;
-      height: 46px;
+      width: 42px;
+      height: 42px;
       background: var(--color-gold);
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
       color: #0a1220;
       font-weight: 700;
-      font-size: 1.9rem;
-      line-height: 1;
-      box-shadow: 0 0 12px rgba(212, 163, 115, 0.3);
-      transform: rotate(0deg);
-      transition: transform 0.2s;
-    }
-    .logo-c:hover {
-      transform: rotate(90deg) scale(1.02);
+      font-size: 1.7rem;
+      box-shadow: 0 0 20px rgba(212, 163, 115, 0.3);
     }
 
     .brand-title {
       font-weight: 500;
       letter-spacing: 0.06em;
-      font-size: clamp(0.95rem, 3vw, 1.6rem);
+      font-size: clamp(0.85rem, 2.5vw, 1.4rem);
       background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 20px rgba(212, 163, 115, 0.2);
-    }
-    .brand-title span {
-      font-weight: 300;
-      -webkit-text-fill-color: var(--text-muted);
-      background: none;
     }
 
-    /* ===== CONTENEDOR PLANETA + TARJETAS (layout grid) ===== */
-    .cosmic-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-rows: auto;
-      gap: 0.5rem 1rem;
+    /* ===== CONTENEDOR PRINCIPAL (vertical, como en la imagen) ===== */
+    .main-content {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-items: center;
       width: 100%;
-      margin: 0.5rem 0 1.2rem;
+      gap: 1.2rem;
     }
 
-    /* ===== PLANETA (centro) ===== */
+    /* ===== FILA SUPERIOR: 4 tarjetas izquierda + planeta + 4 tarjetas derecha ===== */
+    .row-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    /* ===== COLUMNAS DE TARJETAS ===== */
+    .cards-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .cards-col.left {
+      align-items: flex-end;
+    }
+
+    .cards-col.right {
+      align-items: flex-start;
+    }
+
+    /* ===== TARJETA (estilo vertical como en la imagen) ===== */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) saturate(1.2);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.2rem 0.4rem 1.2rem 0.4rem;
+      padding: 0.7rem 1rem;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, box-shadow 0.3s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.1rem;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-gold);
+      box-shadow: 0 8px 30px rgba(46, 230, 166, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .card-icon {
+      font-size: 1.3rem;
+      line-height: 1;
+      color: var(--color-green);
+      filter: drop-shadow(0 0 6px rgba(46, 230, 166, 0.2));
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #f0f4fa;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .card-desc {
+      font-size: 0.6rem;
+      opacity: 0.75;
+      color: var(--text-muted);
+      line-height: 1.2;
+      margin-top: 0.1rem;
+      padding-left: 0.1rem;
+    }
+
+    .badge-live {
+      background: #e33535;
+      color: white;
+      font-size: 0.45rem;
+      font-weight: 700;
+      padding: 0.05rem 0.4rem;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      display: inline-block;
+      margin-left: 0.2rem;
+      vertical-align: middle;
+    }
+
+    /* ===== PLANETA (centro, sin dedo) ===== */
     .planet-wrapper {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 180px;
-      height: 180px;
-      z-index: 10;
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+      margin: 0 0.2rem;
     }
 
-    /* planeta animado: rotación lenta */
     .planet {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #2b4b6a, #07121f 80%);
-      box-shadow: 0 0 60px rgba(46, 230, 166, 0.2), 0 0 120px rgba(46, 230, 166, 0.1), inset 0 -8px 30px rgba(0,0,0,0.7);
+      box-shadow: 0 0 60px rgba(46, 230, 166, 0.15), 0 0 120px rgba(46, 230, 166, 0.05);
+      animation: spinPlanet 25s linear infinite;
+      border: 1px solid rgba(212, 163, 115, 0.15);
       position: relative;
-      animation: spinPlanet 22s linear infinite;
-      border: 1px solid rgba(212, 163, 115, 0.2);
-      overflow: visible;
     }
 
-    /* continentes simulados (para dar textura) */
     .planet::before {
       content: '';
       position: absolute;
-      inset: 8%;
+      inset: 10%;
       border-radius: 50%;
-      background: radial-gradient(circle at 65% 40%, rgba(46, 230, 166, 0.08) 0%, transparent 60%),
-                  radial-gradient(circle at 25% 70%, rgba(212, 163, 115, 0.10) 0%, transparent 50%);
+      background: radial-gradient(circle at 65% 40%, rgba(46, 230, 166, 0.06) 0%, transparent 60%),
+                  radial-gradient(circle at 25% 70%, rgba(212, 163, 115, 0.08) 0%, transparent 50%);
       filter: blur(2px);
     }
 
@@ -153,28 +247,27 @@
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle at 70% 20%, rgba(212, 163, 115, 0.12) 0%, transparent 50%),
-                  radial-gradient(circle at 20% 80%, rgba(46, 230, 166, 0.08) 0%, transparent 45%);
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
+      background: radial-gradient(circle at 70% 20%, rgba(212, 163, 115, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(46, 230, 166, 0.05) 0%, transparent 45%);
     }
 
-    /* punto de luz central (pulso) */
+    /* ===== PUNTO DE LUZ CENTRAL (sin dedo) ===== */
     .core-glow {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, #f5d79b, #d4a373 40%, transparent 70%);
       border-radius: 50%;
-      box-shadow: 0 0 40px #d4a373, 0 0 80px rgba(212, 163, 115, 0.5);
+      box-shadow: 0 0 40px #d4a373, 0 0 80px rgba(212, 163, 115, 0.3);
       animation: pulseGlow 2.6s ease-in-out infinite;
-      z-index: 5;
       pointer-events: none;
+      z-index: 5;
     }
 
-    /* líneas doradas tipo constelación (SVG de fondo) */
+    /* ===== LÍNEAS DE CONSTELACIÓN (SVG) ===== */
     .constellation-lines {
       position: absolute;
       top: 0;
@@ -183,144 +276,54 @@
       height: 100%;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.7;
+      opacity: 0.5;
     }
 
-    /* ===== TARJETAS (glassmorphism) ===== */
-    .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px) saturate(1.2);
-      -webkit-backdrop-filter: blur(10px) saturate(1.2);
-      border: 1px solid var(--glass-border);
-      border-radius: 1.8rem 0.8rem 1.8rem 0.8rem;
-      padding: 1rem 0.9rem;
+    /* ===== FILA INFERIOR: 4 sellos + texto ===== */
+    .row-bottom {
       width: 100%;
-      max-width: 190px;
-      box-shadow: var(--shadow-glow), 0 4px 16px rgba(0,0,0,0.3);
-      transition: transform 0.25s ease, box-shadow 0.3s, border-color 0.2s;
-      color: var(--text-light);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    .card:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: var(--color-gold);
-      box-shadow: 0 12px 40px rgba(46, 230, 166, 0.12), 0 0 20px rgba(212, 163, 115, 0.1);
-    }
-
-    .card-icon {
-      font-size: 1.8rem;
-      line-height: 1;
-      color: var(--color-green);
-      filter: drop-shadow(0 0 6px rgba(46, 230, 166, 0.3));
-      margin-bottom: 0.2rem;
-    }
-
-    .card h4 {
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-      color: #f0f4fa;
-      margin: 0.1rem 0 0.1rem;
-    }
-
-    .card p {
-      font-size: 0.7rem;
-      opacity: 0.8;
-      color: var(--text-muted);
-      line-height: 1.3;
-      margin: 0;
-    }
-
-    .badge-live {
-      background: #e33535;
-      color: white;
-      font-size: 0.5rem;
-      font-weight: 700;
-      padding: 0.1rem 0.45rem;
-      border-radius: 20px;
-      letter-spacing: 0.04em;
-      display: inline-block;
-      margin-left: 0.3rem;
-      vertical-align: middle;
-    }
-
-    /* distribución de tarjetas en grid */
-    .cards-left,
-    .cards-right {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      width: 100%;
-      align-items: center;
-    }
-
-    .cards-left {
-      grid-column: 1 / 2;
-      grid-row: 1 / 2;
-      justify-self: end;
-      padding-right: 0.2rem;
-    }
-
-    .cards-right {
-      grid-column: 3 / 4;
-      grid-row: 1 / 2;
-      justify-self: start;
-      padding-left: 0.2rem;
-    }
-
-    /* ===== FRANJA INFERIOR: sellos + texto ===== */
-    .footer-hero {
-      width: 100%;
-      margin-top: 1.8rem;
-      padding: 0.8rem 0.2rem 0.2rem;
-      border-top: 1px solid rgba(212, 163, 115, 0.15);
+      margin-top: 0.5rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(212, 163, 115, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.6rem;
     }
 
     .badges-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
-      gap: 0.7rem 1.8rem;
+      gap: 0.5rem 1.2rem;
     }
 
     .badge-item {
       display: flex;
       align-items: center;
       gap: 0.3rem;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: var(--text-muted);
-      letter-spacing: 0.03em;
       background: rgba(10, 18, 32, 0.4);
-      padding: 0.2rem 0.8rem 0.2rem 0.5rem;
+      padding: 0.15rem 0.7rem 0.15rem 0.5rem;
       border-radius: 40px;
-      border: 1px solid rgba(212, 163, 115, 0.1);
+      border: 1px solid rgba(212, 163, 115, 0.08);
       backdrop-filter: blur(4px);
+      letter-spacing: 0.03em;
     }
     .badge-item .icon {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
-    .slogan-central {
-      font-size: clamp(0.9rem, 2.8vw, 1.8rem);
+    .slogan {
+      font-size: clamp(0.75rem, 2.2vw, 1.5rem);
       font-weight: 300;
-      letter-spacing: 0.04em;
       text-align: center;
       color: var(--color-gold-light);
-      text-shadow: 0 0 30px rgba(212, 163, 115, 0.1);
-      padding: 0.2rem 0.5rem;
+      text-shadow: 0 0 30px rgba(212, 163, 115, 0.08);
+      letter-spacing: 0.04em;
     }
-    .slogan-central strong {
+    .slogan strong {
       font-weight: 500;
       color: var(--color-gold);
     }
@@ -332,73 +335,59 @@
     }
 
     @keyframes pulseGlow {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; box-shadow: 0 0 30px #d4a373, 0 0 70px rgba(212, 163, 115, 0.4); }
-      50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; box-shadow: 0 0 60px #d4a373, 0 0 120px rgba(212, 163, 115, 0.6); }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; box-shadow: 0 0 30px #d4a373, 0 0 70px rgba(212, 163, 115, 0.4); }
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+      50% { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
     }
 
-    /* ===== RESPONSIVE (mobile: apilar tarjetas debajo) ===== */
-    @media (max-width: 720px) {
-      .cosmic-grid {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.8rem;
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 820px) {
+      .row-top {
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
       .planet-wrapper {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 0.2rem;
+        width: 130px;
+        height: 130px;
+        order: 0;
+        flex-basis: 100%;
+        margin: 0.2rem 0;
       }
 
-      .cards-left,
-      .cards-right {
-        width: 100%;
-        max-width: 320px;
-        justify-self: unset;
-        padding: 0;
-        flex-direction: column;
+      .cards-col {
+        max-width: 280px;
+        flex: 1 1 45%;
+      }
+
+      .cards-col.left {
         align-items: center;
+        order: 1;
+      }
+      .cards-col.right {
+        align-items: center;
+        order: 2;
       }
 
       .card {
-        max-width: 100%;
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0.8rem 1rem;
-        border-radius: 1.4rem 0.6rem 1.4rem 0.6rem;
-        align-items: center;
-        gap: 0.3rem 0.8rem;
+        padding: 0.6rem 0.9rem;
       }
-      .card-icon {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-      .card h4 {
-        font-size: 0.9rem;
-        flex: 1;
-      }
-      .card p {
-        width: 100%;
-        font-size: 0.7rem;
-        margin-left: 0;
-      }
-
-      .badges-row {
-        gap: 0.5rem 1rem;
-      }
-      .badge-item {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.6rem;
-      }
-      .footer-hero {
-        margin-top: 1rem;
+      .card-title {
+        font-size: 0.75rem;
+        white-space: normal;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
+      .cards-col {
+        flex: 1 1 100%;
+        max-width: 100%;
+        align-items: center !important;
+      }
+      .card {
+        max-width: 320px;
+        width: 100%;
+      }
       .planet-wrapper {
         width: 110px;
         height: 110px;
@@ -407,188 +396,188 @@
         width: 16px;
         height: 16px;
       }
-      .card {
-        padding: 0.6rem 0.8rem;
+      .badges-row {
+        gap: 0.3rem 0.8rem;
       }
-    }
-
-    /* ===== SUTIL ESTRELLAS (fondo) ===== */
-    .stars-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-image: 
-        radial-gradient(2px 2px at 20% 30%, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 40% 70%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 70% 20%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90% 80%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 10% 90%, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 60% 50%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 85% 40%, #fff, rgba(0,0,0,0));
-      background-repeat: repeat;
-      background-size: 200px 200px;
-      opacity: 0.3;
-      z-index: 0;
-    }
-
-    /* para que el hero esté por encima */
-    .hero {
-      position: relative;
-      z-index: 2;
+      .badge-item {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- fondo estrellas -->
+
   <div class="stars-overlay" aria-hidden="true"></div>
 
   <main class="hero">
+
     <!-- ENCABEZADO -->
     <header class="header-brand">
       <span class="logo-c" aria-hidden="true">C</span>
-      <h1 class="brand-title">CSARIEL'S <span>ECOSISTEMA WEB3</span></h1>
+      <h1 class="brand-title">CSARIEL'S ECOSISTEMA WEB3</h1>
     </header>
 
-    <!-- CUADRÍCULA PLANETA + TARJETAS -->
-    <div class="cosmic-grid">
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
 
-      <!-- PLANETA (centro) -->
-      <div class="planet-wrapper">
-        <div class="planet" role="img" aria-label="Planeta Tierra brillante, red de constelaciones doradas"></div>
-        <div class="core-glow"></div>
-        <!-- líneas de constelación (SVG inline) -->
-        <svg class="constellation-lines" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- líneas doradas que conectan el planeta con las tarjetas (simuladas) -->
-          <line x1="30" y1="30" x2="80" y2="80" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6" />
-          <line x1="170" y1="30" x2="120" y2="80" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6" />
-          <line x1="30" y1="170" x2="80" y2="120" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6" />
-          <line x1="170" y1="170" x2="120" y2="120" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6" />
-          <line x1="20" y1="100" x2="70" y2="100" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.5" />
-          <line x1="180" y1="100" x2="130" y2="100" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.5" />
-          <line x1="100" y1="20" x2="100" y2="70" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.5" />
-          <line x1="100" y1="180" x2="100" y2="130" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.5" />
-          <!-- líneas de flujo (efecto energía) se aplica con gradiente animado en CSS? lo dejamos sutil -->
-          <circle cx="100" cy="100" r="42" stroke="#d4a373" stroke-width="0.4" stroke-dasharray="3 5" opacity="0.2" />
-          <circle cx="100" cy="100" r="62" stroke="#d4a373" stroke-width="0.3" stroke-dasharray="2 6" opacity="0.15" />
-        </svg>
+      <!-- FILA SUPERIOR: tarjetas | planeta | tarjetas -->
+      <div class="row-top">
+
+        <!-- COLUMNA IZQUIERDA: 4 tarjetas -->
+        <div class="cards-col left">
+          <!-- 1. Mi Red Social -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">👥</span>
+              <span class="card-title">MI RED SOCIAL</span>
+            </div>
+            <span class="card-desc">Conecta. Comparte. Crecemos juntos.</span>
+          </div>
+
+          <!-- 2. Mi Red Educativa -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">▶️</span>
+              <span class="card-title">MI RED EDUCATIVA</span>
+            </div>
+            <span class="card-desc">Aprende. Enseña. Evoluciona.</span>
+          </div>
+
+          <!-- 3. Mi Muro Live -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">📹</span>
+              <span class="card-title">MI MURO LIVE <span class="badge-live">LIVE</span></span>
+            </div>
+            <span class="card-desc">Transmite en vivo. Comparte tu mundo.</span>
+          </div>
+
+          <!-- 4. Mis Trading -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">📊</span>
+              <span class="card-title">MIS TRADING</span>
+            </div>
+            <span class="card-desc">Opera. Invierte. Crea tu libertad.</span>
+          </div>
+        </div>
+
+        <!-- PLANETA (centro, SIN DEDO) -->
+        <div class="planet-wrapper">
+          <div class="planet" role="img" aria-label="Planeta Tierra"></div>
+          <div class="core-glow"></div>
+          <svg class="constellation-lines" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="30" y1="30" x2="80" y2="80" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.5" />
+            <line x1="170" y1="30" x2="120" y2="80" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.5" />
+            <line x1="30" y1="170" x2="80" y2="120" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.5" />
+            <line x1="170" y1="170" x2="120" y2="120" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.5" />
+            <line x1="15" y1="100" x2="65" y2="100" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.4" />
+            <line x1="185" y1="100" x2="135" y2="100" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.4" />
+            <line x1="100" y1="15" x2="100" y2="65" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.4" />
+            <line x1="100" y1="185" x2="100" y2="135" stroke="#d4a373" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.4" />
+            <circle cx="100" cy="100" r="45" stroke="#d4a373" stroke-width="0.4" stroke-dasharray="2 6" opacity="0.15" />
+            <circle cx="100" cy="100" r="65" stroke="#d4a373" stroke-width="0.3" stroke-dasharray="2 8" opacity="0.1" />
+          </svg>
+        </div>
+
+        <!-- COLUMNA DERECHA: 4 tarjetas -->
+        <div class="cards-col right">
+          <!-- 5. Marquinhos -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">🛒</span>
+              <span class="card-title">MARQUINHOS</span>
+            </div>
+            <span class="card-desc">Tu tienda. Tus productos. Tu economía.</span>
+          </div>
+
+          <!-- 6. Zona Gamer -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">🎮</span>
+              <span class="card-title">ZONA GAMER</span>
+            </div>
+            <span class="card-desc">Juega. Compite. Gana recompensas.</span>
+          </div>
+
+          <!-- 7. Comprar Internet -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">📶</span>
+              <span class="card-title">COMPRAR INTERNET</span>
+            </div>
+            <span class="card-desc">Conéctate siempre. Sin límites.</span>
+          </div>
+
+          <!-- 8. Mi Wallet -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-icon">💳</span>
+              <span class="card-title">MI WALLET</span>
+            </div>
+            <span class="card-desc">Tu identidad. Tus activos. Tu poder.</span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- TARJETAS IZQUIERDA (4) -->
-      <div class="cards-left">
-        <!-- 1. Mi Red Social -->
-        <div class="card">
-          <span class="card-icon">👥</span>
-          <h4>Mi Red Social</h4>
-          <p>Conecta. Comparte. Crecemos juntos.</p>
+      <!-- FILA INFERIOR: sellos + slogan -->
+      <div class="row-bottom">
+        <div class="badges-row">
+          <span class="badge-item"><span class="icon">🔗</span> SEGURIDAD BLOCKCHAIN</span>
+          <span class="badge-item"><span class="icon">🔍</span> TRANSPARENCIA TOTAL</span>
+          <span class="badge-item"><span class="icon">🌐</span> DESCENTRALIZADO</span>
+          <span class="badge-item"><span class="icon">🏛️</span> HECHO EN PUEBLA</span>
         </div>
-        <!-- 2. Mi Muro Live -->
-        <div class="card">
-          <span class="card-icon">📹 <span class="badge-live">LIVE</span></span>
-          <h4>Mi Muro Live</h4>
-          <p>Transmite en vivo. Comparte tu mundo.</p>
-        </div>
-        <!-- 3. Mis Trading -->
-        <div class="card">
-          <span class="card-icon">📊</span>
-          <h4>Mis Trading</h4>
-          <p>Opera. Invierte. Crea tu libertad.</p>
-        </div>
-        <!-- 4. Marquinhos -->
-        <div class="card">
-          <span class="card-icon">🛒</span>
-          <h4>Marquinhos</h4>
-          <p>Tu tienda. Tus productos. Tu economía.</p>
+        <div class="slogan">
+          <strong>UN SOLO UNIVERSO</strong> — TODAS LAS SOLUCIONES — <strong>CSARIEL'S ECOSISTEMA</strong>
         </div>
       </div>
 
-      <!-- TARJETAS DERECHA (4) -->
-      <div class="cards-right">
-        <!-- 5. Mi Red Educativa -->
-        <div class="card">
-          <span class="card-icon">▶️</span>
-          <h4>Mi Red Educativa</h4>
-          <p>Aprende. Enseña. Evoluciona.</p>
-        </div>
-        <!-- 6. Mi Wallet -->
-        <div class="card">
-          <span class="card-icon">💳</span>
-          <h4>Mi Wallet</h4>
-          <p>Tu identidad. Tus activos. Tu poder.</p>
-        </div>
-        <!-- 7. Comprar Internet -->
-        <div class="card">
-          <span class="card-icon">📶</span>
-          <h4>Comprar Internet</h4>
-          <p>Conéctate siempre. Sin límites.</p>
-        </div>
-        <!-- 8. Zona Gamer -->
-        <div class="card">
-          <span class="card-icon">🎮</span>
-          <h4>Zona Gamer</h4>
-          <p>Juega. Compite. Gana recompensas.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRANJA INFERIOR (footer hero) -->
-    <div class="footer-hero">
-      <div class="badges-row">
-        <span class="badge-item"><span class="icon">🔗</span> Seguridad Blockchain</span>
-        <span class="badge-item"><span class="icon">🔍</span> Transparencia Total</span>
-        <span class="badge-item"><span class="icon">🌐</span> Descentralizado</span>
-        <span class="badge-item"><span class="icon">🏛️</span> Hecho en Puebla</span>
-      </div>
-      <div class="slogan-central">
-        <strong>UN SOLO UNIVERSO</strong> — TODAS LAS SOLUCIONES — <strong>CSARIEL'S ECOSISTEMA</strong>
-      </div>
     </div>
   </main>
 
-  <!-- ===== JS vanilla (solo para efectos adicionales, sin romper CSP) ===== -->
+  <!-- ===== JS VANILLA (efectos sutiles) ===== -->
   <script>
     (function() {
       'use strict';
 
-      // Efecto de flujo de energía en líneas: agregar clase a las líneas cada cierto tiempo (sutil)
-      // pero no es necesario: ya tienen dasharray. Podemos añadir un pequeño brillo intermitente
-      // a las tarjetas de forma aleatoria (solo para dar sensación de vida)
-      const cards = document.querySelectorAll('.card');
-      if (cards.length) {
-        // resaltar borde de forma aleatoria (muy sutil)
-        setInterval(() => {
-          const randomIndex = Math.floor(Math.random() * cards.length);
-          const card = cards[randomIndex];
-          if (card) {
-            card.style.transition = 'border-color 0.3s, box-shadow 0.3s';
-            card.style.borderColor = '#d4a373';
-            card.style.boxShadow = '0 0 25px rgba(212, 163, 115, 0.2)';
-            setTimeout(() => {
-              card.style.borderColor = 'var(--glass-border)';
-              card.style.boxShadow = 'var(--shadow-glow)';
-            }, 400);
-          }
-        }, 2800);
-      }
-
-      // efecto de "partículas" en líneas: no se puede hacer con canvas sin romper CSP,
-      // pero podemos animar el dashoffset de las líneas del SVG (solo si existe)
-      const lines = document.querySelectorAll('.constellation-lines line');
+      // Efecto de flujo en líneas (dashoffset animado)
+      const lines = document.querySelectorAll('.constellation-lines line, .constellation-lines circle');
       if (lines.length) {
         let offset = 0;
         setInterval(() => {
-          offset = (offset + 1) % 20;
-          lines.forEach((line, idx) => {
-            const dash = 3 + (idx % 3);
-            line.setAttribute('stroke-dasharray', `${dash} ${4 + (idx % 5)}`);
-            line.setAttribute('stroke-dashoffset', offset);
+          offset = (offset + 1) % 25;
+          lines.forEach((el) => {
+            const current = el.getAttribute('stroke-dasharray') || '3 5';
+            const parts = current.split(' ').map(Number);
+            if (parts.length === 2) {
+              el.setAttribute('stroke-dashoffset', offset);
+            }
           });
-        }, 180);
+        }, 150);
       }
 
-      console.log('✨ Csariel\'s Ecosistema · Hero cargado (vanilla JS)');
+      // Resaltar tarjetas aleatoriamente (sutil)
+      const cards = document.querySelectorAll('.card');
+      if (cards.length) {
+        setInterval(() => {
+          const idx = Math.floor(Math.random() * cards.length);
+          const card = cards[idx];
+          if (card) {
+            card.style.transition = 'border-color 0.3s, box-shadow 0.3s';
+            card.style.borderColor = '#d4a373';
+            card.style.boxShadow = '0 0 20px rgba(212, 163, 115, 0.15)';
+            setTimeout(() => {
+              card.style.borderColor = 'var(--glass-border)';
+              card.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+            }, 500);
+          }
+        }, 3000);
+      }
+
+      console.log('✨ Csariel\'s Ecosistema · Hero cargado (sin dedo)');
     })();
   </script>
 </body>
