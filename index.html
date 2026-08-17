@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Csariel's · Cosmos Web3</title>
+    <title>Csariel's · Imperio Galáctico Web3</title>
     <style>
         /* ============================================================
-           VARIABLES CSS · PALETA FUTURISTA
+           VARIABLES CSS · IMPERIO GALÁCTICO
            ============================================================ */
         :root {
+            --imperial-gold: #ffd700;
+            --solar-orange: #ff6b00;
             --neon-cyan: #00f0ff;
             --neon-purple: #b388ff;
-            --neon-gold: #ffd54f;
             --neon-pink: #ff4081;
-            --bg-deep: #05080f;
-            --bg-card: rgba(10, 20, 40, 0.55);
-            --glass-border: rgba(0, 240, 255, 0.15);
+            --bg-deep: #020408;
+            --glass-bg: rgba(6, 12, 30, 0.5);
+            --glass-border: rgba(255, 215, 0, 0.12);
             --text-primary: #e8f0fe;
-            --text-secondary: #8899bb;
-            --shadow-glow: 0 0 40px rgba(0, 240, 255, 0.08);
+            --text-secondary: #7a8aaa;
+            --shadow-glow: 0 0 60px rgba(255, 215, 0, 0.05);
         }
 
         /* ============================================================
@@ -38,13 +39,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.5rem;
             overflow-x: hidden;
             position: relative;
         }
 
         /* ============================================================
-           FONDO DINÁMICO CON ESTRELLAS Y NEBULOSAS
+           FONDO ESTELAR CON NEBULOSAS
            ============================================================ */
         .cosmic-bg {
             position: fixed;
@@ -55,13 +56,12 @@
             z-index: 0;
             pointer-events: none;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(100, 0, 255, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 30%, rgba(0, 200, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(255, 0, 200, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 15% 40%, rgba(255, 107, 0, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 60%, rgba(179, 136, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 240, 255, 0.02) 0%, transparent 40%),
                 var(--bg-deep);
         }
 
-        /* capa de estrellas (parpadeo) */
         .stars-layer {
             position: fixed;
             top: 0;
@@ -71,28 +71,30 @@
             z-index: 0;
             pointer-events: none;
             background-image:
-                radial-gradient(2px 2px at 10% 20%, #fff, transparent),
-                radial-gradient(1px 1px at 30% 60%, #fff, transparent),
-                radial-gradient(2px 2px at 50% 10%, #fff, transparent),
-                radial-gradient(1px 1px at 70% 80%, #fff, transparent),
-                radial-gradient(2px 2px at 90% 40%, #fff, transparent),
-                radial-gradient(1px 1px at 15% 85%, #fff, transparent),
+                radial-gradient(2px 2px at 5% 15%, #fff, transparent),
+                radial-gradient(1px 1px at 20% 50%, #fff, transparent),
+                radial-gradient(2px 2px at 35% 10%, #fff, transparent),
+                radial-gradient(1px 1px at 50% 70%, #fff, transparent),
+                radial-gradient(2px 2px at 65% 25%, #fff, transparent),
+                radial-gradient(1px 1px at 80% 80%, #fff, transparent),
+                radial-gradient(2px 2px at 95% 40%, #fff, transparent),
+                radial-gradient(1px 1px at 10% 90%, #fff, transparent),
                 radial-gradient(2px 2px at 45% 45%, #fff, transparent),
-                radial-gradient(1px 1px at 85% 15%, #fff, transparent),
-                radial-gradient(2px 2px at 60% 90%, #fff, transparent),
-                radial-gradient(1px 1px at 5% 50%, #fff, transparent);
+                radial-gradient(1px 1px at 75% 5%, #fff, transparent),
+                radial-gradient(1px 1px at 30% 30%, #fff, transparent),
+                radial-gradient(1px 1px at 70% 70%, #fff, transparent);
             background-size: 300px 300px;
             background-repeat: repeat;
-            opacity: 0.4;
-            animation: twinkle 4s ease-in-out infinite alternate;
+            opacity: 0.3;
+            animation: twinkle 5s ease-in-out infinite alternate;
         }
 
         @keyframes twinkle {
             0% {
-                opacity: 0.3;
+                opacity: 0.2;
             }
             100% {
-                opacity: 0.6;
+                opacity: 0.5;
             }
         }
 
@@ -102,383 +104,539 @@
         .hero {
             position: relative;
             z-index: 2;
-            max-width: 1300px;
+            max-width: 1400px;
             width: 100%;
-            padding: 1rem 0.5rem;
+            padding: 0.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 1.2rem;
         }
 
         /* ============================================================
-           ENCABEZADO · LOGO + TÍTULO (GLITCH)
+           ENCABEZADO IMPERIAL
            ============================================================ */
         .header-brand {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 0.5rem;
             flex-wrap: wrap;
+            margin-bottom: 0.2rem;
         }
 
         .logo-c {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            width: 52px;
+            height: 52px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #ff8c00);
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: #05080f;
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.3), 0 0 80px rgba(179, 136, 255, 0.15);
-            animation: pulseLogo 3s ease-in-out infinite;
-            transition: transform 0.3s;
+            color: #020408;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3), 0 0 100px rgba(255, 107, 0, 0.1);
+            animation: imperialPulse 3s ease-in-out infinite;
+            transition: transform 0.4s;
         }
         .logo-c:hover {
-            transform: rotate(180deg) scale(1.05);
+            transform: rotate(180deg) scale(1.1);
         }
 
-        @keyframes pulseLogo {
+        @keyframes imperialPulse {
             0%,
             100% {
-                box-shadow: 0 0 40px rgba(0, 240, 255, 0.3), 0 0 80px rgba(179, 136, 255, 0.15);
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.3), 0 0 100px rgba(255, 107, 0, 0.1);
             }
             50% {
-                box-shadow: 0 0 60px rgba(0, 240, 255, 0.5), 0 0 120px rgba(179, 136, 255, 0.25);
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.5), 0 0 150px rgba(255, 107, 0, 0.2);
             }
         }
 
         .brand-title {
-            font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+            font-size: clamp(1rem, 3vw, 2rem);
             font-weight: 300;
             letter-spacing: 0.15em;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-gold));
+            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700, #ff6b00);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 6s ease-in-out infinite;
-            text-shadow: 0 0 60px rgba(0, 240, 255, 0.1);
+            animation: goldShift 5s ease-in-out infinite;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.05);
         }
 
-        @keyframes gradientShift {
-            0% {
+        @keyframes goldShift {
+            0%,
+            100% {
                 background-position: 0% 50%;
             }
             50% {
                 background-position: 100% 50%;
             }
-            100% {
-                background-position: 0% 50%;
-            }
         }
 
         /* ============================================================
-           HUB CENTRAL · PLANETA HOLOGRÁFICO
+           SISTEMA SOLAR IMPERIAL
            ============================================================ */
-        .hub-container {
+        .solar-system {
+            position: relative;
+            width: 100%;
+            max-width: 950px;
+            height: 580px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            width: 100%;
-            gap: 2rem;
+            justify-content: center;
         }
 
-        .planet-hub {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            flex-shrink: 0;
-        }
-
-        /* planeta holográfico con anillos */
-        .holo-planet {
-            width: 100%;
-            height: 100%;
+        /* ===== SOL IMPERIAL (CENTRO) ===== */
+        .sun-imperial {
+            position: absolute;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, #1a3a5a, #0a1525 80%);
+            background: radial-gradient(circle at 30% 30%, #fff7a0, #ffd700 30%, #ff8c00 60%, #ff4500 90%);
             box-shadow:
-                0 0 80px rgba(0, 240, 255, 0.12),
-                inset 0 -30px 60px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.15);
-            position: relative;
-            animation: spinPlanet 30s linear infinite;
+                0 0 80px rgba(255, 215, 0, 0.4),
+                0 0 160px rgba(255, 107, 0, 0.2),
+                0 0 240px rgba(255, 69, 0, 0.1),
+                inset 0 -20px 60px rgba(0, 0, 0, 0.3);
+            animation: sunPulse 3s ease-in-out infinite;
+            z-index: 10;
+            cursor: default;
         }
 
-        .holo-planet::before {
-            content: '';
+        .sun-imperial::after {
+            content: '☀️ IMPERIO';
             position: absolute;
-            inset: 5%;
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 60% 40%, rgba(0, 240, 255, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(179, 136, 255, 0.05) 0%, transparent 40%);
-            filter: blur(3px);
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            white-space: nowrap;
+            -webkit-text-fill-color: #ffd700;
         }
 
-        .holo-planet::after {
-            content: '';
+        /* corona solar */
+        .sun-corona {
             position: absolute;
-            inset: -8%;
+            top: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            border: 1px solid rgba(0, 240, 255, 0.06);
-            animation: ringPulse 4s ease-in-out infinite;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.1), transparent 70%);
+            animation: coronaPulse 4s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        @keyframes ringPulse {
+        @keyframes sunPulse {
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.3;
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.4), 0 0 160px rgba(255, 107, 0, 0.2);
             }
             50% {
-                transform: scale(1.12);
+                transform: scale(1.04);
+                box-shadow: 0 0 120px rgba(255, 215, 0, 0.6), 0 0 200px rgba(255, 107, 0, 0.3);
+            }
+        }
+
+        @keyframes coronaPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.3);
                 opacity: 0.8;
             }
         }
 
-        /* anillo orbital adicional (CSS puro) */
-        .orbit-ring {
+        /* ===== PLANETAS (órbitas circulares) ===== */
+        .orbit {
             position: absolute;
-            top: -15%;
-            left: -15%;
-            width: 130%;
-            height: 130%;
             border-radius: 50%;
-            border: 1px solid rgba(0, 240, 255, 0.06);
-            animation: spinRing 20s linear infinite reverse;
-            pointer-events: none;
-        }
-        .orbit-ring::before {
-            content: '';
-            position: absolute;
-            top: -5%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        .orbit-ring-2 {
-            position: absolute;
-            top: -25%;
-            left: -25%;
-            width: 150%;
-            height: 150%;
-            border-radius: 50%;
-            border: 1px solid rgba(179, 136, 255, 0.05);
-            animation: spinRing 25s linear infinite;
-            pointer-events: none;
-        }
-        .orbit-ring-2::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            right: 0%;
-            width: 4px;
-            height: 4px;
-            background: var(--neon-purple);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--neon-purple);
-        }
-
-        @keyframes spinPlanet {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        @keyframes spinRing {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* núcleo de energía pulsante */
-        .core-energy {
-            position: absolute;
+            border: 1px solid rgba(255, 215, 0, 0.04);
             top: 50%;
             left: 50%;
-            width: 30px;
-            height: 30px;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, #fff, var(--neon-cyan) 30%, transparent 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 60px var(--neon-cyan), 0 0 120px rgba(0, 240, 255, 0.3);
-            animation: corePulse 2s ease-in-out infinite;
             pointer-events: none;
+        }
+
+        /* cada planeta con su órbita y animación */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.35rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.04em;
+            cursor: default;
+            transition: transform 0.3s;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
             z-index: 5;
         }
 
-        @keyframes corePulse {
-            0%,
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.9;
+        .planet:hover {
+            transform: scale(1.3) !important;
+            z-index: 20;
+        }
+
+        /* nombre del planeta debajo (en el punto orbital) */
+        .planet-label {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.4rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .planet:hover .planet-label {
+            opacity: 1;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           CONFIGURACIÓN DE CADA PLANETA
+           ============================================================ */
+        /* Mercurio */
+        .orbit-1 {
+            width: 160px;
+            height: 160px;
+            animation: orbitSpin 12s linear infinite;
+        }
+        .planet-mercury {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 40% 35%, #b5b5b5, #6a6a6a);
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(181, 181, 181, 0.1);
+        }
+
+        /* Venus */
+        .orbit-2 {
+            width: 210px;
+            height: 210px;
+            animation: orbitSpin 16s linear infinite reverse;
+        }
+        .planet-venus {
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 40% 35%, #f5deb3, #d4a574);
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.15);
+        }
+
+        /* Tierra */
+        .orbit-3 {
+            width: 270px;
+            height: 270px;
+            animation: orbitSpin 20s linear infinite;
+        }
+        .planet-earth {
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 35% 30%, #4fc3f7, #1565c0);
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px rgba(79, 195, 247, 0.15), 0 0 80px rgba(21, 101, 192, 0.05);
+        }
+        .planet-earth::after {
+            content: '🌍';
+            position: absolute;
+            font-size: 0.6rem;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .planet-earth .planet-label {
+            bottom: -20px;
+        }
+
+        /* Marte */
+        .orbit-4 {
+            width: 330px;
+            height: 330px;
+            animation: orbitSpin 24s linear infinite reverse;
+        }
+        .planet-mars {
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle at 40% 35%, #ef5350, #b71c1c);
+            top: -7.5px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px rgba(239, 83, 80, 0.1);
+        }
+
+        /* Júpiter */
+        .orbit-5 {
+            width: 410px;
+            height: 410px;
+            animation: orbitSpin 30s linear infinite;
+        }
+        .planet-jupiter {
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle at 35% 30%, #ffcc80, #e65100);
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px rgba(255, 204, 128, 0.1);
+            border: 1px solid rgba(255, 204, 128, 0.1);
+        }
+
+        /* Saturno */
+        .orbit-6 {
+            width: 490px;
+            height: 490px;
+            animation: orbitSpin 36s linear infinite reverse;
+        }
+        .planet-saturn {
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle at 40% 35%, #f5e6c8, #c9a87c);
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px rgba(201, 168, 124, 0.08);
+        }
+        .planet-saturn::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -12px;
+            width: 48px;
+            height: 6px;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 168, 124, 0.15);
+            transform: rotateX(70deg) rotateZ(20deg);
+            background: rgba(201, 168, 124, 0.02);
+            pointer-events: none;
+        }
+
+        /* Urano */
+        .orbit-7 {
+            width: 560px;
+            height: 560px;
+            animation: orbitSpin 42s linear infinite;
+        }
+        .planet-uranus {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 40% 35%, #80deea, #006064);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px rgba(128, 222, 234, 0.05);
+        }
+
+        /* Neptuno */
+        .orbit-8 {
+            width: 630px;
+            height: 630px;
+            animation: orbitSpin 48s linear infinite reverse;
+        }
+        .planet-neptune {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 40% 35%, #4dd0e1, #00695c);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px rgba(77, 208, 225, 0.05);
+        }
+
+        /* Plutón (pequeño, borde exterior) */
+        .orbit-9 {
+            width: 700px;
+            height: 700px;
+            animation: orbitSpin 56s linear infinite;
+        }
+        .planet-pluto {
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 40% 35%, #bcaaa4, #5d4037);
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(188, 170, 164, 0.05);
+        }
+
+        /* ============================================================
+           ANIMACIONES DE ÓRBITA
+           ============================================================ */
+        @keyframes orbitSpin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
             }
-            50% {
-                transform: translate(-50%, -50%) scale(1.6);
-                opacity: 1;
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
             }
         }
 
         /* ============================================================
-           GRID DE TARJETAS (8) · GLASSMORPHISM FUTURISTA
+           TARJETAS (8) DEBAJO DEL SISTEMA SOLAR
            ============================================================ */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            gap: 0.8rem;
             width: 100%;
             max-width: 1100px;
-            margin: 0 auto;
+            margin: 0.2rem auto;
         }
 
         .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px) saturate(1.3);
-            -webkit-backdrop-filter: blur(16px) saturate(1.3);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(1.3);
+            -webkit-backdrop-filter: blur(12px) saturate(1.3);
             border: 1px solid var(--glass-border);
-            border-radius: 1.5rem 0.6rem 1.5rem 0.6rem;
-            padding: 1.2rem 1rem;
+            border-radius: 1.2rem 0.4rem 1.2rem 0.4rem;
+            padding: 1rem 0.9rem;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 0.3rem;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            gap: 0.15rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: var(--shadow-glow);
             position: relative;
             overflow: hidden;
             cursor: default;
         }
 
-        /* línea de neón superior (efecto) */
         .card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
+            background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, transparent);
+            transition: left 0.6s;
         }
 
         .card:hover::before {
-            opacity: 1;
+            left: 100%;
         }
 
         .card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 12px 50px rgba(0, 240, 255, 0.08), 0 0 30px rgba(179, 136, 255, 0.05);
+            transform: translateY(-6px);
+            border-color: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.04);
         }
 
         .card-icon {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             line-height: 1;
-            filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.15));
-            margin-bottom: 0.2rem;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.05));
         }
 
         .card-title {
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.04em;
             color: var(--text-primary);
-            background: linear-gradient(135deg, #fff, var(--neon-cyan));
+            background: linear-gradient(135deg, #fff, #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .card-desc {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
-            line-height: 1.3;
-            opacity: 0.8;
+            line-height: 1.2;
+            opacity: 0.7;
         }
 
         .badge-live {
             background: var(--neon-pink);
             color: #fff;
-            font-size: 0.45rem;
+            font-size: 0.4rem;
             font-weight: 700;
             padding: 0.05rem 0.5rem;
             border-radius: 30px;
             letter-spacing: 0.06em;
             display: inline-block;
-            margin-left: 0.3rem;
+            margin-left: 0.2rem;
             -webkit-text-fill-color: #fff;
-            box-shadow: 0 0 20px rgba(255, 64, 129, 0.3);
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.2);
         }
 
         /* ============================================================
-           FOOTER · BADGES + SLOGAN
+           FOOTER IMPERIAL
            ============================================================ */
         .footer-cosmic {
             width: 100%;
-            margin-top: 0.5rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid rgba(0, 240, 255, 0.06);
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.04);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 0.6rem;
         }
 
         .badges-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.6rem 1.8rem;
+            gap: 0.5rem 1.5rem;
         }
 
         .badge-item {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.65rem;
+            gap: 0.3rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
-            background: rgba(0, 240, 255, 0.03);
-            padding: 0.2rem 1rem 0.2rem 0.6rem;
+            background: rgba(255, 215, 0, 0.02);
+            padding: 0.15rem 0.8rem 0.15rem 0.5rem;
             border-radius: 40px;
-            border: 1px solid rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.04);
             backdrop-filter: blur(4px);
             letter-spacing: 0.04em;
             transition: all 0.3s;
         }
         .badge-item:hover {
-            border-color: rgba(0, 240, 255, 0.2);
+            border-color: rgba(255, 215, 0, 0.1);
             color: var(--text-primary);
         }
         .badge-item .icon {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .slogan-final {
-            font-size: clamp(0.8rem, 2.5vw, 1.6rem);
+            font-size: clamp(0.7rem, 2vw, 1.3rem);
             font-weight: 200;
             text-align: center;
             color: var(--text-secondary);
             letter-spacing: 0.08em;
-            text-shadow: 0 0 40px rgba(0, 240, 255, 0.03);
         }
         .slogan-final strong {
             font-weight: 500;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-gold));
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -488,71 +646,287 @@
            RESPONSIVE
            ============================================================ */
         @media (max-width: 920px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.8rem;
+            .solar-system {
+                height: 480px;
+                max-width: 700px;
             }
-            .planet-hub {
-                width: 170px;
-                height: 170px;
+            .sun-imperial {
+                width: 70px;
+                height: 70px;
             }
-            .core-energy {
-                width: 22px;
-                height: 22px;
+            .sun-corona {
+                width: 120px;
+                height: 120px;
+                top: -25px;
+                left: -25px;
             }
-        }
-
-        @media (max-width: 540px) {
-            .cards-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.6rem;
-            }
-            .card {
-                padding: 0.8rem 0.7rem;
-                border-radius: 1rem 0.4rem 1rem 0.4rem;
-            }
-            .card-icon {
-                font-size: 1.3rem;
-            }
-            .card-title {
-                font-size: 0.7rem;
-            }
-            .card-desc {
-                font-size: 0.55rem;
-            }
-            .planet-hub {
+            .orbit-1 {
                 width: 130px;
                 height: 130px;
             }
-            .core-energy {
+            .orbit-2 {
+                width: 170px;
+                height: 170px;
+            }
+            .orbit-3 {
+                width: 220px;
+                height: 220px;
+            }
+            .orbit-4 {
+                width: 270px;
+                height: 270px;
+            }
+            .orbit-5 {
+                width: 330px;
+                height: 330px;
+            }
+            .orbit-6 {
+                width: 390px;
+                height: 390px;
+            }
+            .orbit-7 {
+                width: 450px;
+                height: 450px;
+            }
+            .orbit-8 {
+                width: 510px;
+                height: 510px;
+            }
+            .orbit-9 {
+                width: 560px;
+                height: 560px;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            .planet-label {
+                font-size: 0.35rem;
+                bottom: -16px;
+            }
+            .planet-earth .planet-label {
+                bottom: -18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .solar-system {
+                height: 380px;
+                max-width: 100%;
+            }
+            .sun-imperial {
+                width: 55px;
+                height: 55px;
+            }
+            .sun-corona {
+                width: 90px;
+                height: 90px;
+                top: -18px;
+                left: -18px;
+            }
+            .sun-imperial::after {
+                font-size: 0.4rem;
+                bottom: -24px;
+            }
+            .orbit-1 {
+                width: 100px;
+                height: 100px;
+                animation-duration: 10s;
+            }
+            .orbit-2 {
+                width: 135px;
+                height: 135px;
+                animation-duration: 13s;
+            }
+            .orbit-3 {
+                width: 175px;
+                height: 175px;
+                animation-duration: 16s;
+            }
+            .orbit-4 {
+                width: 215px;
+                height: 215px;
+                animation-duration: 19s;
+            }
+            .orbit-5 {
+                width: 260px;
+                height: 260px;
+                animation-duration: 23s;
+            }
+            .orbit-6 {
+                width: 305px;
+                height: 305px;
+                animation-duration: 27s;
+            }
+            .orbit-7 {
+                width: 350px;
+                height: 350px;
+                animation-duration: 32s;
+            }
+            .orbit-8 {
+                width: 395px;
+                height: 395px;
+                animation-duration: 36s;
+            }
+            .orbit-9 {
+                width: 435px;
+                height: 435px;
+                animation-duration: 42s;
+            }
+            .planet-mercury {
+                width: 9px;
+                height: 9px;
+                top: -4.5px;
+            }
+            .planet-venus {
+                width: 12px;
+                height: 12px;
+                top: -6px;
+            }
+            .planet-earth {
+                width: 14px;
+                height: 14px;
+                top: -7px;
+            }
+            .planet-earth::after {
+                font-size: 0.5rem;
+                top: -6px;
+            }
+            .planet-mars {
+                width: 11px;
+                height: 11px;
+                top: -5.5px;
+            }
+            .planet-jupiter {
+                width: 20px;
+                height: 20px;
+                top: -10px;
+            }
+            .planet-saturn {
                 width: 18px;
                 height: 18px;
+                top: -9px;
+            }
+            .planet-saturn::after {
+                width: 36px;
+                left: -9px;
+                height: 4px;
+            }
+            .planet-uranus {
+                width: 15px;
+                height: 15px;
+                top: -7.5px;
+            }
+            .planet-neptune {
+                width: 15px;
+                height: 15px;
+                top: -7.5px;
+            }
+            .planet-pluto {
+                width: 6px;
+                height: 6px;
+                top: -3px;
+            }
+            .planet-label {
+                font-size: 0.3rem;
+                bottom: -14px;
+                opacity: 0.3;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .card {
+                padding: 0.7rem 0.6rem;
+                border-radius: 0.8rem 0.3rem 0.8rem 0.3rem;
+            }
+            .card-icon {
+                font-size: 1.2rem;
+            }
+            .card-title {
+                font-size: 0.65rem;
+            }
+            .card-desc {
+                font-size: 0.5rem;
             }
             .badges-row {
                 gap: 0.3rem 0.8rem;
             }
             .badge-item {
-                font-size: 0.55rem;
-                padding: 0.1rem 0.6rem;
+                font-size: 0.5rem;
+                padding: 0.1rem 0.5rem;
             }
         }
 
         @media (max-width: 400px) {
+            .solar-system {
+                height: 320px;
+            }
             .cards-grid {
                 grid-template-columns: 1fr;
-                max-width: 280px;
-            }
-            .planet-hub {
-                width: 110px;
-                height: 110px;
+                max-width: 260px;
             }
             .brand-title {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             .logo-c {
-                width: 40px;
-                height: 40px;
-                font-size: 1.4rem;
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+            .sun-imperial {
+                width: 45px;
+                height: 45px;
+            }
+            .sun-corona {
+                width: 75px;
+                height: 75px;
+                top: -15px;
+                left: -15px;
+            }
+            .orbit-1 {
+                width: 85px;
+                height: 85px;
+            }
+            .orbit-2 {
+                width: 115px;
+                height: 115px;
+            }
+            .orbit-3 {
+                width: 150px;
+                height: 150px;
+            }
+            .orbit-4 {
+                width: 185px;
+                height: 185px;
+            }
+            .orbit-5 {
+                width: 220px;
+                height: 220px;
+            }
+            .orbit-6 {
+                width: 260px;
+                height: 260px;
+            }
+            .orbit-7 {
+                width: 295px;
+                height: 295px;
+            }
+            .orbit-8 {
+                width: 330px;
+                height: 330px;
+            }
+            .orbit-9 {
+                width: 365px;
+                height: 365px;
+            }
+            .planet-earth::after {
+                font-size: 0.4rem;
+                top: -4px;
+            }
+            .planet-label {
+                font-size: 0.25rem;
+                bottom: -12px;
             }
         }
     </style>
@@ -566,86 +940,146 @@
     <!-- ===== HERO ===== -->
     <main class="hero">
 
-        <!-- ENCABEZADO -->
+        <!-- ENCABEZADO IMPERIAL -->
         <header class="header-brand">
             <span class="logo-c" aria-hidden="true">C</span>
-            <h1 class="brand-title">CSARIEL'S · COSMOS WEB3</h1>
+            <h1 class="brand-title">CSARIEL'S · IMPERIO GALÁCTICO</h1>
         </header>
 
-        <!-- HUB CENTRAL -->
-        <div class="hub-container">
+        <!-- SISTEMA SOLAR IMPERIAL -->
+        <div class="solar-system">
 
-            <!-- PLANETA HOLOGRÁFICO -->
-            <div class="planet-hub">
-                <div class="holo-planet" role="img" aria-label="Planeta holográfico"></div>
-                <div class="core-energy"></div>
-                <div class="orbit-ring"></div>
-                <div class="orbit-ring-2"></div>
+            <!-- SOL IMPERIAL -->
+            <div class="sun-imperial"></div>
+            <div class="sun-corona"></div>
+
+            <!-- MERCURIO -->
+            <div class="orbit orbit-1">
+                <div class="planet planet-mercury">
+                    <span class="planet-label">MERCURIO</span>
+                </div>
             </div>
 
-            <!-- 8 TARJETAS (GRID 4 COLUMNAS) -->
-            <div class="cards-grid">
-
-                <!-- 1. Mi Red Social -->
-                <div class="card">
-                    <span class="card-icon">👥</span>
-                    <span class="card-title">MI RED SOCIAL</span>
-                    <span class="card-desc">Conecta. Comparte. Crecemos juntos.</span>
+            <!-- VENUS -->
+            <div class="orbit orbit-2">
+                <div class="planet planet-venus">
+                    <span class="planet-label">VENUS</span>
                 </div>
-
-                <!-- 2. Mi Red Educativa -->
-                <div class="card">
-                    <span class="card-icon">▶️</span>
-                    <span class="card-title">MI RED EDUCATIVA</span>
-                    <span class="card-desc">Aprende. Enseña. Evoluciona.</span>
-                </div>
-
-                <!-- 3. Mi Muro Live -->
-                <div class="card">
-                    <span class="card-icon">📹</span>
-                    <span class="card-title">MI MURO LIVE <span class="badge-live">LIVE</span></span>
-                    <span class="card-desc">Transmite en vivo. Comparte tu mundo.</span>
-                </div>
-
-                <!-- 4. Mis Trading -->
-                <div class="card">
-                    <span class="card-icon">📊</span>
-                    <span class="card-title">MIS TRADING</span>
-                    <span class="card-desc">Opera. Invierte. Crea tu libertad.</span>
-                </div>
-
-                <!-- 5. Marquinhos -->
-                <div class="card">
-                    <span class="card-icon">🛒</span>
-                    <span class="card-title">MARQUINHOS</span>
-                    <span class="card-desc">Tu tienda. Tus productos. Tu economía.</span>
-                </div>
-
-                <!-- 6. Zona Gamer -->
-                <div class="card">
-                    <span class="card-icon">🎮</span>
-                    <span class="card-title">ZONA GAMER</span>
-                    <span class="card-desc">Juega. Compite. Gana recompensas.</span>
-                </div>
-
-                <!-- 7. Comprar Internet -->
-                <div class="card">
-                    <span class="card-icon">📶</span>
-                    <span class="card-title">COMPRAR INTERNET</span>
-                    <span class="card-desc">Conéctate siempre. Sin límites.</span>
-                </div>
-
-                <!-- 8. Mi Wallet -->
-                <div class="card">
-                    <span class="card-icon">💳</span>
-                    <span class="card-title">MI WALLET</span>
-                    <span class="card-desc">Tu identidad. Tus activos. Tu poder.</span>
-                </div>
-
             </div>
+
+            <!-- TIERRA -->
+            <div class="orbit orbit-3">
+                <div class="planet planet-earth">
+                    <span class="planet-label">🌍 TIERRA</span>
+                </div>
+            </div>
+
+            <!-- MARTE -->
+            <div class="orbit orbit-4">
+                <div class="planet planet-mars">
+                    <span class="planet-label">MARTE</span>
+                </div>
+            </div>
+
+            <!-- JÚPITER -->
+            <div class="orbit orbit-5">
+                <div class="planet planet-jupiter">
+                    <span class="planet-label">JÚPITER</span>
+                </div>
+            </div>
+
+            <!-- SATURNO -->
+            <div class="orbit orbit-6">
+                <div class="planet planet-saturn">
+                    <span class="planet-label">SATURNO</span>
+                </div>
+            </div>
+
+            <!-- URANO -->
+            <div class="orbit orbit-7">
+                <div class="planet planet-uranus">
+                    <span class="planet-label">URANO</span>
+                </div>
+            </div>
+
+            <!-- NEPTUNO -->
+            <div class="orbit orbit-8">
+                <div class="planet planet-neptune">
+                    <span class="planet-label">NEPTUNO</span>
+                </div>
+            </div>
+
+            <!-- PLUTÓN -->
+            <div class="orbit orbit-9">
+                <div class="planet planet-pluto">
+                    <span class="planet-label">PLUTÓN</span>
+                </div>
+            </div>
+
         </div>
 
-        <!-- FOOTER -->
+        <!-- 8 TARJETAS (GRID) -->
+        <div class="cards-grid">
+
+            <!-- 1. Mi Red Social -->
+            <div class="card">
+                <span class="card-icon">👥</span>
+                <span class="card-title">MI RED SOCIAL</span>
+                <span class="card-desc">Conecta. Comparte. Crecemos juntos.</span>
+            </div>
+
+            <!-- 2. Mi Red Educativa -->
+            <div class="card">
+                <span class="card-icon">▶️</span>
+                <span class="card-title">MI RED EDUCATIVA</span>
+                <span class="card-desc">Aprende. Enseña. Evoluciona.</span>
+            </div>
+
+            <!-- 3. Mi Muro Live -->
+            <div class="card">
+                <span class="card-icon">📹</span>
+                <span class="card-title">MI MURO LIVE <span class="badge-live">LIVE</span></span>
+                <span class="card-desc">Transmite en vivo. Comparte tu mundo.</span>
+            </div>
+
+            <!-- 4. Mis Trading -->
+            <div class="card">
+                <span class="card-icon">📊</span>
+                <span class="card-title">MIS TRADING</span>
+                <span class="card-desc">Opera. Invierte. Crea tu libertad.</span>
+            </div>
+
+            <!-- 5. Marquinhos -->
+            <div class="card">
+                <span class="card-icon">🛒</span>
+                <span class="card-title">MARQUINHOS</span>
+                <span class="card-desc">Tu tienda. Tus productos. Tu economía.</span>
+            </div>
+
+            <!-- 6. Zona Gamer -->
+            <div class="card">
+                <span class="card-icon">🎮</span>
+                <span class="card-title">ZONA GAMER</span>
+                <span class="card-desc">Juega. Compite. Gana recompensas.</span>
+            </div>
+
+            <!-- 7. Comprar Internet -->
+            <div class="card">
+                <span class="card-icon">📶</span>
+                <span class="card-title">COMPRAR INTERNET</span>
+                <span class="card-desc">Conéctate siempre. Sin límites.</span>
+            </div>
+
+            <!-- 8. Mi Wallet -->
+            <div class="card">
+                <span class="card-icon">💳</span>
+                <span class="card-title">MI WALLET</span>
+                <span class="card-desc">Tu identidad. Tus activos. Tu poder.</span>
+            </div>
+
+        </div>
+
+        <!-- FOOTER IMPERIAL -->
         <div class="footer-cosmic">
             <div class="badges-row">
                 <span class="badge-item"><span class="icon">🔗</span> SEGURIDAD BLOCKCHAIN</span>
@@ -661,37 +1095,47 @@
     </main>
 
     <!-- ============================================================
-    JS VANILLA · EFECTOS FUTURISTAS
+    JS VANILLA · EFECTOS IMPERIALES
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
-            // 1. Efecto de "barrido" de neón en tarjetas (aleatorio)
-            const cards = document.querySelectorAll('.card');
-            if (cards.length) {
+            // Efecto de brillo aleatorio en planetas
+            const planets = document.querySelectorAll('.planet');
+            if (planets.length) {
                 setInterval(() => {
-                    const idx = Math.floor(Math.random() * cards.length);
-                    const card = cards[idx];
-                    if (card) {
-                        card.style.transition = 'border-color 0.2s, box-shadow 0.2s';
-                        card.style.borderColor = 'rgba(0, 240, 255, 0.4)';
-                        card.style.boxShadow = '0 0 40px rgba(0, 240, 255, 0.08), 0 0 80px rgba(179, 136, 255, 0.04)';
+                    const idx = Math.floor(Math.random() * planets.length);
+                    const planet = planets[idx];
+                    if (planet) {
+                        const originalShadow = planet.style.boxShadow || '';
+                        planet.style.transition = 'box-shadow 0.3s';
+                        planet.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.2)';
                         setTimeout(() => {
-                            card.style.borderColor = 'var(--glass-border)';
-                            card.style.boxShadow = 'var(--shadow-glow)';
-                        }, 500);
+                            planet.style.boxShadow = originalShadow || '';
+                        }, 600);
                     }
-                }, 2800);
+                }, 3500);
             }
 
-            // 2. Efecto de partículas diminutas (simulado con puntos flotantes)
-            //    no usamos canvas para mantenerlo ligero y CSP-friendly
-            //    simplemente añadimos un parpadeo sutil a las estrellas desde CSS
+            // Efecto de destello en el Sol
+            const sun = document.querySelector('.sun-imperial');
+            if (sun) {
+                setInterval(() => {
+                    sun.style.transition = 'transform 0.2s, box-shadow 0.2s';
+                    sun.style.transform = 'scale(1.08)';
+                    sun.style.boxShadow = '0 0 120px rgba(255, 215, 0, 0.6), 0 0 200px rgba(255, 107, 0, 0.3)';
+                    setTimeout(() => {
+                        sun.style.transform = 'scale(1)';
+                        sun.style.boxShadow = '0 0 80px rgba(255, 215, 0, 0.4), 0 0 160px rgba(255, 107, 0, 0.2)';
+                    }, 300);
+                }, 5000);
+            }
 
-            // 3. Console welcome
-            console.log('🌌 Csariel\'s Cosmos Web3 · Futurista cargado');
-            console.log('✨ "El universo es el límite"');
+            // Console welcome
+            console.log('🌌 CSARIEL\'S IMPERIO GALÁCTICO');
+            console.log('⭐ 9 planetas orbitando el Sol Imperial');
+            console.log('🚀 "El universo es nuestro territorio"');
 
         })();
     </script>
