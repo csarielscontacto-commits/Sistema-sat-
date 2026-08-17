@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Csariel's · Sistema Solar Educativo</title>
+    <title>Csariel's · Sistema Solar NASA</title>
     <style>
         /* ============================================================
            VARIABLES CSS
@@ -13,9 +13,9 @@
             --solar-orange: #ff6b00;
             --neon-cyan: #00f0ff;
             --neon-purple: #b388ff;
-            --bg-deep: #020408;
-            --bg-card: rgba(6, 12, 30, 0.6);
-            --glass-border: rgba(255, 215, 0, 0.06);
+            --bg-deep: #010205;
+            --bg-card: rgba(5, 10, 25, 0.7);
+            --glass-border: rgba(255, 215, 0, 0.04);
             --text-primary: #e8f0fe;
             --text-secondary: #7a8aaa;
             --text-accent: #ffd700;
@@ -38,13 +38,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
+            padding: 0.3rem;
             overflow-x: hidden;
             position: relative;
         }
 
         /* ============================================================
-           FONDO ESPACIAL
+           FONDO ESPACIAL NASA
            ============================================================ */
         .cosmic-bg {
             position: fixed;
@@ -55,13 +55,13 @@
             z-index: 0;
             pointer-events: none;
             background:
-                radial-gradient(ellipse at 15% 25%, rgba(80, 40, 180, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 65%, rgba(0, 100, 200, 0.02) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 85%, rgba(200, 80, 0, 0.02) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 30%, rgba(30, 20, 80, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(0, 60, 120, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 85%, rgba(100, 30, 0, 0.04) 0%, transparent 40%),
                 var(--bg-deep);
         }
 
-        .stars-deep {
+        .stars-nasa {
             position: fixed;
             top: 0;
             left: 0;
@@ -81,35 +81,43 @@
                 radial-gradient(1.5px 1.5px at 45% 45%, #fff, transparent),
                 radial-gradient(2px 2px at 75% 5%, #fff, transparent),
                 radial-gradient(1px 1px at 30% 30%, #fff, transparent),
-                radial-gradient(1px 1px at 70% 70%, #fff, transparent);
-            background-size: 350px 350px;
+                radial-gradient(1px 1px at 70% 70%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 15% 60%, #fff, transparent),
+                radial-gradient(1px 1px at 85% 35%, #fff, transparent),
+                radial-gradient(2px 2px at 55% 15%, #fff, transparent),
+                radial-gradient(1px 1px at 25% 80%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 90% 10%, #fff, transparent),
+                radial-gradient(0.8px 0.8px at 40% 95%, #fff, transparent),
+                radial-gradient(0.8px 0.8px at 60% 5%, #fff, transparent);
+            background-size: 400px 400px;
             background-repeat: repeat;
-            opacity: 0.2;
-            animation: twinkleDeep 6s ease-in-out infinite alternate;
+            opacity: 0.3;
+            animation: twinkleNASA 7s ease-in-out infinite alternate;
         }
 
-        @keyframes twinkleDeep {
-            0% { opacity: 0.12; }
-            100% { opacity: 0.3; }
+        @keyframes twinkleNASA {
+            0% { opacity: 0.15; }
+            50% { opacity: 0.35; }
+            100% { opacity: 0.2; }
         }
 
         /* ============================================================
-           HERO PRINCIPAL
+           HERO
            ============================================================ */
         .hero {
             position: relative;
             z-index: 2;
             max-width: 1450px;
             width: 100%;
-            padding: 0.3rem;
+            padding: 0.2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         /* ============================================================
-           ENCABEZADO
+           ENCABEZADO NASA
            ============================================================ */
         .header-brand {
             display: flex;
@@ -131,7 +139,7 @@
             font-size: 1.6rem;
             font-weight: 800;
             color: #020408;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.15);
             animation: imperialPulse 3s ease-in-out infinite;
             transition: transform 0.4s;
         }
@@ -140,8 +148,8 @@
         }
 
         @keyframes imperialPulse {
-            0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.2); }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.35); }
+            0%, 100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.15); }
+            50% { box-shadow: 0 0 100px rgba(255, 215, 0, 0.3); }
         }
 
         .brand-title {
@@ -162,16 +170,16 @@
         }
 
         .subtitle {
-            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+            font-size: clamp(0.5rem, 1vw, 0.7rem);
             color: var(--text-secondary);
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            opacity: 0.5;
+            opacity: 0.4;
             margin-top: -0.3rem;
         }
 
         /* ============================================================
-           SISTEMA SOLAR
+           SISTEMA SOLAR NASA
            ============================================================ */
         .solar-system {
             position: relative;
@@ -184,90 +192,94 @@
             justify-content: center;
         }
 
-        /* ===== SOL ===== */
-        .sun-imperial {
+        /* ===== SOL NASA ===== */
+        .sun-nasa {
             position: absolute;
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: 
-                radial-gradient(circle at 20% 20%, #fff7a0, #ffd700 15%, #ff8c00 40%, #ff4500 65%, #cc3300 85%, #991100 100%);
+                radial-gradient(circle at 15% 15%, #fff7a0, #ffd700 10%, #ff8c00 35%, #ff4500 55%, #cc3300 75%, #991100 90%, #660000 100%);
             box-shadow:
-                0 0 120px rgba(255, 215, 0, 0.25),
-                0 0 250px rgba(255, 107, 0, 0.12),
-                0 0 400px rgba(255, 69, 0, 0.06),
-                inset 0 -40px 100px rgba(0, 0, 0, 0.25);
-            animation: sunPulseReal 4.5s ease-in-out infinite;
+                0 0 150px rgba(255, 215, 0, 0.2),
+                0 0 300px rgba(255, 107, 0, 0.1),
+                0 0 500px rgba(255, 69, 0, 0.05),
+                inset 0 -50px 120px rgba(0, 0, 0, 0.3);
+            animation: sunPulseNASA 5s ease-in-out infinite;
             z-index: 10;
             cursor: default;
         }
 
-        .sun-imperial::before {
+        .sun-nasa::before {
             content: '';
             position: absolute;
-            top: 22%;
-            left: 18%;
-            width: 18%;
-            height: 14%;
+            top: 20%;
+            left: 15%;
+            width: 20%;
+            height: 15%;
             border-radius: 50%;
-            background: rgba(180, 80, 0, 0.25);
-            filter: blur(4px);
+            background: rgba(180, 80, 0, 0.2);
+            filter: blur(5px);
             box-shadow: 
-                45px 35px 0 6px rgba(160, 60, 0, 0.18),
-                -25px 45px 0 10px rgba(140, 40, 0, 0.12);
+                50px 40px 0 8px rgba(160, 60, 0, 0.15),
+                -30px 50px 0 12px rgba(140, 40, 0, 0.1),
+                15px -35px 0 10px rgba(200, 100, 0, 0.08),
+                -50px -20px 0 6px rgba(180, 80, 0, 0.06);
         }
 
-        .sun-imperial::after {
+        .sun-nasa::after {
             content: '☀️ SOL';
             position: absolute;
-            bottom: -38px;
+            bottom: -42px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.5rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: #ffd700;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
             white-space: nowrap;
             -webkit-text-fill-color: #ffd700;
         }
 
-        .sun-corona {
+        .sun-corona-nasa {
             position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 210px;
-            height: 210px;
+            top: -60px;
+            left: -60px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
             background: 
-                radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.06), transparent 50%),
-                radial-gradient(circle at 75% 65%, rgba(255, 107, 0, 0.04), transparent 45%);
-            animation: coronaPulseReal 6s ease-in-out infinite;
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.05), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 0, 0.03), transparent 35%),
+                radial-gradient(circle at 50% 85%, rgba(255, 69, 0, 0.02), transparent 30%);
+            animation: coronaPulseNASA 7s ease-in-out infinite;
             pointer-events: none;
-            filter: blur(10px);
+            filter: blur(12px);
         }
 
-        @keyframes sunPulseReal {
+        @keyframes sunPulseNASA {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 120px rgba(255, 215, 0, 0.25), 0 0 250px rgba(255, 107, 0, 0.12);
+                box-shadow: 0 0 150px rgba(255, 215, 0, 0.2), 0 0 300px rgba(255, 107, 0, 0.1);
             }
             50% {
-                transform: scale(1.04);
-                box-shadow: 0 0 180px rgba(255, 215, 0, 0.35), 0 0 300px rgba(255, 107, 0, 0.18);
+                transform: scale(1.05);
+                box-shadow: 0 0 200px rgba(255, 215, 0, 0.3), 0 0 400px rgba(255, 107, 0, 0.15);
             }
         }
 
-        @keyframes coronaPulseReal {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.5); opacity: 0.6; }
+        @keyframes coronaPulseNASA {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.6); opacity: 0.5; }
+            75% { transform: scale(1.3); opacity: 0.3; }
         }
 
         /* ===== ÓRBITAS ===== */
         .orbit {
             position: absolute;
             border-radius: 50%;
-            border: 1px solid rgba(255, 215, 0, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.015);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -275,7 +287,7 @@
         }
 
         /* ============================================================
-           PLANETAS REALISTAS
+           PLANETAS NASA (HIPERREALISTAS)
            ============================================================ */
         .planet {
             position: absolute;
@@ -288,33 +300,33 @@
             color: rgba(255, 255, 255, 0.3);
             letter-spacing: 0.04em;
             cursor: default;
-            transition: transform 0.3s;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
             z-index: 5;
             box-shadow: 
-                0 0 30px rgba(0, 0, 0, 0.5),
-                inset -8px -8px 30px rgba(0, 0, 0, 0.3),
-                inset 8px 8px 30px rgba(255, 255, 255, 0.05);
+                0 0 40px rgba(0, 0, 0, 0.6),
+                inset -12px -12px 40px rgba(0, 0, 0, 0.4),
+                inset 8px 8px 30px rgba(255, 255, 255, 0.03);
         }
 
         .planet:hover {
-            transform: scale(1.4) !important;
+            transform: scale(1.5) !important;
             z-index: 20;
         }
 
         .planet-label {
             position: absolute;
-            bottom: -22px;
+            bottom: -24px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.4rem;
             font-weight: 500;
             color: var(--text-secondary);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
             white-space: nowrap;
-            opacity: 0.3;
-            transition: opacity 0.3s;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            opacity: 0.15;
+            transition: opacity 0.4s;
+            text-shadow: 0 0 15px rgba(0,0,0,0.9);
         }
         .planet:hover .planet-label {
             opacity: 1;
@@ -322,99 +334,227 @@
         }
 
         /* ============================================================
-           CONFIGURACIÓN DE CADA PLANETA
+           CONFIGURACIÓN DE CADA PLANETA (NASA)
            ============================================================ */
 
-        .orbit-1 { width: 180px; height: 180px; animation: orbitSpin 12s linear infinite; }
+        /* --- MERCURIO (NASA) --- */
+        .orbit-1 { width: 190px; height: 190px; animation: orbitSpin 12s linear infinite; }
         .planet-mercury {
-            width: 16px; height: 16px; top: -8px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 30% 25%, #c8c8c8, #a0a0a0 20%, #787878 45%, #505050 70%, #383838);
-            box-shadow: 0 0 20px rgba(181, 181, 181, 0.03), inset -4px -4px 12px rgba(0,0,0,0.4);
+            width: 18px; height: 18px; top: -9px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 25% 20%, #d0d0d0, #b0b0b0 15%, #888888 35%, #606060 55%, #404040 75%, #282828);
+            box-shadow: 0 0 25px rgba(181, 181, 181, 0.02), inset -6px -6px 18px rgba(0,0,0,0.5), inset 4px 4px 12px rgba(255,255,255,0.03);
+        }
+        .planet-mercury::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 12%;
+            width: 30%;
+            height: 25%;
+            border-radius: 50%;
+            background: rgba(120, 120, 120, 0.15);
+            filter: blur(1px);
+            box-shadow: 
+                22px 18px 0 4px rgba(100, 100, 100, 0.08),
+                -18px 22px 0 6px rgba(80, 80, 80, 0.06),
+                8px -20px 0 5px rgba(140, 140, 140, 0.05);
         }
 
-        .orbit-2 { width: 235px; height: 235px; animation: orbitSpin 16s linear infinite reverse; }
+        /* --- VENUS (NASA) --- */
+        .orbit-2 { width: 250px; height: 250px; animation: orbitSpin 16s linear infinite reverse; }
         .planet-venus {
-            width: 20px; height: 20px; top: -10px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 35% 25%, #f5deb3, #e8c98a 20%, #d4a574 40%, #b8926a 65%, #8a6a50);
-            box-shadow: 0 0 30px rgba(212, 165, 116, 0.05), inset -5px -5px 15px rgba(0,0,0,0.3);
+            width: 22px; height: 22px; top: -11px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 30% 20%, #f5deb3, #e8c98a 15%, #d4a574 35%, #b8926a 55%, #8a6a50 75%, #6a4a30);
+            box-shadow: 0 0 35px rgba(212, 165, 116, 0.04), inset -7px -7px 20px rgba(0,0,0,0.4), inset 5px 5px 15px rgba(255,255,255,0.03);
+        }
+        .planet-venus::before {
+            content: '';
+            position: absolute;
+            top: 8%;
+            left: 10%;
+            width: 80%;
+            height: 70%;
+            border-radius: 50%;
+            background: rgba(255, 220, 180, 0.05);
+            filter: blur(4px);
+            box-shadow: 
+                0 18px 0 12px rgba(255, 200, 160, 0.03),
+                0 -18px 0 12px rgba(200, 160, 120, 0.03);
         }
 
-        .orbit-3 { width: 300px; height: 300px; animation: orbitSpin 20s linear infinite; }
+        /* --- TIERRA (NASA) --- */
+        .orbit-3 { width: 320px; height: 320px; animation: orbitSpin 20s linear infinite; }
         .planet-earth {
-            width: 22px; height: 22px; top: -11px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 25% 20%, #4fc3f7, #1a73e8 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
-            box-shadow: 0 0 40px rgba(79, 195, 247, 0.06), inset -6px -6px 18px rgba(0,0,0,0.3);
+            width: 24px; height: 24px; top: -12px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 20% 15%, #4fc3f7, #1a73e8 20%, #0d47a1 40%, #0a2a5a 60%, #061525 80%, #020810);
+            box-shadow: 0 0 50px rgba(79, 195, 247, 0.04), inset -8px -8px 25px rgba(0,0,0,0.4), inset 6px 6px 18px rgba(255,255,255,0.02);
+        }
+        .planet-earth::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 15%;
+            width: 45%;
+            height: 40%;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.08);
+            filter: blur(1px);
+            box-shadow: 
+                20px 15px 0 8px rgba(76, 175, 80, 0.05),
+                -15px 20px 0 12px rgba(76, 175, 80, 0.03),
+                8px -18px 0 10px rgba(76, 175, 80, 0.04);
         }
         .planet-earth::after {
             content: '🌍';
             position: absolute;
-            font-size: 0.7rem;
-            top: -9px;
+            font-size: 0.8rem;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
         }
-        .planet-earth .planet-label { bottom: -24px; }
+        .planet-earth .planet-label { bottom: -26px; }
 
-        .orbit-4 { width: 365px; height: 365px; animation: orbitSpin 24s linear infinite reverse; }
+        /* --- MARTE (NASA) --- */
+        .orbit-4 { width: 390px; height: 390px; animation: orbitSpin 24s linear infinite reverse; }
         .planet-mars {
-            width: 19px; height: 19px; top: -9.5px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 35% 25%, #ef5350, #c62828 30%, #8e0000 55%, #5a0000 80%, #3a0000);
-            box-shadow: 0 0 30px rgba(239, 83, 80, 0.03), inset -5px -5px 14px rgba(0,0,0,0.3);
+            width: 20px; height: 20px; top: -10px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 30% 20%, #ef5350, #c62828 25%, #8e0000 45%, #5a0000 65%, #3a0000 85%, #1a0000);
+            box-shadow: 0 0 35px rgba(239, 83, 80, 0.02), inset -6px -6px 18px rgba(0,0,0,0.4), inset 4px 4px 12px rgba(255,255,255,0.02);
+        }
+        .planet-mars::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            width: 35%;
+            height: 28%;
+            border-radius: 50%;
+            background: rgba(180, 60, 60, 0.08);
+            filter: blur(1px);
+            box-shadow: 
+                18px 22px 0 6px rgba(160, 50, 50, 0.05),
+                -22px 12px 0 10px rgba(140, 40, 40, 0.04);
         }
 
-        .orbit-5 { width: 450px; height: 450px; animation: orbitSpin 30s linear infinite; }
+        /* --- JÚPITER (NASA) --- */
+        .orbit-5 { width: 480px; height: 480px; animation: orbitSpin 30s linear infinite; }
         .planet-jupiter {
-            width: 36px; height: 36px; top: -18px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 30% 25%, #ffcc80, #f57c00 35%, #e65100 60%, #bf360c 80%, #8a2400);
-            box-shadow: 0 0 40px rgba(255, 204, 128, 0.03), inset -8px -8px 25px rgba(0,0,0,0.25);
+            width: 40px; height: 40px; top: -20px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 25% 20%, #ffcc80, #f57c00 30%, #e65100 50%, #bf360c 70%, #8a2400 85%, #5a1800);
+            box-shadow: 0 0 50px rgba(255, 204, 128, 0.02), inset -10px -10px 35px rgba(0,0,0,0.3), inset 8px 8px 25px rgba(255,255,255,0.02);
+        }
+        .planet-jupiter::before {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 0;
+            width: 100%;
+            height: 14%;
+            background: rgba(255, 220, 180, 0.05);
+            filter: blur(2px);
+            box-shadow: 
+                0 12px 0 0 rgba(255, 200, 160, 0.03),
+                0 -12px 0 0 rgba(200, 120, 80, 0.03);
+        }
+        .planet-jupiter::after {
+            content: '';
+            position: absolute;
+            top: 38%;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            background: rgba(200, 100, 60, 0.03);
+            filter: blur(2px);
+            box-shadow: 
+                0 18px 0 0 rgba(180, 80, 50, 0.02);
         }
 
-        .orbit-6 { width: 535px; height: 535px; animation: orbitSpin 36s linear infinite reverse; }
+        /* --- SATURNO (NASA) --- */
+        .orbit-6 { width: 570px; height: 570px; animation: orbitSpin 36s linear infinite reverse; }
         .planet-saturn {
-            width: 28px; height: 28px; top: -14px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 35% 25%, #f5e6c8, #e8d5b0 25%, #d4b896 45%, #b8956a 65%, #8a6a4a 85%, #6a4a2a);
-            box-shadow: 0 0 40px rgba(201, 168, 124, 0.03), inset -6px -6px 18px rgba(0,0,0,0.2);
+            width: 30px; height: 30px; top: -15px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 30% 20%, #f5e6c8, #e8d5b0 20%, #d4b896 40%, #b8956a 60%, #8a6a4a 80%, #6a4a2a);
+            box-shadow: 0 0 45px rgba(201, 168, 124, 0.02), inset -8px -8px 25px rgba(0,0,0,0.3), inset 6px 6px 18px rgba(255,255,255,0.02);
         }
+
+        /* Anillos de Saturno (NASA - hiperrealistas) */
         .planet-saturn .ring {
             position: absolute;
             border-radius: 50%;
-            border: 1px solid rgba(201, 168, 124, 0.2);
+            border: 1px solid rgba(201, 168, 124, 0.15);
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(15deg);
+            transform: translate(-50%, -50%) rotateX(78deg) rotateZ(12deg);
             pointer-events: none;
             background: radial-gradient(ellipse at 50% 50%, 
-                rgba(201, 168, 124, 0.02) 0%, 
-                rgba(201, 168, 124, 0.04) 30%, 
-                rgba(201, 168, 124, 0.02) 70%, 
+                rgba(201, 168, 124, 0.01) 0%, 
+                rgba(201, 168, 124, 0.03) 25%, 
+                rgba(201, 168, 124, 0.01) 50%, 
+                rgba(201, 168, 124, 0.02) 75%, 
                 transparent 100%);
         }
-        .planet-saturn .ring-1 { width: 65px; height: 10px; border-color: rgba(201, 168, 124, 0.15); }
-        .planet-saturn .ring-2 { width: 76px; height: 12px; border-color: rgba(201, 168, 124, 0.08); }
-        .planet-saturn .ring-3 { width: 88px; height: 14px; border-color: rgba(201, 168, 124, 0.04); }
-        .planet-saturn .ring-4 { width: 50px; height: 8px; border-color: rgba(180, 150, 120, 0.15); }
-        .planet-saturn .ring-5 { width: 42px; height: 6px; border-color: rgba(160, 130, 100, 0.1); }
+        .planet-saturn .ring-1 { width: 70px; height: 11px; border-color: rgba(201, 168, 124, 0.12); }
+        .planet-saturn .ring-2 { width: 82px; height: 13px; border-color: rgba(201, 168, 124, 0.06); }
+        .planet-saturn .ring-3 { width: 95px; height: 15px; border-color: rgba(201, 168, 124, 0.03); }
+        .planet-saturn .ring-4 { width: 54px; height: 9px; border-color: rgba(180, 150, 120, 0.12); }
+        .planet-saturn .ring-5 { width: 45px; height: 7px; border-color: rgba(160, 130, 100, 0.08); }
+        .planet-saturn .ring-6 { width: 38px; height: 6px; border-color: rgba(140, 110, 80, 0.06); }
 
-        .orbit-7 { width: 610px; height: 610px; animation: orbitSpin 42s linear infinite; }
+        /* --- URANO (NASA) --- */
+        .orbit-7 { width: 650px; height: 650px; animation: orbitSpin 42s linear infinite; }
         .planet-uranus {
-            width: 24px; height: 24px; top: -12px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 35% 25%, #80deea, #4dd0e1 25%, #00acc1 50%, #00838f 75%, #005b66);
-            box-shadow: 0 0 30px rgba(77, 208, 225, 0.03), inset -5px -5px 15px rgba(0,0,0,0.2);
+            width: 26px; height: 26px; top: -13px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 30% 20%, #80deea, #4dd0e1 20%, #00acc1 40%, #00838f 60%, #005b66 80%, #00333a);
+            box-shadow: 0 0 35px rgba(77, 208, 225, 0.02), inset -7px -7px 20px rgba(0,0,0,0.3), inset 5px 5px 15px rgba(255,255,255,0.02);
+        }
+        .planet-uranus::before {
+            content: '';
+            position: absolute;
+            top: 8%;
+            left: 8%;
+            width: 85%;
+            height: 75%;
+            border-radius: 50%;
+            background: rgba(100, 220, 240, 0.02);
+            filter: blur(4px);
         }
 
-        .orbit-8 { width: 685px; height: 685px; animation: orbitSpin 48s linear infinite reverse; }
+        /* --- NEPTUNO (NASA) --- */
+        .orbit-8 { width: 730px; height: 730px; animation: orbitSpin 48s linear infinite reverse; }
         .planet-neptune {
-            width: 24px; height: 24px; top: -12px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 30% 25%, #4dd0e1, #1565c0 25%, #0d47a1 50%, #0a2a5a 75%, #061525);
-            box-shadow: 0 0 40px rgba(77, 208, 225, 0.03), inset -5px -5px 15px rgba(0,0,0,0.25);
+            width: 26px; height: 26px; top: -13px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 25% 20%, #4dd0e1, #1565c0 20%, #0d47a1 40%, #0a2a5a 60%, #061525 80%, #020810);
+            box-shadow: 0 0 45px rgba(77, 208, 225, 0.02), inset -7px -7px 20px rgba(0,0,0,0.35), inset 5px 5px 15px rgba(255,255,255,0.02);
+        }
+        .planet-neptune::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 12%;
+            width: 55%;
+            height: 45%;
+            border-radius: 50%;
+            background: rgba(60, 180, 255, 0.03);
+            filter: blur(2px);
+            box-shadow: 0 25px 0 12px rgba(50, 160, 240, 0.02);
         }
 
-        .orbit-9 { width: 760px; height: 760px; animation: orbitSpin 56s linear infinite; }
+        /* --- PLUTÓN (NASA) --- */
+        .orbit-9 { width: 810px; height: 810px; animation: orbitSpin 56s linear infinite; }
         .planet-pluto {
-            width: 12px; height: 12px; top: -6px; left: 50%; transform: translateX(-50%);
-            background: radial-gradient(circle at 35% 25%, #bcaaa4, #8d6e63 30%, #5d4037 55%, #3e2723 80%, #1a0e0a);
-            box-shadow: 0 0 20px rgba(188, 170, 164, 0.02), inset -3px -3px 8px rgba(0,0,0,0.3);
+            width: 14px; height: 14px; top: -7px; left: 50%; transform: translateX(-50%);
+            background: 
+                radial-gradient(circle at 30% 20%, #bcaaa4, #8d6e63 25%, #5d4037 45%, #3e2723 65%, #1a0e0a 85%, #0a0503);
+            box-shadow: 0 0 25px rgba(188, 170, 164, 0.01), inset -4px -4px 12px rgba(0,0,0,0.4), inset 3px 3px 10px rgba(255,255,255,0.02);
         }
 
         @keyframes orbitSpin {
@@ -423,12 +563,12 @@
         }
 
         /* ============================================================
-           TARJETAS INFORMATIVAS (8)
+           TARJETAS (8)
            ============================================================ */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.7rem;
+            gap: 0.6rem;
             width: 100%;
             max-width: 1100px;
             margin: 0.1rem auto;
@@ -436,16 +576,16 @@
 
         .card {
             background: var(--bg-card);
-            backdrop-filter: blur(12px) saturate(1.3);
-            -webkit-backdrop-filter: blur(12px) saturate(1.3);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
             border: 1px solid var(--glass-border);
             border-radius: 1.2rem 0.4rem 1.2rem 0.4rem;
-            padding: 0.9rem 0.8rem;
+            padding: 0.8rem 0.7rem;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 0.1rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 0 60px rgba(255, 215, 0, 0.01);
             position: relative;
             overflow: hidden;
@@ -460,7 +600,7 @@
             width: 100%;
             height: 2px;
             background: linear-gradient(90deg, transparent, #ffd700, #ff8c00, transparent);
-            transition: left 0.6s;
+            transition: left 0.8s;
         }
 
         .card:hover::before {
@@ -468,15 +608,15 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.12);
-            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.03);
+            transform: translateY(-6px);
+            border-color: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 12px 60px rgba(255, 215, 0, 0.03);
         }
 
         .card-icon {
             font-size: 1.4rem;
             line-height: 1;
-            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.03));
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.02));
         }
 
         .card-title {
@@ -493,7 +633,7 @@
             font-size: 0.55rem;
             color: var(--text-secondary);
             line-height: 1.2;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         .badge-live {
@@ -507,122 +647,123 @@
             display: inline-block;
             margin-left: 0.2rem;
             -webkit-text-fill-color: #fff;
-            box-shadow: 0 0 20px rgba(255, 64, 129, 0.15);
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.1);
         }
 
         /* ============================================================
-           INFO ADICIONAL · TIPO FUNDACIÓN DESCUBRE
+           INFO NASA
            ============================================================ */
-        .info-section {
+        .info-nasa {
             width: 100%;
             max-width: 1100px;
-            margin: 0.5rem auto;
-            padding: 1.2rem;
-            background: rgba(6, 12, 30, 0.4);
+            margin: 0.3rem auto;
+            padding: 1.2rem 1.5rem;
+            background: rgba(5, 10, 25, 0.5);
             border-radius: 1.5rem;
-            border: 1px solid rgba(255, 215, 0, 0.04);
-            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 215, 0, 0.02);
+            backdrop-filter: blur(10px);
         }
 
-        .info-section h2 {
-            font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+        .info-nasa h2 {
+            font-size: clamp(0.8rem, 1.6vw, 1.3rem);
             font-weight: 300;
             letter-spacing: 0.1em;
             color: var(--text-accent);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             text-align: center;
         }
 
-        .info-grid {
+        .info-grid-nasa {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.6rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.4rem;
         }
 
-        .info-item {
-            padding: 0.6rem 0.8rem;
-            background: rgba(255, 215, 0, 0.02);
+        .info-item-nasa {
+            padding: 0.5rem 0.7rem;
+            background: rgba(255, 215, 0, 0.01);
             border-radius: 0.8rem;
-            border: 1px solid rgba(255, 215, 0, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.02);
             transition: all 0.3s;
+            text-align: center;
         }
 
-        .info-item:hover {
-            background: rgba(255, 215, 0, 0.04);
-            border-color: rgba(255, 215, 0, 0.06);
+        .info-item-nasa:hover {
+            background: rgba(255, 215, 0, 0.03);
+            border-color: rgba(255, 215, 0, 0.04);
         }
 
-        .info-item .label {
-            font-size: 0.5rem;
+        .info-item-nasa .label {
+            font-size: 0.45rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--text-secondary);
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        .info-item .value {
+        .info-item-nasa .value {
             font-size: 0.7rem;
             font-weight: 500;
             color: var(--text-primary);
             margin-top: 0.1rem;
         }
 
-        .info-item .value small {
+        .info-item-nasa .value small {
             font-weight: 300;
             color: var(--text-secondary);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
         }
 
         /* ============================================================
            FOOTER
            ============================================================ */
-        .footer-cosmic {
+        .footer-nasa {
             width: 100%;
             padding-top: 0.6rem;
-            border-top: 1px solid rgba(255, 215, 0, 0.02);
+            border-top: 1px solid rgba(255, 215, 0, 0.01);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
-        .badges-row {
+        .badges-row-nasa {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.4rem 1.2rem;
+            gap: 0.3rem 1rem;
         }
 
-        .badge-item {
+        .badge-item-nasa {
             display: flex;
             align-items: center;
             gap: 0.3rem;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: var(--text-secondary);
-            background: rgba(255, 215, 0, 0.02);
-            padding: 0.1rem 0.7rem 0.1rem 0.4rem;
+            background: rgba(255, 215, 0, 0.01);
+            padding: 0.1rem 0.6rem 0.1rem 0.4rem;
             border-radius: 40px;
-            border: 1px solid rgba(255, 215, 0, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.01);
             backdrop-filter: blur(4px);
             letter-spacing: 0.04em;
             transition: all 0.3s;
         }
-        .badge-item:hover {
-            border-color: rgba(255, 215, 0, 0.06);
+        .badge-item-nasa:hover {
+            border-color: rgba(255, 215, 0, 0.04);
             color: var(--text-primary);
         }
-        .badge-item .icon {
-            font-size: 0.7rem;
+        .badge-item-nasa .icon {
+            font-size: 0.65rem;
         }
 
-        .slogan-final {
-            font-size: clamp(0.65rem, 1.8vw, 1.2rem);
+        .slogan-nasa {
+            font-size: clamp(0.6rem, 1.6vw, 1.1rem);
             font-weight: 200;
             text-align: center;
             color: var(--text-secondary);
             letter-spacing: 0.08em;
         }
-        .slogan-final strong {
+        .slogan-nasa strong {
             font-weight: 500;
             background: linear-gradient(135deg, #ffd700, #ff8c00);
             -webkit-background-clip: text;
@@ -630,13 +771,13 @@
             background-clip: text;
         }
 
-        .footer-credits {
-            font-size: 0.45rem;
+        .footer-credits-nasa {
+            font-size: 0.4rem;
             color: var(--text-secondary);
-            opacity: 0.3;
+            opacity: 0.2;
             text-align: center;
-            letter-spacing: 0.1em;
-            padding: 0.3rem 0;
+            letter-spacing: 0.12em;
+            padding: 0.2rem 0;
         }
 
         /* ============================================================
@@ -647,37 +788,38 @@
                 height: 520px;
                 max-width: 750px;
             }
-            .sun-imperial {
-                width: 85px;
-                height: 85px;
+            .sun-nasa {
+                width: 90px;
+                height: 90px;
             }
-            .sun-corona {
-                width: 160px;
-                height: 160px;
-                top: -35px;
-                left: -35px;
+            .sun-corona-nasa {
+                width: 180px;
+                height: 180px;
+                top: -45px;
+                left: -45px;
             }
-            .orbit-1 { width: 150px; height: 150px; }
-            .orbit-2 { width: 195px; height: 195px; }
-            .orbit-3 { width: 245px; height: 245px; }
-            .orbit-4 { width: 300px; height: 300px; }
-            .orbit-5 { width: 370px; height: 370px; }
-            .orbit-6 { width: 440px; height: 440px; }
-            .orbit-7 { width: 500px; height: 500px; }
-            .orbit-8 { width: 560px; height: 560px; }
-            .orbit-9 { width: 620px; height: 620px; }
+            .orbit-1 { width: 160px; height: 160px; }
+            .orbit-2 { width: 210px; height: 210px; }
+            .orbit-3 { width: 265px; height: 265px; }
+            .orbit-4 { width: 320px; height: 320px; }
+            .orbit-5 { width: 390px; height: 390px; }
+            .orbit-6 { width: 460px; height: 460px; }
+            .orbit-7 { width: 530px; height: 530px; }
+            .orbit-8 { width: 595px; height: 595px; }
+            .orbit-9 { width: 660px; height: 660px; }
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
             }
-            .info-grid {
+            .info-grid-nasa {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .planet-saturn .ring-1 { width: 55px; height: 8px; }
-            .planet-saturn .ring-2 { width: 64px; height: 10px; }
-            .planet-saturn .ring-3 { width: 74px; height: 12px; }
-            .planet-saturn .ring-4 { width: 42px; height: 6px; }
-            .planet-saturn .ring-5 { width: 35px; height: 5px; }
+            .planet-saturn .ring-1 { width: 58px; height: 9px; }
+            .planet-saturn .ring-2 { width: 68px; height: 11px; }
+            .planet-saturn .ring-3 { width: 78px; height: 13px; }
+            .planet-saturn .ring-4 { width: 45px; height: 7px; }
+            .planet-saturn .ring-5 { width: 38px; height: 6px; }
+            .planet-saturn .ring-6 { width: 32px; height: 5px; }
         }
 
         @media (max-width: 620px) {
@@ -685,54 +827,55 @@
                 height: 420px;
                 max-width: 100%;
             }
-            .sun-imperial {
-                width: 65px;
-                height: 65px;
+            .sun-nasa {
+                width: 70px;
+                height: 70px;
             }
-            .sun-corona {
-                width: 120px;
-                height: 120px;
-                top: -25px;
-                left: -25px;
+            .sun-corona-nasa {
+                width: 130px;
+                height: 130px;
+                top: -30px;
+                left: -30px;
             }
-            .sun-imperial::after {
-                font-size: 0.4rem;
-                bottom: -30px;
+            .sun-nasa::after {
+                font-size: 0.35rem;
+                bottom: -32px;
             }
-            .orbit-1 { width: 120px; height: 120px; animation-duration: 10s; }
-            .orbit-2 { width: 155px; height: 155px; animation-duration: 13s; }
-            .orbit-3 { width: 195px; height: 195px; animation-duration: 16s; }
-            .orbit-4 { width: 240px; height: 240px; animation-duration: 19s; }
-            .orbit-5 { width: 290px; height: 290px; animation-duration: 23s; }
-            .orbit-6 { width: 345px; height: 345px; animation-duration: 27s; }
-            .orbit-7 { width: 395px; height: 395px; animation-duration: 32s; }
-            .orbit-8 { width: 440px; height: 440px; animation-duration: 36s; }
-            .orbit-9 { width: 485px; height: 485px; animation-duration: 42s; }
+            .orbit-1 { width: 125px; height: 125px; animation-duration: 10s; }
+            .orbit-2 { width: 160px; height: 160px; animation-duration: 13s; }
+            .orbit-3 { width: 200px; height: 200px; animation-duration: 16s; }
+            .orbit-4 { width: 245px; height: 245px; animation-duration: 19s; }
+            .orbit-5 { width: 300px; height: 300px; animation-duration: 23s; }
+            .orbit-6 { width: 355px; height: 355px; animation-duration: 27s; }
+            .orbit-7 { width: 405px; height: 405px; animation-duration: 32s; }
+            .orbit-8 { width: 455px; height: 455px; animation-duration: 36s; }
+            .orbit-9 { width: 505px; height: 505px; animation-duration: 42s; }
 
-            .planet-mercury { width: 12px; height: 12px; top: -6px; }
-            .planet-venus { width: 15px; height: 15px; top: -7.5px; }
-            .planet-earth { width: 17px; height: 17px; top: -8.5px; }
-            .planet-earth::after { font-size: 0.5rem; top: -7px; }
-            .planet-mars { width: 14px; height: 14px; top: -7px; }
-            .planet-jupiter { width: 26px; height: 26px; top: -13px; }
-            .planet-saturn { width: 20px; height: 20px; top: -10px; }
-            .planet-uranus { width: 18px; height: 18px; top: -9px; }
-            .planet-neptune { width: 18px; height: 18px; top: -9px; }
-            .planet-pluto { width: 8px; height: 8px; top: -4px; }
+            .planet-mercury { width: 14px; height: 14px; top: -7px; }
+            .planet-venus { width: 17px; height: 17px; top: -8.5px; }
+            .planet-earth { width: 19px; height: 19px; top: -9.5px; }
+            .planet-earth::after { font-size: 0.55rem; top: -8px; }
+            .planet-mars { width: 16px; height: 16px; top: -8px; }
+            .planet-jupiter { width: 28px; height: 28px; top: -14px; }
+            .planet-saturn { width: 22px; height: 22px; top: -11px; }
+            .planet-uranus { width: 20px; height: 20px; top: -10px; }
+            .planet-neptune { width: 20px; height: 20px; top: -10px; }
+            .planet-pluto { width: 10px; height: 10px; top: -5px; }
 
-            .planet-saturn .ring-1 { width: 44px; height: 7px; }
-            .planet-saturn .ring-2 { width: 52px; height: 8px; }
-            .planet-saturn .ring-3 { width: 60px; height: 10px; }
-            .planet-saturn .ring-4 { width: 34px; height: 5px; }
-            .planet-saturn .ring-5 { width: 28px; height: 4px; }
+            .planet-saturn .ring-1 { width: 46px; height: 7px; }
+            .planet-saturn .ring-2 { width: 54px; height: 9px; }
+            .planet-saturn .ring-3 { width: 62px; height: 11px; }
+            .planet-saturn .ring-4 { width: 36px; height: 6px; }
+            .planet-saturn .ring-5 { width: 30px; height: 5px; }
+            .planet-saturn .ring-6 { width: 25px; height: 4px; }
 
             .planet-label {
                 font-size: 0.3rem;
-                bottom: -18px;
-                opacity: 0.2;
+                bottom: -20px;
+                opacity: 0.1;
             }
             .planet-earth .planet-label {
-                bottom: -20px;
+                bottom: -22px;
             }
             .cards-grid {
                 grid-template-columns: 1fr 1fr;
@@ -745,17 +888,17 @@
             .card-icon { font-size: 1.1rem; }
             .card-title { font-size: 0.6rem; }
             .card-desc { font-size: 0.45rem; }
-            .info-grid {
+            .info-grid-nasa {
                 grid-template-columns: 1fr 1fr;
             }
-            .info-item {
-                padding: 0.4rem 0.6rem;
+            .info-item-nasa {
+                padding: 0.4rem 0.5rem;
             }
-            .info-item .value {
+            .info-item-nasa .value {
                 font-size: 0.6rem;
             }
-            .badges-row { gap: 0.2rem 0.6rem; }
-            .badge-item { font-size: 0.45rem; padding: 0.1rem 0.4rem; }
+            .badges-row-nasa { gap: 0.2rem 0.6rem; }
+            .badge-item-nasa { font-size: 0.4rem; padding: 0.05rem 0.4rem; }
         }
 
         @media (max-width: 400px) {
@@ -766,7 +909,7 @@
                 grid-template-columns: 1fr;
                 max-width: 250px;
             }
-            .info-grid {
+            .info-grid-nasa {
                 grid-template-columns: 1fr;
             }
             .brand-title {
@@ -777,33 +920,34 @@
                 height: 32px;
                 font-size: 1rem;
             }
-            .sun-imperial {
-                width: 50px;
-                height: 50px;
+            .sun-nasa {
+                width: 55px;
+                height: 55px;
             }
-            .sun-corona {
-                width: 90px;
-                height: 90px;
-                top: -20px;
-                left: -20px;
+            .sun-corona-nasa {
+                width: 100px;
+                height: 100px;
+                top: -22px;
+                left: -22px;
             }
-            .orbit-1 { width: 95px; height: 95px; }
-            .orbit-2 { width: 125px; height: 125px; }
-            .orbit-3 { width: 160px; height: 160px; }
-            .orbit-4 { width: 195px; height: 195px; }
-            .orbit-5 { width: 235px; height: 235px; }
-            .orbit-6 { width: 280px; height: 280px; }
-            .orbit-7 { width: 320px; height: 320px; }
-            .orbit-8 { width: 355px; height: 355px; }
-            .orbit-9 { width: 390px; height: 390px; }
+            .orbit-1 { width: 100px; height: 100px; }
+            .orbit-2 { width: 130px; height: 130px; }
+            .orbit-3 { width: 165px; height: 165px; }
+            .orbit-4 { width: 200px; height: 200px; }
+            .orbit-5 { width: 245px; height: 245px; }
+            .orbit-6 { width: 290px; height: 290px; }
+            .orbit-7 { width: 330px; height: 330px; }
+            .orbit-8 { width: 370px; height: 370px; }
+            .orbit-9 { width: 410px; height: 410px; }
 
             .planet-earth::after { font-size: 0.4rem; top: -5px; }
-            .planet-label { font-size: 0.25rem; bottom: -16px; }
-            .planet-saturn .ring-1 { width: 35px; height: 5px; }
-            .planet-saturn .ring-2 { width: 42px; height: 6px; }
-            .planet-saturn .ring-3 { width: 48px; height: 8px; }
-            .planet-saturn .ring-4 { width: 28px; height: 4px; }
-            .planet-saturn .ring-5 { width: 22px; height: 3px; }
+            .planet-label { font-size: 0.25rem; bottom: -18px; }
+            .planet-saturn .ring-1 { width: 38px; height: 5px; }
+            .planet-saturn .ring-2 { width: 44px; height: 7px; }
+            .planet-saturn .ring-3 { width: 50px; height: 9px; }
+            .planet-saturn .ring-4 { width: 30px; height: 4px; }
+            .planet-saturn .ring-5 { width: 25px; height: 3px; }
+            .planet-saturn .ring-6 { width: 20px; height: 3px; }
         }
     </style>
 </head>
@@ -811,7 +955,7 @@
 
     <!-- ===== FONDOS ===== -->
     <div class="cosmic-bg" aria-hidden="true"></div>
-    <div class="stars-deep" aria-hidden="true"></div>
+    <div class="stars-nasa" aria-hidden="true"></div>
 
     <!-- ===== HERO ===== -->
     <main class="hero">
@@ -821,14 +965,14 @@
             <span class="logo-c" aria-hidden="true">C</span>
             <h1 class="brand-title">CSARIEL'S · SISTEMA SOLAR</h1>
         </header>
-        <div class="subtitle">🌌 Exploración astronómica · La familia del Sol</div>
+        <div class="subtitle">🔭 Observación astronómica · La familia del Sol</div>
 
-        <!-- SISTEMA SOLAR REALISTA -->
+        <!-- SISTEMA SOLAR NASA -->
         <div class="solar-system">
 
-            <!-- SOL IMPERIAL -->
-            <div class="sun-imperial"></div>
-            <div class="sun-corona"></div>
+            <!-- SOL -->
+            <div class="sun-nasa"></div>
+            <div class="sun-corona-nasa"></div>
 
             <!-- MERCURIO -->
             <div class="orbit orbit-1">
@@ -873,6 +1017,7 @@
                     <span class="ring ring-3"></span>
                     <span class="ring ring-4"></span>
                     <span class="ring ring-5"></span>
+                    <span class="ring ring-6"></span>
                     <span class="planet-label">SATURNO</span>
                 </div>
             </div>
@@ -900,7 +1045,7 @@
 
         </div>
 
-        <!-- 8 TARJETAS -->
+        <!-- TARJETAS -->
         <div class="cards-grid">
             <div class="card">
                 <span class="card-icon">👥</span>
@@ -944,39 +1089,39 @@
             </div>
         </div>
 
-        <!-- ===== SECCIÓN INFORMATIVA (ESTILO FUNDACIÓN DESCUBRE) ===== -->
-        <div class="info-section">
+        <!-- INFO NASA -->
+        <div class="info-nasa">
             <h2>🔭 Datos astronómicos · La familia del Sol</h2>
-            <div class="info-grid">
-                <div class="info-item">
+            <div class="info-grid-nasa">
+                <div class="info-item-nasa">
                     <div class="label">⭐ Estrella central</div>
-                    <div class="value">Sol <small>(tipo G2V)</small></div>
+                    <div class="value">Sol <small>tipo G2V</small></div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">🪐 Planetas</div>
-                    <div class="value">8 planetas <small>(4 rocosos + 4 gaseosos)</small></div>
+                    <div class="value">8 planetas <small>4 rocosos + 4 gaseosos</small></div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">🌍 Planetas rocosos</div>
                     <div class="value">Mercurio · Venus · Tierra · Marte</div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">🌀 Planetas gaseosos</div>
                     <div class="value">Júpiter · Saturno · Urano · Neptuno</div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">☄️ Cuerpos menores</div>
                     <div class="value">Asteroides · Cometas · Meteoros</div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">🌌 Planetas enanos</div>
                     <div class="value">Plutón · Ceres · Eris · Haumea · Makemake</div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">📏 Distancia media</div>
-                    <div class="value">149.6 millones km <small>(1 UA)</small></div>
+                    <div class="value">149.6 millones km <small>1 UA</small></div>
                 </div>
-                <div class="info-item">
+                <div class="info-item-nasa">
                     <div class="label">🔄 Edad del sistema</div>
                     <div class="value">4.600 millones de años</div>
                 </div>
@@ -984,31 +1129,31 @@
         </div>
 
         <!-- FOOTER -->
-        <div class="footer-cosmic">
-            <div class="badges-row">
-                <span class="badge-item"><span class="icon">🔗</span> SEGURIDAD BLOCKCHAIN</span>
-                <span class="badge-item"><span class="icon">🔍</span> TRANSPARENCIA TOTAL</span>
-                <span class="badge-item"><span class="icon">🌐</span> DESCENTRALIZADO</span>
-                <span class="badge-item"><span class="icon">🏛️</span> HECHO EN PUEBLA</span>
+        <div class="footer-nasa">
+            <div class="badges-row-nasa">
+                <span class="badge-item-nasa"><span class="icon">🔗</span> SEGURIDAD BLOCKCHAIN</span>
+                <span class="badge-item-nasa"><span class="icon">🔍</span> TRANSPARENCIA TOTAL</span>
+                <span class="badge-item-nasa"><span class="icon">🌐</span> DESCENTRALIZADO</span>
+                <span class="badge-item-nasa"><span class="icon">🏛️</span> HECHO EN PUEBLA</span>
             </div>
-            <div class="slogan-final">
+            <div class="slogan-nasa">
                 <strong>UN SOLO UNIVERSO</strong> · TODAS LAS SOLUCIONES · <strong>CSARIEL'S ECOSISTEMA</strong>
             </div>
-            <div class="footer-credits">
-                Con la colaboración de la Fundación Descubre · Ciencia ciudadana · Andalucía + Ciencia
+            <div class="footer-credits-nasa">
+                Observación astronómica · Ciencia ciudadana · Exploración espacial
             </div>
         </div>
 
     </main>
 
     <!-- ============================================================
-    JS VANILLA
+    JS VANILLA · EFECTOS NASA
     ============================================================ -->
     <script>
         (function() {
             'use strict';
 
-            // Efecto de brillo aleatorio en planetas
+            // Efecto de brillo aleatorio en planetas (NASA)
             const planets = document.querySelectorAll('.planet');
             if (planets.length) {
                 setInterval(() => {
@@ -1016,46 +1161,47 @@
                     const planet = planets[idx];
                     if (planet) {
                         const originalShadow = planet.style.boxShadow || '';
-                        planet.style.transition = 'box-shadow 0.3s';
-                        planet.style.boxShadow = '0 0 60px rgba(255, 215, 0, 0.08), 0 0 120px rgba(255, 215, 0, 0.03)';
+                        planet.style.transition = 'box-shadow 0.4s';
+                        planet.style.boxShadow = '0 0 80px rgba(255, 215, 0, 0.06), 0 0 160px rgba(255, 215, 0, 0.02)';
                         setTimeout(() => {
                             planet.style.boxShadow = originalShadow || '';
-                        }, 500);
+                        }, 600);
                     }
                 }, 3500);
             }
 
-            // Destello en el Sol
-            const sun = document.querySelector('.sun-imperial');
+            // Llamarada solar (NASA)
+            const sun = document.querySelector('.sun-nasa');
             if (sun) {
                 setInterval(() => {
-                    sun.style.transition = 'transform 0.3s, box-shadow 0.3s';
-                    sun.style.transform = 'scale(1.05)';
-                    sun.style.boxShadow = '0 0 180px rgba(255, 215, 0, 0.35), 0 0 300px rgba(255, 107, 0, 0.2), 0 0 450px rgba(255, 69, 0, 0.08)';
+                    sun.style.transition = 'transform 0.4s, box-shadow 0.4s';
+                    sun.style.transform = 'scale(1.06)';
+                    sun.style.boxShadow = '0 0 200px rgba(255, 215, 0, 0.3), 0 0 350px rgba(255, 107, 0, 0.15), 0 0 500px rgba(255, 69, 0, 0.05)';
                     setTimeout(() => {
                         sun.style.transform = 'scale(1)';
-                        sun.style.boxShadow = '0 0 120px rgba(255, 215, 0, 0.25), 0 0 250px rgba(255, 107, 0, 0.12)';
-                    }, 400);
-                }, 7000);
+                        sun.style.boxShadow = '0 0 150px rgba(255, 215, 0, 0.2), 0 0 300px rgba(255, 107, 0, 0.1)';
+                    }, 500);
+                }, 8000);
             }
 
-            // Rotación de anillos de Saturno
+            // Rotación de anillos de Saturno (NASA)
             const rings = document.querySelectorAll('.planet-saturn .ring');
             if (rings.length) {
                 let ringAngle = 0;
                 setInterval(() => {
-                    ringAngle = (ringAngle + 0.5) % 360;
+                    ringAngle = (ringAngle + 0.3) % 360;
                     rings.forEach((ring) => {
-                        ring.style.transform = `translate(-50%, -50%) rotateX(75deg) rotateZ(${15 + ringAngle * 0.02}deg)`;
+                        ring.style.transform = `translate(-50%, -50%) rotateX(78deg) rotateZ(${12 + ringAngle * 0.02}deg)`;
                     });
-                }, 100);
+                }, 80);
             }
 
-            console.log('🌌 CSARIEL\'S SISTEMA SOLAR EDUCATIVO');
-            console.log('⭐ 9 planetas con texturas realistas');
-            console.log('🪐 Saturno con anillos 3D');
-            console.log('📚 Contenido divulgativo estilo Fundación Descubre');
-            console.log('🚀 "Explorando el universo desde Csariel\'s"');
+            console.log('🌌 CSARIEL\'S SISTEMA SOLAR NASA');
+            console.log('⭐ Texturas hiperrealistas estilo telescopio');
+            console.log('🪐 Saturno con 6 anillos 3D');
+            console.log('☀️ Sol con manchas y corona solar');
+            console.log('📡 Observación astronómica de alta definición');
+            console.log('🚀 "Explorando el cosmos con Csariel\'s"');
 
         })();
     </script>
