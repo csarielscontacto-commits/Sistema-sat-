@@ -26,7 +26,7 @@
     }
 
     /* -------------------------------------------------
-       ESTRELLAS DE FONDO
+       ESTRELLAS DE FONDO (más estrellas)
     ------------------------------------------------- */
     .stars{
       position:fixed; inset:0;
@@ -40,7 +40,18 @@
       opacity:.35;
       animation:twinkle 8s ease-in-out infinite alternate;
     }
+    .stars::after{
+      content:'';
+      position:absolute; inset:0;
+      background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%222%22 height=%222%22><circle cx=%221%22 cy=%221%22 r=%220.6%22 fill=%22white%22 opacity=%220.9%22/></svg>');
+      background-size:2px 2px;
+      animation:starfield 40s linear infinite;
+    }
     @keyframes twinkle{0%{opacity:.18}50%{opacity:.38}100%{opacity:.22}}
+    @keyframes starfield{
+      from{transform:translateX(0) translateY(0);}
+      to{transform:translateX(-2000px) translateY(-2000px);}
+    }
 
     /* -------------------------------------------------
        GALAXIA (Vía Láctea + Agujero Negro + Supernova)
@@ -114,11 +125,13 @@
       position:relative;
       width:100vw; height:100vh;
       overflow:hidden;
+      display:flex;               /* <-- CENTRAR */
+      align-items:center;
+      justify-content:center;
       cursor:grab;
     }
     #solar{
-      position:absolute;
-      top:50%; left:50%;
+      position:relative;          /* <-- ahora es relativo */
       transform:translate(-50%,-50%) scale(1);
       transform-origin:center;
       transition:transform .1s ease-out;
@@ -135,6 +148,8 @@
       border-radius:50%;
       background:url('https://www.solarsystemscope.com/textures/download/2k_sun.jpg') center/cover;
       box-shadow:0 0 120px rgba(255,215,0,.4),0 0 300px rgba(255,140,0,.2);
+      cursor:pointer;
+      z-index:2;
     }
 
     /* -------------------------------------------------
@@ -160,7 +175,7 @@
     }
     .planet:hover{transform:scale(1.4);z-index:5;}
 
-    /* ----- MERCURIO ----- */
+    /* ---------- MERCURIO ---------- */
     .mercury{
       width:10px;height:10px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover;
@@ -171,7 +186,7 @@
       to{transform:rotate(360deg) translateX(55px) rotate(-360deg);}
     }
 
-    /* ----- VENUS ----- */
+    /* ---------- VENUS ---------- */
     .venus{
       width:18px;height:18px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover;
@@ -182,7 +197,7 @@
       to{transform:rotate(360deg) translateX(85px) rotate(-360deg);}
     }
 
-    /* ----- TIERRA ----- */
+    /* ---------- TIERRA ---------- */
     .earth{
       width:20px;height:20px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover;
@@ -202,7 +217,7 @@
       to{transform:rotate(360deg) translateX(30px) rotate(-360deg);}
     }
 
-    /* ----- MARS ----- */
+    /* ---------- MARTE ---------- */
     .mars{
       width:16px;height:16px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover;
@@ -213,7 +228,7 @@
       to{transform:rotate(360deg) translateX(150px) rotate(-360deg);}
     }
 
-    /* ----- JUPITER ----- */
+    /* ---------- JUPITER ---------- */
     .jupiter{
       width:36px;height:36px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover;
@@ -224,7 +239,7 @@
       to{transform:rotate(360deg) translateX(200px) rotate(-360deg);}
     }
 
-    /* ----- SATURN ----- */
+    /* ---------- SATURNO ---------- */
     .saturn{
       width:34px;height:34px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover;
@@ -243,7 +258,7 @@
       transform:rotateX(55deg);
     }
 
-    /* ----- URANUS ----- */
+    /* ---------- URANO ---------- */
     .uranus{
       width:28px;height:28px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover;
@@ -254,7 +269,7 @@
       to{transform:rotate(360deg) translateX(310px) rotate(-360deg);}
     }
 
-    /* ----- NEPTUNE ----- */
+    /* ---------- NEPTUNO ---------- */
     .neptune{
       width:26px;height:26px;
       background:url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover;
@@ -266,7 +281,7 @@
     }
 
     /* -------------------------------------------------
-       TOOLTIP (información rápida)
+       TOOLTIP (información rápida) – opcional
     ------------------------------------------------- */
     .tooltip{
       position:absolute;
@@ -308,135 +323,92 @@
     .constellation line{
       stroke:rgba(255,215,0,.5);
       stroke-width:1.2;
-      stroke-dasharray:4 2;
     }
   </style>
 </head>
 <body>
-
   <div class="stars"></div>
-
-  <!-- GALAXIA -->
-  <div class="galaxy">
-    <div class="milky-way"></div>
-    <div class="black-hole"></div>
-    <div class="supernova" id="supernova"></div>
-  </div>
 
   <div id="viewport">
     <div id="solar">
-
       <!-- Sol -->
-      <div class="sun"></div>
+      <div class="sun" id="sun"></div>
 
-      <!-- Órbitas -->
-      <div class="orbit" style="width:110px;height:110px;"></div><!-- Mercurio -->
-      <div class="orbit" style="width:170px;height:170px;"></div><!-- Venus -->
-      <div class="orbit" style="width:230px;height:230px;"></div><!-- Tierra -->
-      <div class="orbit" style="width:300px;height:300px;"></div><!-- Marte -->
-      <div class="orbit" style="width:400px;height:400px;"></div><!-- Júpiter -->
-      <div class="orbit" style="width:520px;height:520px;"></div><!-- Saturno -->
-      <div class="orbit" style="width:620px;height:620px;"></div><!-- Urano -->
-      <div class="orbit" style="width:720px;height:720px;"></div><!-- Neptuno -->
+      <!-- Supernova (oculta, se activa con JavaScript) -->
+      <div class="supernova" id="supernova"></div>
 
-      <!-- MERCURIO -->
-      <div class="planet mercury" data-name="Mercurio"></div>
+      <!-- Órbitas + planetas -->
+      <div class="orbit" style="width:110px;height:110px;"></div>
+      <div class="planet mercury"></div>
 
-      <!-- VENUS -->
-      <div class="planet venus" data-name="Venus"></div>
+      <div class="orbit" style="width:170px;height:170px;"></div>
+      <div class="planet venus"></div>
 
-      <!-- TIERRA + LUNA -->
-      <div class="planet earth" data-name="Tierra">
-        <div class="planet moon" data-name="Luna"></div>
-      </div>
+      <div class="orbit" style="width:230px;height:230px;"></div>
+      <div class="planet earth"></div>
+      <div class="planet moon"></div>
 
-      <!-- MARTE -->
-      <div class="planet mars" data-name="Marte"></div>
+      <div class="orbit" style="width:300px;height:300px;"></div>
+      <div class="planet mars"></div>
 
-      <!-- JÚPITER -->
-      <div class="planet jupiter" data-name="Júpiter"></div>
+      <div class="orbit" style="width:400px;height:400px;"></div>
+      <div class="planet jupiter"></div>
 
-      <!-- SATURNO -->
-      <div class="planet saturn" data-name="Saturno"></div>
+      <div class="orbit" style="width:520px;height:520px;"></div>
+      <div class="planet saturn"></div>
 
-      <!-- URANO -->
-      <div class="planet uranus" data-name="Urano"></div>
+      <div class="orbit" style="width:620px;height:620px;"></div>
+      <div class="planet uranus"></div>
 
-      <!-- NEPTUNO -->
-      <div class="planet neptune" data-name="Neptuno"></div>
+      <div class="orbit" style="width:720px;height:720px;"></div>
+      <div class="planet neptune"></div>
     </div>
   </div>
 
-  <!-- TOOLTIP -->
-  <div class="tooltip" id="tooltip"></div>
+  <!-- Galaxia / Agujero Negro -->
+  <div class="galaxy">
+    <div class="milky-way"></div>
+    <div class="black-hole"></div>
+  </div>
 
-  <!-- CONTROLES -->
+  <!-- Controles de Zoom -->
   <div id="controls">
     <button id="zoomIn">+</button>
-    <button id="zoomOut">−</button>
-    <button id="triggerSN">Supernova</button>
+    <button id="zoomOut">–</button>
+    <button id="resetZoom">Reset</button>
   </div>
 
   <script>
-    // ----------------- ZOOM -----------------
+    // ---------- ZOOM ----------
     const viewport = document.getElementById('viewport');
     const solar = document.getElementById('solar');
     let scale = 1;
-    const ZOOM_FACTOR = 0.15;
+    const ZOOM_STEP = 0.15;
 
-    document.getElementById('zoomIn').onclick = () => {
-      scale = Math.min(scale + ZOOM_FACTOR, 3);
+    function setScale(v){
+      scale = Math.min(Math.max(v,0.3),3);
       solar.style.transform = `translate(-50%,-50%) scale(${scale})`;
-    };
-    document.getElementById('zoomOut').onclick = () => {
-      scale = Math.max(scale - ZOOM_FACTOR, 0.3);
-      solar.style.transform = `translate(-50%,-50%) scale(${scale})`;
-    };
+    }
 
-    // ----------------- TOOLTIP -----------------
-    const tooltip = document.getElementById('tooltip');
-    const planetData = {
-      Mercurio:{masa:'3.30×10²³ kg',radio:'2 440 km',periodo:'88 días'},
-      Venus:{masa:'4.87×10²⁴ kg',radio:'6 052 km',periodo:'225 días'},
-      Tierra:{masa:'5.97×10²⁴ kg',radio:'6 371 km',periodo:'365 días'},
-      Luna:{masa:'7.35×10²² kg',radio:'1 738 km',periodo:'27 días'},
-      Marte:{masa:'6.42×10²³ kg',radio:'3 390 km',periodo:'687 días'},
-      Júpiter:{masa:'1.90×10²⁷ kg',radio:'69 911 km',periodo:'12 años'},
-      Saturno:{masa:'5.68×10²⁶ kg',radio:'58 232 km',periodo:'29 años'},
-      Urano:{masa:'8.68×10²⁵ kg',radio:'25 362 km',periodo:'84 años'},
-      Neptuno:{masa:'1.02×10²⁶ kg',radio:'24 622 km',periodo:'165 años'},
-    };
+    document.getElementById('zoomIn').onclick = () => setScale(scale + ZOOM_STEP);
+    document.getElementById('zoomOut').onclick = () => setScale(scale - ZOOM_STEP);
+    document.getElementById('resetZoom').onclick = () => setScale(1);
 
-    document.querySelectorAll('.planet').forEach(p => {
-      p.onmouseenter = (e) => {
-        const name = p.dataset.name;
-        const data = planetData[name];
-        tooltip.innerHTML = `<strong>${name}</strong><br>Masa: ${data.masa}<br>Radio: ${data.radio}<br>Órbita: ${data.periodo}`;
-        tooltip.style.opacity = '1';
-      };
-      p.onmousemove = (e) => {
-        tooltip.style.left = (e.pageX + 15) + 'px';
-        tooltip.style.top = (e.pageY + 15) + 'px';
-      };
-      p.onmouseleave = () => tooltip.style.opacity = '0';
+    // ---------- SUPER NOVA ----------
+    const sun = document.getElementById('sun');
+    const supernova = document.getElementById('supernova');
+
+    sun.addEventListener('click', () => {
+      supernova.classList.remove('active');               // reinicia si ya estaba
+      // Fuerza el re‑renderizado
+      void supernova.offsetWidth;
+      supernova.classList.add('active');
     });
 
-    // ----------------- SUPERNOVA EVENT -----------------
-    const btnSupernova = document.getElementById('btnNova');
-    btnSupernova.onclick = () => {
-      const nova = document.createElement('div');
-      nova.className = 'supernova';
-      document.getElementById('solar').appendChild(nova);
-      
-      // Desvanecer el sol y los planetas para dramatismo
-      document.getElementById('solar').style.filter = 'brightness(0.2)';
-      
-      setTimeout(() => {
-        nova.remove();
-        document.getElementById('solar').style.filter = 'brightness(1)';
-      }, 4000);
-    };
-  });
-</script>
+    // Opcional: volver a ocultar después de la animación
+    supernova.addEventListener('animationend', () => {
+      supernova.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
